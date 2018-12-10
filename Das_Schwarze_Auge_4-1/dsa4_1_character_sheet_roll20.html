@@ -31,6 +31,9 @@
     <input type="radio" name="attr_tab" class="sheet-tab sheet-tab10" value="10" title="Konfiguration">
     <span class="sheet-tab sheet-tab10">Konfiguration</span>
     
+    <input type="radio" name="attr_tab" class="sheet-tab sheet-tab11" value="11" title="Updates">
+    <span class="sheet-tab sheet-tab11">Updates</span>
+    
     <div class="sheet-section sheet-section-Allgemein">
         <table>
             <tr>
@@ -12787,6 +12790,10 @@
             </div>
         </div>
     </div>
+    
+    <div class="sheet-section sheet-section-info" align="center">
+        Hier findest du alle Informationen zu Updates und <i>alten</i> Werten, sprich Werten, die durch Updates ersetzt wurden.
+    </div>
 
 
     <b>&bdquo;Das Schwarze Auge&ldquo;-Heldenbogen für Roll20.net, Version <input type="text" class="sheet-stat-immutable sheet-stat-immutable-version" disabled="disabled" name="attr_character_sheet_version" value="20171014"></b>
@@ -15535,6 +15542,25 @@ on("change:repeating_metatalente:eigenschaft1 change:repeating_metatalente:eigen
                 'repeating_metatalente_hiddeneigenschaft2': attributes[v.repeating_metatalente_eigenschaft2] || 0,
                 'repeating_metatalente_hiddeneigenschaft3': attributes[v.repeating_metatalente_eigenschaft3] || 0
             })
+    });
+});
+
+on("change:mu change:kl change:in change:ch change:ff change:ge change:ko change:kk", function(eventInfo) {
+    // Aktualisiere Talentwerte
+    getAttrs(["mu", "kl", "in", "ch", "ff", "ge", "ko", "kk"], function(v) {
+        let attributes = {"mu": +v.mu, "kl": +v.kl, "in": +v.in, "ch": +v.ch, "ff": +v.ff, "ge": +v.ge, "ko": +v.ko, "kk": +v.kk};
+        let update = {};
+        // Aktualisiere Metatalente
+        getSectionIDs("metatalente", function(idarray) {
+             _.each(idarray, function(currentID, i) {
+                getAttrs(["repeating_metatalente_" + currentID + "_eigenschaft1", "repeating_metatalente_" + currentID + "_eigenschaft2", "repeating_metatalente_" + currentID + "_eigenschaft3"], function(v) {
+                    update["repeating_metatalente_" + currentID + "_hiddeneigenschaft1"] = attributes[v["repeating_metatalente_" + currentID + "_eigenschaft1"]];
+                    update["repeating_metatalente_" + currentID + "_hiddeneigenschaft2"] = attributes[v["repeating_metatalente_" + currentID + "_eigenschaft2"]];
+                    update["repeating_metatalente_" + currentID + "_hiddeneigenschaft3"] = attributes[v["repeating_metatalente_" + currentID + "_eigenschaft3"]];
+                    setAttrs(update);
+                });
+            });
+       });
     });
 });
 
