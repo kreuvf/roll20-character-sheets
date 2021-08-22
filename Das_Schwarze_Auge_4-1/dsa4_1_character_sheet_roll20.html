@@ -1,32 +1,31 @@
-<button type="action" name="act_test">Click me</button>
+<div><button type="action" name="act_test">Click me</button></div>
 
-<rolltemplate>
-    <h4>Uncomputed: {{text}}/{{roll1}</h4>
-    {{#rollTotal() roll1 1}}
-    	<div>Roll Total 1</div>
-    {{/rollTotal() roll1 1}}
+<rolltemplate class="sheet-rolltemplate-test">
+    <h4>Uncomputed: {{text1}}/{{text2}}/{{roll1}}</h4>
+    {{#rollTotal() roll1 1}}<div>Roll Total 1</div>{{/rollTotal() roll1 1}}
     {{#rollLess() roll1 2}}<div>Roll Less 2</div>{{/rollLess() roll1 2}}
     {{#rollGreater() roll1 2}}<div>Roll Greater 2</div>{{/rollGreater() roll1 2}}
     {{#rollBetween() roll1 2 2}}<div>Roll Between 2 and 2</div>{{/rollBetween() roll1 2 2}}
-    <h4>Computed: {{computed:text}}/{{computed:roll1}}</h4>
+    <h4>Computed: {{computed::text1}}/{{computed::text2}}/{{computed::roll1}}</h4>
     {{#rollTotal() computed::roll1 2}}<div>Computed Roll Total 2</div>{{/rollTotal() computed::roll1 2}}
+    {{#^rollTotal() computed::roll1 3}}<div>Computed Roll Total Not 3</div>{{/^rollTotal() computed::roll1 3}}
     {{#rollLess() computed::roll1 3}}<div>Computed Roll Less 3</div>{{/rollLess() computed::roll1 3}}
-    {{#rollGreater() computed::roll1 2}}<div>Computed Roll Greater 2</div>{{/rollGreater() computed::roll1 2}}
+    {{#rollGreater() computed::roll1 1}}<div>Computed Roll Greater 1</div>{{/rollGreater() computed::roll1 1}}
     {{#rollBetween() computed::roll1 2 2}}<div>Computed Roll Between 2 and 2</div>{{/rollBetween() computed::roll1 2 2}}
 </rolltemplate>
 
 <script type="text/worker">
 on('clicked:test', (info) => {
-    startRoll("&{template:test} {{text=Text}} {{roll1=[[1d3]]}}", (results) => {
+    startRoll("&{template:test} {{text1=Text}} {{text2=[[1d4]]}} {{roll1=[[1d3]]}}", (results) => {
         console.log(results);       
         finishRoll(
             results.rollId,
             {
-            	"roll1": 2,
-                "text": 'HUHU :D'
+            	roll1: 2,
+            	text1: "hi",
+            	text2: "o.O <span style=\"font-size: 10em\">:D</span>"
             }
         );
     });
 });
-
 </script>
