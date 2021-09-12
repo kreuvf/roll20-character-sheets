@@ -1716,6 +1716,29 @@ critical failure effect table
     color: #000000;
 }
 
+.sheet-rolltemplate-button-outer {
+	padding: 0.4em 0 0.4em 0;
+}
+
+.sheet-rolltemplate-button-inner {
+	background-color: #ffedcc;
+	border: unset;
+}
+
+.sheet-rolltemplate-button-inner > a {
+    background-color: #ffedcc !important;
+    border: 0.3em solid #556e60 !important;
+    color: black !important;
+    padding: 0.1em !important;
+}
+
+.sheet-rolltemplate-button-inner > a:hover {
+    background-color: #e6d5b8 !important;
+    border: 0.3em solid #4d6356 !important;
+    color: black !important;
+    padding: 0.1em !important;
+}
+
 /* Shields and parry weapons */
 .sheet-shields-overflow-container {
     overflow-x: auto;
