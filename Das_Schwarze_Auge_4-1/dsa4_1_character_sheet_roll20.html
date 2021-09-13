@@ -1758,20 +1758,43 @@ ID      0           1          2         3         4
     </table>
 </rolltemplate>
 <script type="text/worker">
+function rollEval (type = "talent", roll = 10, criticalSuccess = 1, criticalFailure = 20) {
+	var result = "uncritical";
+	if (roll <= criticalSuccess)
+	{
+		result = "critical success";
+	}
+	if (roll >= criticalFailure)
+	{
+		result = "critical failure";
+	}
+	return result;
+}
+
 on('clicked:test', (info) => {
     startRoll(
     	"&{template:test} " +
     	"{{name=Akrobatik}} " +
     	"{{taw=[[@{TaW_akrobatik}]]}} " +
-    	"{{roll=[[1d20cs1cf20-10]]}} " +
+    	"{{roll=[[3d20cs1cf20]]}} " +
     	"{{characterid=@{character_id}}} " +
     	"{{charactername=@{character_name}}} " +
     	"{{passthrough=[[0]]}}",
     	(results) => {
 		    console.log("test: info:", info, "results:", results);
-		    roll = results.results.roll.result;
+		    rolls = results.results.roll.rolls[0].results;
+		    console.log(rolls);
 		    taw = results.results.taw.result;
-		    
+
+			crits = { "success": 0, "failure": 0 };
+		    for (roll of rolls) {
+		    	if (rollEval("talent", roll, 4, 16) === "critical success") {
+		    		crits["success"] += 1;
+		    	} else if (rollEval("talent", roll, 4, 16) === "critical failure") {
+		    		crits["failure"] += 1;
+		    	}
+		    }
+		    console.log(rolls, crits);
 		    finishRoll(
 		        results.rollId,
 		        {
