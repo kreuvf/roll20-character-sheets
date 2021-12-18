@@ -14805,6 +14805,312 @@ ID      0           1          2         3         4
             }
         }
 
+        /*
+            * Parse XML from Inputbox upton button click
+            */
+            function HeldenSoftStringCleaning(string_){
+                // Strip Ã„Ã–Ãœ
+                string_ = string_.replace("\Ã¤","a");
+                string_ = string_.replace("\Ã¶","o");
+                string_ = string_.replace("\Ã¼","u");
+                // Strip space
+                string_ = string_.replace(" ",'');
+                // Strip \
+                string_ = string_.replace("\\",'');
+                // Strip /
+                string_ = string_.replace("\/",'');
+                string_ = string_.replace("-",'');
+                return string_;
+            }
+
+            on("clicked:xmlimport", async (values)=>{
+
+                const cleanupPrefix = ["repeating_Vorteile", "repeating_Nachteile", "repeating_Metatalente201904", "repeating_gaben"]; //Nah und Fernkampf sobald umgerÃ¼stet
+                const importField = "attr_xmlimport";
+                var xmlString = await safeGetAttrsAsync(importField);
+                //
+                if (xmlString.length <= 0) return;
+                // DataField wird mit attribute-value paaren befÃ¶lkert und erst am ende geschrieben. (einzelner setAttr. befehl)
+                DataField = {};
+                ParsedXML = fromXML(xmlString);
+                //
+                if (typeOF(ParsedXML) !== "Object") return;
+                // Name
+                DataField["attr_Name"] = ParsedXML.helden.held["@name"];
+                // Rasse
+                DataField["attr_Rasse"] = ParsedXML.helden.held.basis.rasse["@string"];
+                // Kultur
+                DataField["attr_Kultur"] = ParsedXML.helden.held.basis.kultur["@string"];
+                // Stand
+                DataField["attr_Rasse"] = ParsedXML.helden.held.basis.rasse.aussehen["@stand"];
+                // Sozialstatus
+                DataField["attr_Sozialstatus"] = ParsedXML.helden.held.eigenschaften.eigenschaft[8]["@value"];
+                // Titel
+                DataField["attr_Titel"] = ParsedXML.helden.held.basis.rasse.aussehen["@titel"];
+                // Geschlecht
+                DataField["attr_Geschlecht"] = ParsedXML.helden.held.basis.geschlecht["@name"];
+                // GrÃ¶ÃŸte
+                DataField["attr_Grosse"] = ParsedXML.helden.held.basis.rasse.groesse["@vallue"];
+                // Gewicht
+                DataField["attr_Gewicht"] = ParsedXML.helden.held.basis.rasse.groesse["@gewicht"];
+                // Haarfarbe
+                DataField["attr_Haarfarbe"] = ParsedXML.helden.held.basis.rasse.aussehen["@haarfarbe"];
+                // Augenfarbe
+                DataField["attr_Augenfarbe"] = ParsedXML.helden.held.basis.rasse.aussehen["@augenfarbe"];
+                // Profession !!
+                DataField["attr_Augenfarbe"] = ParsedXML.helden.held.basis.ausbildungen.ausbildung["@string"];
+                // MU
+                DataField["attr_MU_Basis"] = ParsedXML.helden.held.eigenschaften.eigenschaft[0]["@value"];
+                // KL
+                DataField["attr_KL_Basis"] = ParsedXML.helden.held.eigenschaften.eigenschaft[1]["@value"];
+                // IN
+                DataField["attr_IN_Basis"] = ParsedXML.helden.held.eigenschaften.eigenschaft[2]["@value"];
+                // CH
+                DataField["attr_CH_Basis"] = ParsedXML.helden.held.eigenschaften.eigenschaft[3]["@value"];
+                // FF.eigenschaft
+                DataField["attr_FF_Basis"] = ParsedXML.helden.held.eigenschaften.eigenschaft[4]["@value"];
+                // GE
+                DataField["attr_GE_Basis"] = ParsedXML.helden.held.eigenschaften.eigenschaft[5]["@value"];
+                // KO
+                DataField["attr_KO_Basis"] = ParsedXML.helden.held.eigenschaften.eigenschaft[6]["@value"];
+                // KK
+                DataField["attr_KK_Basis"] = ParsedXML.helden.held.eigenschaften.eigenschaft[7]["@value"];
+                // LeP(MOD)
+                DataField["attr_LEZugeK"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[9]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[9]["@value"]);
+                // AuP(MOD)
+                DataField["attr_AusZugeK"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[10]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[10]["@value"]);
+                // AsP(MOD)
+                DataField["attr_ASPZugeK"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[11]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[11]["@value"]);
+                // KaP(MOD)
+                DataField["attr_KEZugeK"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[12]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[12]["@value"]);
+                // MR
+                DataField["attr_MRZugeK"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[13]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[13]["@value"]);
+                // AP(Gesamt)
+                DataField["attr_AP_gesamt"] = ParsedXML.helden.held.basis.abenteuerpunkte["@value"];
+                // Vorteile
+                // Warum funktioniert das hier aber nicht spÃ¤ter? f u
+                for(entry in ParsedXML.helden.held.vt.vorteil){
+                    // Liste Aller Vorteile/Nachteile anhand derer einsortiert wird.(HeldenSoft unterscheidet in der XML nicht)
+                    // Trennung Magische / Normale Vorteile? (attr_Magie-VT)(attr_Magie-NT)
+                    const listVT = [];
+                    let rowID_ = generateRowID();
+                    let parsedVt = entry["@Name"];
+                    // Wenn der Name in der Liste der VORteile auftaucht, als Vorteil eintragen, alles andere ist ein Nachteil.
+                    let repeatingStringBuilder = (parsedVt in listVT) ? cleanupPrefix[0] + rowID_ : cleanupPrefix[1] + rowID_;
+                    DataField[repeatingStringBuilder + "_name"] = parsedVt;
+                    // Nur wenn der Vor- Nachteil mit einem Wert versehen ist, sollte dieser geschrieben werden
+                    let value = entry["@value"];
+                    if (value) {
+                        DataField[repeatingStringBuilder + "_value"] = value;
+                    };
+                };
+                // Sonderfertigkeiten
+                for(let i=0;  i < ParsedXML.helden.held.sf.sonderfertigkeit.length; i++){
+                    // Sind die Listen Noch Notwendig?
+                    const constLlistKampfSF = [];
+                    const constListMagieSF = []; //attr_MagieSK
+                    const constListRitualSF = []; //attr_
+
+                    let entry = ParsedXML.helden.held.sf.sonderfertigkeit[i];
+                    let rowID_ = generateRowID();
+                    let prefix = "attr_Vorteile_";
+                    let data_ = "";
+                    let name_ = entry["@name"];
+
+                    switch (true) {
+                        case (name_.indexOf("Liturgie") !== -1):
+                        prefix = "attr_Liturgien_";
+                        break;
+                        case (name_.includes("Ritualkentniss")):
+                        prefix = "attr_Ritual_";
+                        break;
+                        case (entry["@name"] in constListMagieSF):
+                        prefix = "attr_MagieSK";
+                        break;
+                        case ( (name_.includes("Ortskenntnis"))):
+                        prefix = "attr_Vorteile_";
+                        // Typ kann objekt ODER array sein <.<
+                        if (typeof(entry.auswahl) == "object") {
+                            data_ += entry.auswahl["@name"];
+                        } else {
+                            entry.auswahl.forEach((child_) => {data_ + " ; " + child_["@name"]});
+                        }
+                        break;
+                        case ( (name_.includes("Kulturkunde"))  ):
+                        prefix = "attr_Vorteile_";
+                        // Typ kann objekt ODER array sein <.<
+                        if (typeof(entry.kultur) == "object") {
+                            data_ += entry.kultur["@name"];
+                        } else {
+                            entry.kultur.forEach((child_) => {data_ + " ; " + child_["@name"]});
+                        }
+                        break;
+                        default:
+                        prefix = "attr_Vorteile_";
+                    }
+                    DataField[prefix + rowID_ + "_name"] = name_;
+                    DataField[prefix + rowID_ + "_value"] = data_;
+
+                }
+                // Talente
+                for(let z=0; z < ParsedXML.helden.held.talentliste.talent.length; z++){
+                    const prefixCheckbox = "attr_talent_";
+                    var prefix = "attr_TaW_";
+                    let talent_ = ParsedXML.helden.held.talentliste.talent[z];
+                    let name_ = talent_["@name"];
+                    let value_ = talent_["@value"];
+                    // Cleanup Name
+                    name_ = HeldenSoftStringCleaning(name_);
+                    // If Lesen change pref
+                    if (name_.indexOf("Lesen") !== -1 || name_.indexOf("Schreiben") !== -1) {
+                        prefix += "schrift_";
+                        name_ = name_.replace("Lesen",'');
+                        name_ = name_.replace("Schreiben",'');
+                    }
+                    if (name_.indexOf("Sprache") !== -1) {
+                        name_ = name_.replace("Sprachenkennen ", "");
+                        //attr_TaW_bosparano
+                    }
+                    DataField[prefix + name_] = value_;
+                    // Aktivierbar -> Pauschal aktivieren, datenmÃ¼ll wird inkauf genommen?!
+                    // attr_talent_schrift_
+                    DataField[prefixCheckbox + name_] = "0";
+
+                }
+
+                //  // Magie
+                for(let u=0; u < ParsedXML.helden.held.zauberliste.zauber.length; u++){
+                    const prefix = "attr_ZfW_";
+                    const prefixCheckbox = "attr_zauber_";
+
+                    let zauber_ = ParsedXML.helden.held.zauberliste.zauber[u];
+                    let name_ = zauber_["@name"];
+                    let value_ = zauber_["@value"];
+                    name_ = HeldenSoftStringCleaning(name_);
+                    DataField[prefix + name_] = value_;
+                    DataField[prefixCheckbox + name_] = "0";
+
+                }
+
+                //  // Kampf
+                for(let o=0; o < ParsedXML.helden.held.kampf.kampfwerte.length; o++){
+                    const prefix = "attr_";
+                    let kampftalent_ = ParsedXML.helden.held.kampf.kampfwerte[o];
+                    let talentName = kampftalent_["@name"];
+                    taletName = HeldenSoftStringCleaning(talentName);
+                    let atValue = kampftalent_.attacke["@value"];
+                    let paValue = kampftalent_.parade["@value"];
+                    DataField[prefix + "AT_" + talentName] = atValue;
+                    DataField[prefix + "PA_" + talentName] = paValue;
+                }
+                // Nahkampf
+                // Gegenstandsliste zum Abgleichen / Auslesen besonderer Werte
+                var itemArray = ParsedXML.helden.held.gegenstÃ¤nde.gegenstand;
+                var prefixEquipment = "";
+                var indexNK = 1; // ZÃ¤hler, notwendig bis repeating NK eingebaut
+                var indexFK = 1; // ZÃ¤hler, notwendig bis repeating FK eingebaut
+                var localIndex = 1;
+                for(let p=0; p < ParsedXML.helden.held.ausrÃ¼stungen.heldenausruestung.length; p++){
+                    let entry_ = ParsedXML.helden.held.ausrÃ¼stungen.heldenausruestung[p];
+                    let skipFlag = false;
+                    let slot_ = entry_["@name"];
+                    let type_ = entry_["@verwendungsArt"]; //Can be NIL
+                    let talent = entry_["@talent"];
+                    let talentStripped = (talent) ? HeldenSoftStringCleaning(talent) : "";
+                    let weapon_ = entry_["@waffenname"];
+                    let index_ = -1;
+                    // Unterscheidung Nahkampf, Fernkampf und Schilde(Parier)
+                    switch(true){
+                        case (slot_.indexOf("nkwaffe") !== -1):
+                            prefixEquipment = "attr_NKW";
+                            localIndex = indexNK;
+                            indexNK += 1;
+                            // Safety
+                            if (indexNK > 4) break;
+                            index_ = itemArray.indexOf(weapon_);
+                            // Wenn die Waffe im Inventar gefunden wurde
+                            if (index_ != -1) {
+                                // attr_BFAktuellNKW1
+                                DataField[prefixEquipment + "BFAktuellNKW" + localIndex] = itemArray[index_].nahkampfwaffe.bf["@aktuell"];
+                                // attr_BFStartNKW1
+                                DataField[prefixEquipment + "BFStartNKW" + localIndex] = itemArray[index_].nahkampfwaffe.bf["@min"];
+                                //attr_NKW1_SchwellenwertKK
+                                DataField[prefixEquipment + "NKW" + localIndex + "_SchwellenwertKK"] = itemArray[index_].nahkampfwaffe.tpkk["@kk"];
+                                //attr_NKW1_Schwellenwert
+                                DataField[prefixEquipment + "NKW" + localIndex + "_Schwellenwert"] = itemArray[index_].nahkampfwaffe.tpkk["@schrittweite"];
+                                // attr_NKWschaden1_1 (Anzahl wÃ¼rfel)
+                                DataField[prefixEquipment + "NKWschaden" + localIndex + "_1"] = itemArray[index_].nahkampfwaffe.trefferpunkte["@mul"];
+                                // attr_NKWschaden1_2 (plus schaden)
+                                DataField[prefixEquipment + "NKWschaden" + localIndex + "_2"] = itemArray[index_].nahkampfwaffe.trefferpunkte["@sum"];
+                                // attr_INIModNKW1
+                                DataField[prefixEquipment + "INIModNKW" + localIndex] = itemArray[index_].nahkampfwaffe.inimod["@ini"];
+                                // attr_NKW1ATMod
+                                DataField[prefixEquipment + "NKW" + localIndex + "ATMod"] = itemArray[index_].nahkampfwaffe.wm["@at"];
+                                // attr_NKW1PAMod
+                                DataField[prefixEquipment + "NKW" + localIndex + "PAMod"] = itemArray[index_].nahkampfwaffe.wm["@at"];
+                            }
+                            DataField[prefixEquipment + "_AT_type" + localIndex] = talent;
+                            DataField[prefixEquipment + "_PA_type" + localIndex] = talent;
+                            break;
+                        case (slot_.indexOf("fkwaffe") !== -1):
+                            prefixEquipment = "attr_FKW"; //attr_FKWname1 attr_FKWtyp1
+                            localIndex = indexFK;
+                            indexFK ++;
+                            // Skip after 4 FK weapons (as long as the list is non repeating we have only limited slots)
+                            if (indexFK > 4) return;
+                            // Nur wenn der Gegenstand auch in GegenstÃ¤nde gefunden wurde, kann man nach den mod suchen !
+                            index_ = itemArray.indexOf(weapon_);
+                            if (index_ != -1) {
+                                // attr_FKWLadezeit1" style="width: 3em;" min="1" value="3">
+                                DataField[prefixEquipment + "FKW" + "Ladezeit" + localIndex] = itemArray[index_].fernkampfwaffe.laden["@aktionen"];
+                                // attr_FKWSchaden1_1" min="0" value="1" style="width: 3em;">
+                                DataField[prefixEquipment + "FKW" + "Schaden" + localIndex + "_1"] = itemArray[index_].fernkampfwaffe.trefferpunkte["@mul"];
+                                // attr_FKWSchaden1_2" min="-5" value="0" style="width: 3em;">
+                                DataField[prefixEquipment + "FKW" + "Schaden" + localIndex + "_2"] = itemArray[index_].fernkampfwaffe.trefferpunkte["@sum"];
+                                // attr_FKW1_RW1" min="0" value="10" style="width: 3.5em;">
+                                DataField[prefixEquipment + "FKW" + localIndex + "_RW1"] = itemArray[index_].fernkampfwaffe.entfernung["@E0"];
+                                // attr_FKW1_RW2" min="0" value="20" style="width: 3.5em;">
+                                DataField[prefixEquipment + "FKW" + localIndex + "_RW2"] = itemArray[index_].fernkampfwaffe.entfernung["@E1"];
+                                // attr_FKW1_RW3" min="0" value="30" style="width: 3.5em;">
+                                DataField[prefixEquipment + "FKW" + localIndex + "_RW3"] = itemArray[index_].fernkampfwaffe.entfernung["@E2"];
+                                // attr_FKW1_RW4" min="0" value="40" style="width: 3.5em;">
+                                DataField[prefixEquipment + "FKW" + localIndex + "_RW4"] = itemArray[index_].fernkampfwaffe.entfernung["@E3"];
+                                // attr_FKW1_RW5" min="0" value="50" style="width: 3.5em;">
+                                DataField[prefixEquipment + "FKW" + localIndex + "_RW5"] = itemArray[index_].fernkampfwaffe.entfernung["@E4"];
+                                // attr_FKW1_TPRW1" value="0" style="width: 3.5em;">
+                                DataField[prefixEquipment + "FKW" + localIndex + "_TPRW1"] = itemArray[index_].fernkampfwaffe.tpmod["@M0"];
+                                // attr_FKW1_TPRW2" value="0" style="width: 3.5em;">
+                                DataField[prefixEquipment + "FKW" + localIndex + "_TPRW2"] = itemArray[index_].fernkampfwaffe.tpmod["@M1"];
+                                // attr_FKW1_TPRW3" value="0" style="width: 3.5em;">
+                                DataField[prefixEquipment + "FKW" + localIndex + "_TPRW3"] = itemArray[index_].fernkampfwaffe.tpmod["@M2"];
+                                // attr_FKW1_TPRW4" value="0" style="width: 3.5em;">
+                                DataField[prefixEquipment + "FKW" + localIndex + "_TPRW4"] = itemArray[index_].fernkampfwaffe.tpmod["@M3"];
+                                // attr_FKW1_TPRW5" value="0" style="width: 3.5em;">
+                                DataField[prefixEquipment + "FKW" + localIndex + "_TPRW5"] = itemArray[index_].fernkampfwaffe.tpmod["@M4"];
+                            }
+                            // FK Spezifische eingaben
+                            // attr_FKWname1
+                            DataField[prefixEquipment + "name" + localIndex] = weapon_;
+                            // attr_FKWtyp1
+                            DataField[prefixEquipment + "typ" + localIndex] = talentStripped;
+                            break;
+                        case (slot_.indexOf("schild") !== -1):
+                            prefixEquipment = "";
+                        break;
+                        default:
+                            skipFlag = true;
+                    }
+                    if (!skipFlag) {
+                        DataField[prefixEquipment + "name" + localIndex] = weapon_;
+                        skipFlag = false;
+                    }
+                }
+                // Erst vortfahren wenn die vorherigen repeating Listen komplett gesÃ¤ubert sind (async)
+                await cleanup;
+                // setzt alle Werte, auch die repeating
+                safeSetAttrs(DataField);
+            });
+
 
 function FKWgetType(typeRaw)
 {
