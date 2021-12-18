@@ -1,39 +1,39 @@
 <div class="sheet-maindiv">
     <input type="radio" name="attr_tab" class="sheet-tab sheet-tab1" value="1" title="Allgemein" checked="checked">
     <span class="sheet-tab sheet-tab1">Allgemein</span>
-    
+
     <input type="radio" name="attr_tab" class="sheet-tab sheet-tab2" value="2" title="Grundwerte">
     <span class="sheet-tab sheet-tab2">Grundwerte</span>
-    
+
     <input type="radio" name="attr_tab" class="sheet-tab sheet-tab21" value="21" title="Fertigkeiten">
     <span class="sheet-tab sheet-tab21">Fertigkeiten</span>
-    
+
     <input type="radio" name="attr_tab" class="sheet-tab sheet-tab3" value="3" title="Inventar">
     <span class="sheet-tab sheet-tab3">Inventar</span>
-    
+
     <input type="radio" name="attr_tab" class="sheet-tab sheet-tab4" value="4" title="Talente">
     <span class="sheet-tab sheet-tab4">Talente</span>
-    
+
     <input type="checkbox" class="sheet-versteckeMagie sheet-default-hide" name="attr_MagieTab">
     <input type="radio" name="attr_tab" class="sheet-tab sheet-tab5" value="5" title="Magie">
     <span class="sheet-tab sheet-tab5">Magie</span>
-    
+
     <input type="checkbox" class="sheet-versteckeLiturgien sheet-default-hide" name="attr_LiturgienTab">
     <input type="radio" name="attr_tab" class="sheet-tab sheet-tab6" value="6" title="Liturgien">
     <span class="sheet-tab sheet-tab6">Götterwirken</span>
-    
+
     <input type="radio" name="attr_tab" class="sheet-tab sheet-tab7" value="7" title="Kampf">
     <span class="sheet-tab sheet-tab7">Kampf</span>
-    
+
     <input type="radio" name="attr_tab" class="sheet-tab sheet-tab8" value="8" title="Notizen">
     <span class="sheet-tab sheet-tab8">Notizen</span>
-    
+
     <input type="radio" name="attr_tab" class="sheet-tab sheet-tab10" value="10" title="Konfiguration">
     <span class="sheet-tab sheet-tab10">Konfiguration</span>
-    
+
     <input type="radio" name="attr_tab" class="sheet-tab sheet-tab11" value="11" title="Infos">
     <span class="sheet-tab sheet-tab11">Infos</span>
-    
+
     <div class="sheet-section sheet-section-Allgemein">
         <table>
             <tr>
@@ -6290,7 +6290,7 @@
                         <option value="wachehalten">Wachehalten</option>
                         <option value="nothing" selected>Eigenes</option>
                     </select>
-                     / 
+                     /
                     <input type="text" name="attr_Name_Metatalent_Eigen" style="width: 10em;"/>
                 </span><span style="display: inline-block; width: 15.25em">
                     <select name="attr_Eigenschaft1" class="sheet-talent-eigenschaft">
@@ -6346,7 +6346,7 @@
         <span class="sheet-tab sheet-tab52">Ritualbogen</span>
         <input type="radio" name="attr_zauber_tab" class="sheet-tab sheet-tab53" value="53" title="Fertigkeiten">
         <span class="sheet-tab sheet-tab53">Fertigkeiten</span>
-        
+
         <br>
         <br>
         <table align="center">
@@ -10978,7 +10978,7 @@
                     <span class="shield_item number-content">TP/TP(A)</span>
                     <span class="shield_item number-content">BF</span>
                 </div>
-                
+
                 <fieldset class="repeating_shields">
                     <div class="shields_container">
                         <input type="checkbox" name="attr_shield_active" class="shield_item"/>
@@ -11413,7 +11413,7 @@
                     <button class="sheet-grid-melee-actions-button sheet-hideable-man-doppelangriff sheet-abbr" type="roll" title="Implementation für Doppelangriff sehr komplex, daher müssen die entsprechenden Attacken per Hand gewürfelt werden (siehe WdS 61)." disabled> <span>Doppelangriff</span></button>
                     <button class="sheet-grid-melee-actions-button-mod sheet-hideable-man-doppelangriff sheet-abbr" type="roll" title="Implementation für Doppelangriff sehr komplex, daher müssen die entsprechenden Attacken per Hand gewürfelt werden (siehe WdS 61)." disabled> <span>+/−</span></button>
                 </div>
-                
+
                 <div class="sheet-grid-combat-box sheet-grid-melee-actions  sheet-combat-weapon-parry">
                     <div class="sheet-grid-melee-actions-label"><span>Parade-Aktionen</span></div>
                     <button class="sheet-grid-melee-actions-button" name="PA" type="roll" value="@{gm_roll_opt} &{template:DSA-Nahkampf-PA} {{name=Nahkampfparade}} {{mod=[[0]]}} {{ansage=[[-1]]}} {{modansage=[[-1]]}} {{wert=[[@{PA_Aktiv}]]}} {{eff_wert=[[@{PA_Aktiv}]]}} {{wurf=[[1d20cs1cf20]]}} {{pruefwurf=[[1d20cs1cf20]]}}"> <span>Parade</span></button>
@@ -12670,6 +12670,8 @@
     <div class="sheet-section sheet-section-config" align="center">
         <input type="radio" name="attr_config_tab" class="sheet-tab sheet-tab101" value="101" title="Anzeige" checked="checked">
         <span class="sheet-tab sheet-tab101">Anzeige</span>
+        <input type="radio" name="attr_config_tab" class="sheet-tab sheet-tab102" value="102" title="Import" checked="checked">
+        <span class="sheet-tab sheet-tab102">Import</span>
 
         <div class="sheet-section sheet-section-config1">
             <select name="attr_gm_roll_opt" class="sheet-gm-roll-selector">
@@ -12701,6 +12703,10 @@
                 <input type="checkbox" name="attr_fkr_helligkeitssystem"> Fernkampfrechner: Dunkelheitsstufen aus Wege des Entdeckers (0 bis 16) statt aus Wege des Schwerts (0 bis 8) benutzen
             </label>
         </div>
+        <div class="sheet-section sheet-section-import">
+            <button type="action" value="" name="act_xmlimport" class="xmlImport">Importieren</button>
+            <textarea width="80%" style="height:800px" name="attr_xmlimport"></textarea>
+        </div>
         <input class="sheet-default-hide sheet-developer" type="checkbox" name="attr_show-developer" value="1">
         <div class="sheet-section sheet-section-config1 sheet-section-developer">
             <label class="sheet-lone-input-label">
@@ -12725,7 +12731,7 @@
 			<input type="number" name="attr_Ausweichen_Kampf" disabled="disabled" value="@{PABasis} - @{BE}">
 		</div>
     </div>
-    
+
     <div class="sheet-section sheet-section-info" align="center">
         <h3>Entwickler</h3>
     	<p>In chronologischer Reihenfolge: Gereon Heinemann (Original), Patrick Gebhardt, Steven &bdquo;Isu&ldquo; Koenig, apehead, Christian Schwerdtfeger. Dank an: G V., Kai, SepDepp.</p>
@@ -14104,7 +14110,7 @@
 {{#rollGreater() ZieleKampfgetuemmel 1}}
         <tr>
             <td colspan="3">
-                Schuss ins Kampfgetümmel trifft 
+                Schuss ins Kampfgetümmel trifft
                 {{#^rollGreater() wurf eff_wert}}das beabsichtigte Ziel.{{/^rollGreater() wurf eff_wert}}
                 {{#^rollWasFumble() wurf}}
                     {{#rollGreater() wurf eff_wert}}
@@ -14137,7 +14143,7 @@
 {{#rollGreater() ZieleKampfgetuemmel 1}}
         <tr>
             <td colspan="3">
-                Schuss ins Kampfgetümmel trifft 
+                Schuss ins Kampfgetümmel trifft
                 {{#^rollGreater() wurf eff_wert}}das beabsichtigte Ziel.{{/^rollGreater() wurf eff_wert}}
                 {{#^rollWasFumble() wurf}}
                     {{#rollGreater() wurf eff_wert}}
@@ -14241,15 +14247,15 @@
 <rolltemplate class="sheet-rolltemplate-DSA-Kampf-Treffer">
     <table class="sheet-templates-succ-uncr">
         <tr>
-            <th><span class="sheet-abbr" 
+            <th><span class="sheet-abbr"
                 title="Trefferzone zufällig ausgewählt. Basis: {{#rollTotal() target 0}}Zweibeiner gegen unbeschwänzten Zweibeiner{{/rollTotal() target 0}}{{#rollTotal() target 1}}Zweibeiner gegen beschwänzten Zweibeiner{{/rollTotal() target 1}}{{#rollTotal() target 3}}Zweibeiner gegen Vierbeiner{{/rollTotal() target 3}}{{#rollTotal() target 4}}Zweibeiner gegen Reiter{{/rollTotal() target 4}}{{#rollTotal() target 2}}Reiter gegen Zweibeiner{{/rollTotal() target 2}}">{{name}}treffer</span></th>
         </tr>
         <tr>
-            
+
             <td>{{#rollGreater() damage 0}} {{damage}} {{/rollGreater() damage 0}}{{#^rollGreater() damage 0}} 0 {{/^rollGreater() damage 0}}
             	{{#rollTotal() TPArt 0}}<span class="sheet-abbr" title="Trefferpunkte">TP</span>{{/rollTotal() TPArt 0}}
             	{{#rollTotal() TPArt 1}}<span class="sheet-abbr" title="Trefferpunkte (Ausdauer)">TP(A)</span>{{/rollTotal() TPArt 1}}
-            	 auf 
+            	 auf
                 {{#rollTotal() zone 1}}
                     {{#rollTotal() target 0}}das linke Bein{{/rollTotal() target 0}}
                     {{#rollTotal() target 1}}den Schwanz{{/rollTotal() target 1}}
@@ -14880,9 +14886,9 @@ on(
 			function(v) {
 				var caller = "???";
 				debugLog(caller, JSON.stringify(v));
-				debugLog(caller, 'FKW_aktiv1: ', v.fkw_aktiv1, 
-					'; FKW_aktiv2: ', v.fkw_aktiv2, 
-					'; FKW_aktiv3: ', v.fkw_aktiv3, 
+				debugLog(caller, 'FKW_aktiv1: ', v.fkw_aktiv1,
+					'; FKW_aktiv2: ', v.fkw_aktiv2,
+					'; FKW_aktiv3: ', v.fkw_aktiv3,
 					'; FKW_aktiv4: ', v.fkw_aktiv4
 				);
 				var activeCount = parseInt(v.fkw_aktiv1) + parseInt(v.fkw_aktiv2) + parseInt(v.fkw_aktiv3) + parseInt(v.fkw_aktiv4);
@@ -15214,7 +15220,7 @@ on(
 
 					// Helligkeit
 					// absolute Dunkelheit immer "finsternis"
-					
+
 					if(FKR.licht != "nd")
 					{
 						var finsternis = 8;
@@ -15938,7 +15944,7 @@ on(
         speed = Math.max(1, GS['Basis'] + GS['Mod'] + GS['GE-Einfluss'])
         update['GS'] = speed;
         safeSetAttrs(update);
-    }); 
+    });
 });
 
 on("change:repeating_gaben:name_gabe change:repeating_gaben:name_gabe_zusatz", function(eventInfo) {
@@ -16236,7 +16242,7 @@ function migrateTo20190427 (migrationChain) {
                 "Tierfallenstellen": "tierfallenstellen",
                 "Wachehalten": "wachehalten"
             };
-                
+
             let gaben = {
                 "nothing": [ ["---", "---", "---"], "nothing" ],
                 "empathie": [ ["mu", "in", "in"], "Empathie" ],
@@ -16248,7 +16254,7 @@ function migrateTo20190427 (migrationChain) {
                 "tierempathie": [ ["mu", "in", "ch"], "Tierempathie" ],
                 "zwergennase": [ ["in", "in", "ff"], "Zwergennase" ]
             };
-                
+
             let metatalente = {
                 "nothing": [ ["---", "---", "---"], "nothing" ],
                 "ansitzjagd": [ ["mu", "in", "ge"], "Ansitzjagd" ],
@@ -16406,12 +16412,12 @@ function migrateTo20200809(migrationChain) {
     debugLog(caller, "migrateTo20200809 invoked");
 
     safeGetAttrs([
-            "NKW_Aktiv1", "NKW_Aktiv2", "NKW_Aktiv3", "NKW_Aktiv4", "TaW_peitsche", "ATbasis", 
-            "RS_gBE1", "rs1_rg1", "RS_gBE2", "rs2_rg1", "RS_gBE3", "rs3_rg1", "RS_gBE4", "rs4_rg1", 
+            "NKW_Aktiv1", "NKW_Aktiv2", "NKW_Aktiv3", "NKW_Aktiv4", "TaW_peitsche", "ATbasis",
+            "RS_gBE1", "rs1_rg1", "RS_gBE2", "rs2_rg1", "RS_gBE3", "rs3_rg1", "RS_gBE4", "rs4_rg1",
             "RS_Aktiv1", "RS_Aktiv2", "RS_Aktiv3", "RS_Aktiv4", "BE_RG", "BE_Last", "sf_rustungsgewohnungI", "sf_rustungsgewonungII", "sf_rustungsgewohnungIII",
-            "BE_TaW", "NKW_AT_typ1", "NKW_PA_typ1", "NKW_AT_typ2", "NKW_PA_typ2",  
+            "BE_TaW", "NKW_AT_typ1", "NKW_PA_typ1", "NKW_AT_typ2", "NKW_PA_typ2",
             "NKW_AT_typ3", "NKW_PA_typ3", "NKW_AT_typ4", "NKW_PA_typ4"], function(v) {
-        
+
         var attrsToChange = {};
         var activeCount = 0;
         for (var i = 1; i <= 4; i++) {
@@ -16500,7 +16506,7 @@ function migrateTo20210413(migrationChain) {
 		];
 		// Updates for shield attack
 		var activeShieldRowId = values["activeShieldRowId"];
-    
+
         // Wenn es ein aktives Schild (oder Parierwaffe) gibt, möchten wir auch dessen Werte mit laden
         if (activeShieldRowId) {
             variablesToGet.push("repeating_shields_" + activeShieldRowId + "_shield_at_mod");
@@ -16543,7 +16549,7 @@ function migrateTo20210413(migrationChain) {
 				"KO_mod_wounds": mods["KO"],
 				"KK_mod_wounds": mods["KK"]
 			});
-			
+
 		    attrsToChange["shield_at"] = Math.max(0, parseInt(values["AT_raufen"]) + parseInt(attrsToChange["AT_mod_wounds"]));
 
 			// Updates for INI modifiers
@@ -16813,12 +16819,12 @@ function calculateCombatValues() {
         	"NKW_PA_typ" + weapon, "NKW" + weapon + "PAMod",
         	"INIModNKW" + weapon,
         	"NKW" + weapon + "_Spez", "NKW" + weapon + "_SB",
-            "AT_Anderthalbhander", "AT_dolche", "AT_fechtwaffen", "AT_hiebwaffen", 
-            "AT_infanteriewaffen", "AT_kettenstabe", "AT_kettenwaffen", "AT_lanzenreiten", "AT_peitsche", "AT_raufen", "AT_ringen", "AT_sabel", 
-            "AT_schwerter", "AT_speere", "AT_stabe", "AT_zweihandflegel", "AT_zweihand-hiebwaffen", "AT_zweihandschwerter", 
+            "AT_Anderthalbhander", "AT_dolche", "AT_fechtwaffen", "AT_hiebwaffen",
+            "AT_infanteriewaffen", "AT_kettenstabe", "AT_kettenwaffen", "AT_lanzenreiten", "AT_peitsche", "AT_raufen", "AT_ringen", "AT_sabel",
+            "AT_schwerter", "AT_speere", "AT_stabe", "AT_zweihandflegel", "AT_zweihand-hiebwaffen", "AT_zweihandschwerter",
             "AT_mod_wounds",
-            "PA_Anderthalbhander", "PA_dolche", "PA_fechtwaffen", "PA_hiebwaffen", 
-            "PA_infanteriewaffen", "PA_kettenstabe", "PA_kettenwaffen", "PA_lanzenreiten", "PA_peitsche", "PA_raufen", "PA_ringen", "PA_sabel", 
+            "PA_Anderthalbhander", "PA_dolche", "PA_fechtwaffen", "PA_hiebwaffen",
+            "PA_infanteriewaffen", "PA_kettenstabe", "PA_kettenwaffen", "PA_lanzenreiten", "PA_peitsche", "PA_raufen", "PA_ringen", "PA_sabel",
             "PA_schwerter", "PA_speere", "PA_stabe", "PA_zweihandflegel", "PA_zweihand-hiebwaffen", "PA_zweihandschwerter",
             "PA_mod_wounds",
             "PABasis", "sf_schildkampfI", "sf_schildkampfII", "sf_linkhand", "sf_parierwaffenI", "sf_parierwaffenII", "be_at_mod", "be_pa_mod"
@@ -16897,7 +16903,7 @@ function calculateCombatValues() {
                 if (values["be_pa_mod"]) {
                     paValue -= parseInt(values["be_pa_mod"]);
                 }
-                
+
                 if (Number.isNaN(paValue) || paValue < 0) {
                     paValue = 0;
                 }
@@ -16967,7 +16973,7 @@ function calculateCombatValues() {
                 // Wundeinfluss (bei Parierwaffe über PA-Wert der Hauptwaffe bereits drin)
                 shieldPa = Math.max(0, shieldPa + (isNaN(values['PA_mod_wounds']) ? 0 : values['PA_mod_wounds']));
             }
-            
+
             if (shieldPa > 0) {
                 attrsToChange["shield_pa_available"] = "on";
             } else {
@@ -17429,8 +17435,8 @@ function calculateWeaponBEModifiers(combatTechnique, BE) {
 
 	return BEModifiers;
 }
-/* 
-    Methode die die waffenspezifische BE berechnet und nach AT und PA getrennt zurückgibt. 
+/*
+    Methode die die waffenspezifische BE berechnet und nach AT und PA getrennt zurückgibt.
     Benötigt
     NKW_Aktiv 1-4
     NKW_AT_typ 1-4
@@ -17459,7 +17465,7 @@ function calculateWeaponBE(values) {
 
     if (atTyp && atTyp !== "0" && atTyp !== 0) {
         combatTechnique[ "AT" ] = atTyp.match("@\{AT_([^}]+)\}")[1].toLowerCase();
-    } 
+    }
     if (paTyp && paTyp !== "0" && paTyp !== 0) {
         combatTechnique[ "PA" ] = paTyp.match("@\{PA_([^}]+)\}")[1].toLowerCase();
     }
@@ -17866,7 +17872,7 @@ function calculateShieldAttack(values, activeShieldRowId) {
     };
 }
 
-/* 
+/*
 	UTILITY FUNCTIONS AND CONSTANTS
 */
 /*
