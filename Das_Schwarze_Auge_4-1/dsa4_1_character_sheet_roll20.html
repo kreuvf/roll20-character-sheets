@@ -14810,9 +14810,9 @@ ID      0           1          2         3         4
             */
             function HeldenSoftStringCleaning(string_){
                 // Strip Ã„Ã–Ãœ
-                string_ = string_.replace("\Ã¤","a");
-                string_ = string_.replace("\Ã¶","o");
-                string_ = string_.replace("\Ã¼","u");
+                string_ = string_.replace("\ä","a");
+                string_ = string_.replace("\ö","o");
+                string_ = string_.replace("\ü","u");
                 // Strip space
                 string_ = string_.replace(" ",'');
                 // Strip \
@@ -14825,12 +14825,12 @@ ID      0           1          2         3         4
 
             on("clicked:xmlimport", async (values)=>{
 
-                const cleanupPrefix = ["repeating_Vorteile", "repeating_Nachteile", "repeating_Metatalente201904", "repeating_gaben"]; //Nah und Fernkampf sobald umgerÃ¼stet
+                const cleanupPrefix = ["repeating_Vorteile", "repeating_Nachteile", "repeating_Metatalente201904", "repeating_gaben"]; //Nah und Fernkampf sobald umgerüstet
                 const importField = "attr_xmlimport";
                 var xmlString = await safeGetAttrsAsync(importField);
                 //
                 if (xmlString.length <= 0) return;
-                // DataField wird mit attribute-value paaren befÃ¶lkert und erst am ende geschrieben. (einzelner setAttr. befehl)
+                // DataField wird mit attribute-value paaren befölkert und erst am ende geschrieben. (einzelner setAttr. befehl)
                 DataField = {};
                 ParsedXML = fromXML(xmlString);
                 //
@@ -14849,7 +14849,7 @@ ID      0           1          2         3         4
                 DataField["attr_Titel"] = ParsedXML.helden.held.basis.rasse.aussehen["@titel"];
                 // Geschlecht
                 DataField["attr_Geschlecht"] = ParsedXML.helden.held.basis.geschlecht["@name"];
-                // GrÃ¶ÃŸte
+                // GröÃŸte
                 DataField["attr_Grosse"] = ParsedXML.helden.held.basis.rasse.groesse["@vallue"];
                 // Gewicht
                 DataField["attr_Gewicht"] = ParsedXML.helden.held.basis.rasse.groesse["@gewicht"];
@@ -14888,7 +14888,7 @@ ID      0           1          2         3         4
                 // AP(Gesamt)
                 DataField["attr_AP_gesamt"] = ParsedXML.helden.held.basis.abenteuerpunkte["@value"];
                 // Vorteile
-                // Warum funktioniert das hier aber nicht spÃ¤ter? f u
+                // Warum funktioniert das hier aber nicht später? f u
                 for(entry in ParsedXML.helden.held.vt.vorteil){
                     // Liste Aller Vorteile/Nachteile anhand derer einsortiert wird.(HeldenSoft unterscheidet in der XML nicht)
                     // Trennung Magische / Normale Vorteile? (attr_Magie-VT)(attr_Magie-NT)
@@ -14972,7 +14972,7 @@ ID      0           1          2         3         4
                         //attr_TaW_bosparano
                     }
                     DataField[prefix + name_] = value_;
-                    // Aktivierbar -> Pauschal aktivieren, datenmÃ¼ll wird inkauf genommen?!
+                    // Aktivierbar -> Pauschal aktivieren, datenmüll wird inkauf genommen?!
                     // attr_talent_schrift_
                     DataField[prefixCheckbox + name_] = "0";
 
@@ -15005,13 +15005,13 @@ ID      0           1          2         3         4
                 }
                 // Nahkampf
                 // Gegenstandsliste zum Abgleichen / Auslesen besonderer Werte
-                var itemArray = ParsedXML.helden.held.gegenstÃ¤nde.gegenstand;
+                var itemArray = ParsedXML.helden.held.gegenstände.gegenstand;
                 var prefixEquipment = "";
-                var indexNK = 1; // ZÃ¤hler, notwendig bis repeating NK eingebaut
-                var indexFK = 1; // ZÃ¤hler, notwendig bis repeating FK eingebaut
+                var indexNK = 1; // Zähler, notwendig bis repeating NK eingebaut
+                var indexFK = 1; // Zähler, notwendig bis repeating FK eingebaut
                 var localIndex = 1;
-                for(let p=0; p < ParsedXML.helden.held.ausrÃ¼stungen.heldenausruestung.length; p++){
-                    let entry_ = ParsedXML.helden.held.ausrÃ¼stungen.heldenausruestung[p];
+                for(let p=0; p < ParsedXML.helden.held.ausrüstungen.heldenausruestung.length; p++){
+                    let entry_ = ParsedXML.helden.held.ausrüstungen.heldenausruestung[p];
                     let skipFlag = false;
                     let slot_ = entry_["@name"];
                     let type_ = entry_["@verwendungsArt"]; //Can be NIL
@@ -15038,7 +15038,7 @@ ID      0           1          2         3         4
                                 DataField[prefixEquipment + "NKW" + localIndex + "_SchwellenwertKK"] = itemArray[index_].nahkampfwaffe.tpkk["@kk"];
                                 //attr_NKW1_Schwellenwert
                                 DataField[prefixEquipment + "NKW" + localIndex + "_Schwellenwert"] = itemArray[index_].nahkampfwaffe.tpkk["@schrittweite"];
-                                // attr_NKWschaden1_1 (Anzahl wÃ¼rfel)
+                                // attr_NKWschaden1_1 (Anzahl würfel)
                                 DataField[prefixEquipment + "NKWschaden" + localIndex + "_1"] = itemArray[index_].nahkampfwaffe.trefferpunkte["@mul"];
                                 // attr_NKWschaden1_2 (plus schaden)
                                 DataField[prefixEquipment + "NKWschaden" + localIndex + "_2"] = itemArray[index_].nahkampfwaffe.trefferpunkte["@sum"];
@@ -15058,7 +15058,7 @@ ID      0           1          2         3         4
                             indexFK ++;
                             // Skip after 4 FK weapons (as long as the list is non repeating we have only limited slots)
                             if (indexFK > 4) return;
-                            // Nur wenn der Gegenstand auch in GegenstÃ¤nde gefunden wurde, kann man nach den mod suchen !
+                            // Nur wenn der Gegenstand auch in Gegenstände gefunden wurde, kann man nach den mod suchen !
                             index_ = itemArray.indexOf(weapon_);
                             if (index_ != -1) {
                                 // attr_FKWLadezeit1" style="width: 3em;" min="1" value="3">
@@ -15105,7 +15105,7 @@ ID      0           1          2         3         4
                         skipFlag = false;
                     }
                 }
-                // Erst vortfahren wenn die vorherigen repeating Listen komplett gesÃ¤ubert sind (async)
+                // Erst vortfahren wenn die vorherigen repeating Listen komplett gesäubert sind (async)
                 await cleanup;
                 // setzt alle Werte, auch die repeating
                 safeSetAttrs(DataField);
