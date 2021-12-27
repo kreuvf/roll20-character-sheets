@@ -12670,7 +12670,7 @@
     <div class="sheet-section sheet-section-config" align="center">
         <input type="radio" name="attr_config_tab" class="sheet-tab sheet-tab101" value="101" title="Anzeige" checked="checked">
         <span class="sheet-tab sheet-tab101">Anzeige</span>
-        <input type="radio" name="attr_config_tab" class="sheet-tab sheet-tab102" value="102" title="Import" checked="checked">
+        <input type="radio" name="attr_config_tab" class="sheet-tab sheet-tab102" value="102" title="Import">
         <span class="sheet-tab sheet-tab102">Import</span>
 
         <div class="sheet-section sheet-section-config1">
@@ -12704,11 +12704,11 @@
             </label>
         </div>
         <div class="sheet-section sheet-section-import">
-            <button type="action" value="" name="act_xmlimport" class="xmlImport">Importieren</button>
-            <textarea width="80%" style="height:800px" name="attr_xmlimport"></textarea>
-            <option name="attr_importerName" class="sheet-section-importerName">
-              <selection name="" value="heldensoftware">HeldenSoftware</selection>
-            </option>
+            <button type="action" value="" name="act_xmlimportbutton" class="xmlImport">Importieren</button>
+            <select name="attr_xmlimportername" class="sheet-section-importerName">
+              <option value="heldensoftware" selected="selected">HeldenSoftware</option>
+            </select>
+            <textarea width="80%" spellcheck="false" name="attr_xmlimport"></textarea>
         </div>
         <input class="sheet-default-hide sheet-developer" type="checkbox" name="attr_show-developer" value="1">
         <div class="sheet-section sheet-section-config1 sheet-section-developer">
@@ -14501,6 +14501,15 @@ ID      0           1          2         3         4
     </table>
 </rolltemplate>
 <script type="text/worker">
+
+    function b64DecodeUnicode(str) {
+        // Going backwards: from bytestream, to percent-encoding, to original string.
+        return decodeURIComponent(atob(str).split('').map(function(c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+    }
+
+
     /*
     * Enable await / ascync
     * Author: Jim at OnyxRing
@@ -14811,13 +14820,17 @@ ID      0           1          2         3         4
   /*
   * Parse XML from Inputbox upton button click
   */
-  function HeldenSoftStringCleaning(string_){
+  function HeldenSoftStringCleaning(string_, magicVariant_){
     // Strip ÄÖÜ
     string_ = string_.replace("\ä","a");
     string_ = string_.replace("\ö","o");
     string_ = string_.replace("\ü","u");
     // Strip space
-    string_ = string_.replace(" ",'');
+    if (magicVariant_){
+        string_ = string_.split(" ")[0]; //Only use the first part of the word
+    }else{
+        string_ = string_.replace(" ",'');
+    }
     // Strip \
     string_ = string_.replace("\\",'');
     // Strip /
@@ -14825,6 +14838,27 @@ ID      0           1          2         3         4
     string_ = string_.replace("-",'');
     return string_;
   }
+/*
+    async function CleanUpAsync(array_){
+        var acid=getActiveCharacterId(); //save the current activeCharacterID in case it has changed when the promise runs
+        var prevAcid=null;               //local variable defined here, because it needs to be shared across the promise callbacks defined below
+        return new Promise((resolve,reject)=>{
+            prevAcid=setActiveCharacterId(acid);  //in case the activeCharacterId has changed, restore it to what we were expecting and save the current value to restore later
+            try{
+                for(entry in array_){
+                    listOfIDs = await getSectionIDsAsync("repeating_" + entry);
+                    for(id_ in listOfIDs){
+                        removeRepeatingRow("repeating_" + entry + id_);
+                    }
+                }
+            }
+            catch{ reject(); }
+        }).finally(()=>{
+            setActiveCharacterId(prevAcid); //restore activeCharcterId to what it was when the promise first ran
+        });
+    }
+*/
+
 
 /*
 * HeldenSoftware importer
@@ -14834,81 +14868,87 @@ ID      0           1          2         3         4
     const listOfAllCombatSF = ["aufmerksamkeit", "ausfall", "ausweichenI", "ausweichenII", "ausweicheniII", "befreiungsschlag", "beidhandigerkampfI", "beidhandigerkampfII", "binden", "betaubungsschlag", "blindkampf", "defensiverkampfstil", "doppelangriff", "entwaffnen", "festnageln", "finte", "formation", "gegenhalten", "gezielterstich", "halbschwert", "hammerschlag", "improvisiertewaffen", "kampfimwasser", "kampfgespur", "kampfreflexe", "klingensturm", "klingentanzer", "klingenwand", "linkhand", "meisterlichesentwaffnen", "meisterparade", "niederwerfen", "parierwaffenI", "parierwaffenII", "rustungsgewohnungI", "rustungsgewohnungII", "rustungsgewohnungIII", "schildkampfI", "schildkampfII", "schildspalter", "schnellziehen", "spiessgespann", "sturmangriff", "todvonlinks", "todesstoss", "umreissen", "unterwasserkampf", "waffezerbrechen", "waffenmeister", "windmuehle", "wuchtschlag", "berittenerschutze", "eisenhagel", "meisterschutze_armbrust", "meisterschutze_blasrohr", "meisterschutze_bogen", "meisterschutze_schleuder", "meisterschutze_wurfbeile", "meisterschutze_wurfmesser", "meisterschutze_wurfspeere", "scharfschutze_armbrust", "scharfschutze_blasrohr", "scharfschutze_bogen", "scharfschutze_schleuder", "scharfschutze_wurfbeile", "scharfschutze_wurfmesser", "scharfschutze_wurfspeere", "schnellladenarmbrust", "schnellladenbogen", "schnellziehen", "stil_bornlandisch", "stil_gladiatorenstil", "stil_hammerfaust", "stil_hruruzat", "stil_mercenario", "stil_unauerschule", "auspendeln", "beinarbeit", "biss", "block", "doppelschlag", "eisenarm", "fussfeger", "gerade", "griff", "halten", "handkante", "hohertritt", "klammer", "knaufschlag", "knie", "kopfstoss", "kreuzblock", "niederringen", "schmetterschlag", "schmutzigetricks", "schwanzfeger", "schwanzschlag", "schwinger", "schwitzkasten", "sprung", "sprungtritt", "tritt", "versteckteklinge", "wurgegriff", "wurf"];
     const cleanupPrefix = ["repeating_Vorteile", "repeating_Nachteile", "repeating_Metatalente201904", "repeating_gaben"]; //Nah und Fernkampf sobald umgerüstet
 
+    //var cleanup = CleanUpAsync(cleanupPrefix);
+
     //
     if (xmlString.length <= 0) return;
     // DataField wird mit attribute-value paaren befölkert und erst am ende geschrieben. (einzelner setAttr. befehl)
-    DataField = {};
-    ParsedXML = fromXML(xmlString);
+    var DataField = {};
+    var ParsedXML = fromXML(xmlString);
     //
-    if (typeOF(ParsedXML) !== "Object") return;
+    if (!ParsedXML.helden) return;
     // Name
-    DataField["attr_Name"] = ParsedXML.helden.held["@name"];
+    DataField["Name"] = ParsedXML.helden.held["@name"];
     // Rasse
-    DataField["attr_Rasse"] = ParsedXML.helden.held.basis.rasse["@string"];
+    DataField["Rasse"] = ParsedXML.helden.held.basis.rasse["@string"];
     // Kultur
-    DataField["attr_Kultur"] = ParsedXML.helden.held.basis.kultur["@string"];
+    DataField["Kultur"] = ParsedXML.helden.held.basis.kultur["@string"];
     // Stand
-    DataField["attr_Rasse"] = ParsedXML.helden.held.basis.rasse.aussehen["@stand"];
+    DataField["Rasse"] = ParsedXML.helden.held.basis.rasse.aussehen["@stand"];
     // Sozialstatus
-    DataField["attr_Sozialstatus"] = ParsedXML.helden.held.eigenschaften.eigenschaft[8]["@value"];
+    DataField["Sozialstatus"] = ParsedXML.helden.held.eigenschaften.eigenschaft[8]["@value"];
     // Titel
-    DataField["attr_Titel"] = ParsedXML.helden.held.basis.rasse.aussehen["@titel"];
+    DataField["Titel"] = ParsedXML.helden.held.basis.rasse.aussehen["@titel"];
     // Geschlecht
-    DataField["attr_Geschlecht"] = ParsedXML.helden.held.basis.geschlecht["@name"];
+    DataField["Geschlecht"] = ParsedXML.helden.held.basis.geschlecht["@name"];
     // GröÃŸte
-    DataField["attr_Grosse"] = ParsedXML.helden.held.basis.rasse.groesse["@vallue"];
+    DataField["Grosse"] = ParsedXML.helden.held.basis.rasse.groesse["@value"];
     // Gewicht
-    DataField["attr_Gewicht"] = ParsedXML.helden.held.basis.rasse.groesse["@gewicht"];
+    DataField["Gewicht"] = ParsedXML.helden.held.basis.rasse.groesse["@gewicht"];
     // Haarfarbe
-    DataField["attr_Haarfarbe"] = ParsedXML.helden.held.basis.rasse.aussehen["@haarfarbe"];
+    DataField["Haarfarbe"] = ParsedXML.helden.held.basis.rasse.aussehen["@haarfarbe"];
     // Augenfarbe
-    DataField["attr_Augenfarbe"] = ParsedXML.helden.held.basis.rasse.aussehen["@augenfarbe"];
+    DataField["Augenfarbe"] = ParsedXML.helden.held.basis.rasse.aussehen["@augenfarbe"];
     // Profession !!
-    DataField["attr_Augenfarbe"] = ParsedXML.helden.held.basis.ausbildungen.ausbildung["@string"];
+    DataField["Augenfarbe"] = ParsedXML.helden.held.basis.ausbildungen.ausbildung["@string"];
     // MU
-    DataField["attr_MU_Basis"] = ParsedXML.helden.held.eigenschaften.eigenschaft[0]["@value"];
+    DataField["MU_Basis"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[0]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[0]["@value"]);
     // KL
-    DataField["attr_KL_Basis"] = ParsedXML.helden.held.eigenschaften.eigenschaft[1]["@value"];
+    DataField["KL_Basis"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[1]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[1]["@value"]);
     // IN
-    DataField["attr_IN_Basis"] = ParsedXML.helden.held.eigenschaften.eigenschaft[2]["@value"];
+    DataField["IN_Basis"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[2]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[2]["@value"]);
     // CH
-    DataField["attr_CH_Basis"] = ParsedXML.helden.held.eigenschaften.eigenschaft[3]["@value"];
+    DataField["CH_Basis"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[3]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[3]["@value"]);
     // FF.eigenschaft
-    DataField["attr_FF_Basis"] = ParsedXML.helden.held.eigenschaften.eigenschaft[4]["@value"];
+    DataField["FF_Basis"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[4]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[4]["@value"]);
     // GE
-    DataField["attr_GE_Basis"] = ParsedXML.helden.held.eigenschaften.eigenschaft[5]["@value"];
+    DataField["GE_Basis"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[5]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[5]["@value"]);
     // KO
-    DataField["attr_KO_Basis"] = ParsedXML.helden.held.eigenschaften.eigenschaft[6]["@value"];
+    DataField["KO_Basis"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[6]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[6]["@value"]);
     // KK
-    DataField["attr_KK_Basis"] = ParsedXML.helden.held.eigenschaften.eigenschaft[7]["@value"];
+    DataField["KK_Basis"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[7]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[7]["@value"]);
     // LeP(MOD)
-    DataField["attr_LEZugeK"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[9]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[9]["@value"]);
+    DataField["LEZugeK"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[9]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[9]["@value"]);
     // AuP(MOD)
-    DataField["attr_AusZugeK"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[10]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[10]["@value"]);
+    DataField["AusZugeK"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[10]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[10]["@value"]);
     // AsP(MOD)
-    DataField["attr_ASPZugeK"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[11]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[11]["@value"]);
+    DataField["ASPZugeK"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[11]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[11]["@value"]);
     // KaP(MOD)
-    DataField["attr_KEZugeK"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[12]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[12]["@value"]);
+    DataField["KEZugeK"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[12]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[12]["@value"]);
     // MR
-    DataField["attr_MRZugeK"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[13]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[13]["@value"]);
+    DataField["MRZugeK"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[13]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[13]["@value"]);
     // AP(Gesamt)
-    DataField["attr_AP_gesamt"] = ParsedXML.helden.held.basis.abenteuerpunkte["@value"];
-    // Vorteile
-    // Warum funktioniert das hier aber nicht später? f u
-    for(entry in ParsedXML.helden.held.vt.vorteil){
-      // Liste Aller Vorteile/Nachteile anhand derer einsortiert wird.(HeldenSoft unterscheidet in der XML nicht)
-      // Trennung Magische / Normale Vorteile? (attr_Magie-VT)(attr_Magie-NT)
-      const listVT = [];
-      let rowID_ = generateRowID();
-      let parsedVt = entry["@Name"];
-      // Wenn der Name in der Liste der VORteile auftaucht, als Vorteil eintragen, alles andere ist ein Nachteil.
-      let repeatingStringBuilder = (parsedVt in listVT) ? cleanupPrefix[0] + rowID_ : cleanupPrefix[1] + rowID_;
-      DataField[repeatingStringBuilder + "_name"] = parsedVt;
-      // Nur wenn der Vor- Nachteil mit einem Wert versehen ist, sollte dieser geschrieben werden
-      let value = entry["@value"];
-      if (value) {
-        DataField[repeatingStringBuilder + "_value"] = value;
-      };
+    DataField["AP_gesamt"] = ParsedXML.helden.held.basis.abenteuerpunkte["@value"];
+
+    // Vorteile / Nachteile
+    for(let j=0;j < ParsedXML.helden.held.vt.vorteil.length;j++){
+        // Liste Aller Vorteile/Nachteile anhand derer einsortiert wird.(HeldenSoft unterscheidet in der XML nicht)
+        // Trennung Magische / Normale Vorteile? (attr_Magie-VT)(attr_Magie-NT)
+        let entry = ParsedXML.helden.held.vt.vorteil[j];
+        const listVT = ["Gebildet", "Adlig"];
+        let rowID_ = generateRowID();
+        let parsedVt = entry["@name"];
+        let value = entry["@value"];
+        let isAdvantage = (parsedVt in listVT);
+        // Wenn der Name in der Liste der VORteile auftaucht, als Vorteil eintragen, alles andere ist ein Nachteil.
+        let repeatingStringBuilder =  isAdvantage ? cleanupPrefix[0] + "_" : cleanupPrefix[1] + "_";
+        let suffixName = isAdvantage ? "_Vorteil" : "__Nachteil";
+        let suffixValue = isAdvantage ? "_Vorteilswert" : "_Nachteilwert";
+        DataField[repeatingStringBuilder + rowID_ + suffixName] = parsedVt;
+        // Nur wenn der Vor- Nachteil mit einem Wert versehen ist, sollte dieser geschrieben werden
+        if (value) {
+            DataField[repeatingStringBuilder + rowID_  + suffixValue] = value;
+        };
     };
     // Sonderfertigkeiten
     for(let i=0;  i < ParsedXML.helden.held.sf.sonderfertigkeit.length; i++){
@@ -14919,59 +14959,67 @@ ID      0           1          2         3         4
 
       let entry = ParsedXML.helden.held.sf.sonderfertigkeit[i];
       let rowID_ = generateRowID();
-      let prefix = "attr_Vorteile_";
+      let prefix = "repeating_Vorteile_";
+      let suffixName = "_Vorteil";
+      let suffixValue = "_Vorteilswert";
       let data_ = "";
       let name_ = entry["@name"];
       // Probably enhance the search with some regex or smth
-      let indexCombatSf = listOfAllCombatSF.findIndexOf(name_);
+      let indexCombatSf = listOfAllCombatSF.findIndex(element => element == name_);
       switch (true) {
         case (indexCombatSf !== -1):
         // Set it to active(1)
-        DataFiled["attr_sf_" + listOfAllCombatSF[indexCombatSf], "1"];
+        DataFiled["sf_" + listOfAllCombatSF[indexCombatSf], "1"];
         break;
         case (name_.indexOf("Liturgie") !== -1):
-        prefix = "attr_Liturgien_";
-        break;
+            prefix = "repeating_Liturgien_";
+            suffixName = "_LiturgieName";
+            suffixValue = "";
+            break;
         case (name_.includes("Ritualkentniss")):
-        prefix = "attr_Ritual_";
-        break;
+            prefix = "repeating_Ritual_";
+            break;
         case (entry["@name"] in constListMagieSF):
-        prefix = "attr_MagieSK";
-        break;
+            prefix = "repeating_MagieSK_";
+            break;
         case ( (name_.includes("Ortskenntnis"))):
-        prefix = "attr_Vorteile_";
-        // Typ kann objekt ODER array sein <.<
-        if (typeof(entry.auswahl) == "object") {
-          data_ += entry.auswahl["@name"];
-        } else {
-          entry.auswahl.forEach((child_) => {data_ + " ; " + child_["@name"]});
-        }
+            prefix = "repeating_Vorteile_";
+            // Typ kann objekt ODER array sein <.<
+            if (typeof(entry.auswahl) == "object") {
+              name_ += " " + entry.auswahl["@name"];
+            } else {
+              entry.auswahl.forEach((child_) => {name_ + " ; " + child_["@name"]});
+            }
         break;
         case ( (name_.includes("Kulturkunde"))  ):
-        prefix = "attr_Vorteile_";
-        // Typ kann objekt ODER array sein <.<
-        if (typeof(entry.kultur) == "object") {
-          data_ += entry.kultur["@name"];
-        } else {
-          entry.kultur.forEach((child_) => {data_ + " ; " + child_["@name"]});
-        }
-        break;
+            prefix = "repeating_Vorteile_";
+            // Typ kann objekt ODER array sein <.<
+            if (typeof(entry.kultur) == "object") {
+              data_ = data_ + entry.kultur["@name"];
+            } else {
+              entry.kultur.forEach((child_) => {data_ + " ; " + child_["@name"]});
+            }
+            break;
         default:
-        prefix = "attr_Vorteile_";
+            prefix = "repeating_Sonderfertigkeiten_";
+            suffixName = "__Sonderfertigkeiten";
       }
-      DataField[prefix + rowID_ + "_name"] = name_;
-      DataField[prefix + rowID_ + "_value"] = data_;
-
+        if (suffixName){
+            DataField[prefix + rowID_ + suffixName] = name_;
+            if (suffixValue && data_){
+                DataField[prefix + rowID_ + suffixValue] = data_;
+            }
+        }
     }
     // Talente
     for(let z=0; z < ParsedXML.helden.held.talentliste.talent.length; z++){
-      const prefixCheckbox = "attr_talent_";
-      var prefix = "attr_TaW_";
+      const prefixCheckbox = "talent_";
+      var prefix = "TaW_";
       let talent_ = ParsedXML.helden.held.talentliste.talent[z];
       let name_ = talent_["@name"];
       let value_ = talent_["@value"];
       // Cleanup Name
-      name_ = HeldenSoftStringCleaning(name_);
+      name_ = HeldenSoftStringCleaning(name_, false);
       // If Lesen change pref
       if (name_.indexOf("Lesen") !== -1 || name_.indexOf("Schreiben") !== -1) {
         prefix += "schrift_";
@@ -14985,30 +15033,32 @@ ID      0           1          2         3         4
       DataField[prefix + name_] = value_;
       // Aktivierbar -> Pauschal aktivieren, datenmüll wird inkauf genommen?!
       // attr_talent_schrift_
-      DataField[prefixCheckbox + name_] = "0";
+      DataField[prefixCheckbox + String.prototype.toLowerCase(name_)] = "0";
 
     }
 
-    //  // Magie
-    for(let u=0; u < ParsedXML.helden.held.zauberliste.zauber.length; u++){
-      const prefix = "attr_ZfW_";
-      const prefixCheckbox = "attr_zauber_";
+    if (ParsedXML.helden.held.zauberliste){
+        //  // Magie
+        for(let u=0; u < ParsedXML.helden.held.zauberliste.zauber.length; u++){
+          const prefix = "ZfW_";
+          const prefixCheckbox = "zauber_";
 
-      let zauber_ = ParsedXML.helden.held.zauberliste.zauber[u];
-      let name_ = zauber_["@name"];
-      let value_ = zauber_["@value"];
-      name_ = HeldenSoftStringCleaning(name_);
-      DataField[prefix + name_] = value_;
-      DataField[prefixCheckbox + name_] = "0";
+          let zauber_ = ParsedXML.helden.held.zauberliste.zauber[u];
+          let name_ = zauber_["@name"];
+          let value_ = zauber_["@value"];
+          name_ = HeldenSoftStringCleaning(name_, true);
+          DataField[prefix + name_] = value_;
+          DataField[prefixCheckbox + name_] = "1";
 
+        }
     }
 
     //  // Kampf
     for(let o=0; o < ParsedXML.helden.held.kampf.kampfwerte.length; o++){
-      const prefix = "attr_";
+      const prefix = "";
       let kampftalent_ = ParsedXML.helden.held.kampf.kampfwerte[o];
       let talentName = kampftalent_["@name"];
-      taletName = HeldenSoftStringCleaning(talentName);
+      taletName = HeldenSoftStringCleaning(talentName, false);
       let atValue = kampftalent_.attacke["@value"];
       let paValue = kampftalent_.parade["@value"];
       DataField[prefix + "AT_" + talentName] = atValue;
@@ -15027,13 +15077,13 @@ ID      0           1          2         3         4
       let slot_ = entry_["@name"];
       let type_ = entry_["@verwendungsArt"]; //Can be NIL
       let talent = entry_["@talent"];
-      let talentStripped = (talent) ? HeldenSoftStringCleaning(talent) : "";
+      let talentStripped = (talent) ? HeldenSoftStringCleaning(talent, false) : "";
       let weapon_ = entry_["@waffenname"];
       let index_ = -1;
       // Unterscheidung Nahkampf, Fernkampf und Schilde(Parier)
       switch(true){
         case (slot_.indexOf("nkwaffe") !== -1):
-        prefixEquipment = "attr_NKW";
+        prefixEquipment = "NKW";
         localIndex = indexNK;
         indexNK += 1;
         // Safety
@@ -15064,7 +15114,7 @@ ID      0           1          2         3         4
         DataField[prefixEquipment + "_PA_type" + localIndex] = talent;
         break;
         case (slot_.indexOf("fkwaffe") !== -1):
-        prefixEquipment = "attr_FKW"; //attr_FKWname1 attr_FKWtyp1
+        prefixEquipment = "FKW"; //attr_FKWname1 attr_FKWtyp1
         localIndex = indexFK;
         indexFK ++;
         // Skip after 4 FK weapons (as long as the list is non repeating we have only limited slots)
@@ -15117,42 +15167,51 @@ ID      0           1          2         3         4
       }
     }
     // Erst vortfahren wenn die vorherigen repeating Listen komplett gesäubert sind (async)
-    await cleanup;
+    //await cleanup;
     // setzt alle Werte, auch die repeating
     return DataField;
 
   }
 
+
+
 /*
 * Generalized Import Event
 * allows for different imported formats
 */
-  on("clicked:xmlimport", async (values)=>{
-    // Get selected Import Type from dropdown
-    var importerName = safeGetAttrsAsync("attr_importerName");
-    var xmlString = safeGetAttrsAsync("attr_xmlimport");
-    // wait for both async to complete
-    await Promise.all(importerName, xmlString);
-    // Variable to store generated Attr - value pairs
-    var mappedData = {};
-    // switch based on the implemented importer Functions
-    switch(importerName){
-      case "HeldenSoftware":
-        mappedData = await ImporterHeldenSoftware();
-        break;
-      default:
-        // implement debugLog   like "attr" to write to, Caller, Text
-    }
-    // Validate / cleanup entrys / uggly
-    for(let i=mappedData.length -1;i>=0;i--){
-      // remove anything with no value / nan / nil / undefined
-      if (!mappedData[i] ) {
-        mappedData.splice(i);
-      }
-    }
-    // write
-    safeSetAttrs(mappedData);
-  });
+    //on("clicked:xmlimportbutton", async (values)=>{
+    on("clicked:xmlimportbutton", async (values_)=>{
+        console.log("Event Import startet");
+        // Get selected Import Type from dropdown
+        var values = await getAttrsAsync(["xmlimportername", "xmlimport"]);
+        console.log("ImporterName: " + values.xmlimportername);
+        // Variable to store generated Attr - value pairs
+        var mappedData = {};
+        // switch based on the implemented importer Functions
+        switch(values.xmlimportername){
+            case "heldensoftware":
+                console.log("Parse Data");
+                mappedData = await ImporterHeldenSoftware(b64DecodeUnicode(values.xmlimport));
+                console.log("Data Parsed");
+            break;
+            default:
+                console.log("Default @Switch  = error");
+            // implement debugLog   like "attr" to write to, Caller, Text
+        }
+        // Validate / cleanup entrys / uggly
+        console.log("Cleanup started");
+        if (!mappedData) return;
+        for(let i=mappedData.length -1;i>=0;i--){
+            // remove anything with no value / nan / nil / undefined
+            if (!mappedData[i] ) {
+                mappedData.splice(i);
+            }
+        }
+        console.log("cleanup finisched");
+        // write
+        safeSetAttrs(mappedData);
+        console.log("Writing finisched");
+    });
 
 
 function FKWgetType(typeRaw)
