@@ -12704,11 +12704,15 @@
             </label>
         </div>
         <div class="sheet-section sheet-section-import">
-            <button type="action" value="" name="act_xmlimportbutton" class="xmlImport">Importieren</button>
-            <select name="attr_xmlimportername" class="sheet-section-importerName">
-              <option value="heldensoftware" selected="selected">HeldenSoftware</option>
-            </select>
-            <textarea width="80%" spellcheck="false" name="attr_xmlimport"></textarea>
+            <input class="sheet-section-import-securitycheck" type="text" name="attr_xmlsecuritycheck">Charaktername:</input>
+            <div class="sheet-section sheet-section-import sheet-section-xmlimport">
+                <input class="sheet-default-hide" type="hidden" name="xmlsecuritycheck_hidden"/>
+                <button class="sheet-default-hide xmlImport"type="action" value="" name="act_xmlimportbutton">Importieren</button>
+                <select class="sheet-default-hide xmlImport" name="attr_xmlimportername">
+                  <option value="heldensoftware" selected="selected">HeldenSoftware</option>
+                </select>
+                <textarea class="sheet-default-hide xmlImport" width="80%" spellcheck="false" name="attr_xmlimport"></textarea>
+            </div>
         </div>
         <input class="sheet-default-hide sheet-developer" type="checkbox" name="attr_show-developer" value="1">
         <div class="sheet-section sheet-section-config1 sheet-section-developer">
@@ -14867,7 +14871,131 @@ ID      0           1          2         3         4
     // List has to be worked and cleaned too! To-DO
     const listOfAllCombatSF = ["aufmerksamkeit", "ausfall", "ausweichenI", "ausweichenII", "ausweicheniII", "befreiungsschlag", "beidhandigerkampfI", "beidhandigerkampfII", "binden", "betaubungsschlag", "blindkampf", "defensiverkampfstil", "doppelangriff", "entwaffnen", "festnageln", "finte", "formation", "gegenhalten", "gezielterstich", "halbschwert", "hammerschlag", "improvisiertewaffen", "kampfimwasser", "kampfgespur", "kampfreflexe", "klingensturm", "klingentanzer", "klingenwand", "linkhand", "meisterlichesentwaffnen", "meisterparade", "niederwerfen", "parierwaffenI", "parierwaffenII", "rustungsgewohnungI", "rustungsgewohnungII", "rustungsgewohnungIII", "schildkampfI", "schildkampfII", "schildspalter", "schnellziehen", "spiessgespann", "sturmangriff", "todvonlinks", "todesstoss", "umreissen", "unterwasserkampf", "waffezerbrechen", "waffenmeister", "windmuehle", "wuchtschlag", "berittenerschutze", "eisenhagel", "meisterschutze_armbrust", "meisterschutze_blasrohr", "meisterschutze_bogen", "meisterschutze_schleuder", "meisterschutze_wurfbeile", "meisterschutze_wurfmesser", "meisterschutze_wurfspeere", "scharfschutze_armbrust", "scharfschutze_blasrohr", "scharfschutze_bogen", "scharfschutze_schleuder", "scharfschutze_wurfbeile", "scharfschutze_wurfmesser", "scharfschutze_wurfspeere", "schnellladenarmbrust", "schnellladenbogen", "schnellziehen", "stil_bornlandisch", "stil_gladiatorenstil", "stil_hammerfaust", "stil_hruruzat", "stil_mercenario", "stil_unauerschule", "auspendeln", "beinarbeit", "biss", "block", "doppelschlag", "eisenarm", "fussfeger", "gerade", "griff", "halten", "handkante", "hohertritt", "klammer", "knaufschlag", "knie", "kopfstoss", "kreuzblock", "niederringen", "schmetterschlag", "schmutzigetricks", "schwanzfeger", "schwanzschlag", "schwinger", "schwitzkasten", "sprung", "sprungtritt", "tritt", "versteckteklinge", "wurgegriff", "wurf"];
     const cleanupPrefix = ["repeating_Vorteile", "repeating_Nachteile", "repeating_Metatalente201904", "repeating_gaben"]; //Nah und Fernkampf sobald umgerüstet
-
+    const listVT = ["Gebildet", "Adlig"];
+    const listNT = [
+      "Aberglaube",
+      "Albino",
+      "Angst vor",
+      "Animalische Magie",
+      "Arkanophobie",
+      "Arroganz",
+      "Artefaktgebunden",
+      "Astraler Block",
+      "Autoritätsgläubig",
+      "Behäbig",
+      "Blutdurst",
+      "Blutrausch",
+      "Brünstigkeit",
+      "Dunkelangst",
+      "Einarmig",
+      "Einäugig",
+      "Einbeinig",
+      "Einbildungen",
+      "Eingeschränkte Elementarnähe",
+      "Eingeschränkter Sinn",
+      "Einhändig",
+      "Eitelkeit",
+      "Elfische Weltsicht",
+      "Farbenblind",
+      "Feind",
+      "Feste Gewohnheit",
+      "Festgefügtes Denken",
+      "Fettleibig",
+      "Fluch der Finsternis",
+      "Geiz",
+      "Gerechtigkeitswahn",
+      "Gesucht",
+      "Glasknochen",
+      "Goldgier",
+      "Größenwahn",
+      "Heimwehkrank",
+      "Hitzeempfindlichkeit",
+      "Höhenangst",
+      "Impulsiv",
+      "Jähzorn",
+      "Kälteempfindlichkeit",
+      "Kältestarre",
+      "Kein Vertrauter",
+      "Kleinwüchsig",
+      "Körpergebundene Kraft",
+      "Krankhafte Reinlichkeit",
+      "Krankheitsanfällig",
+      "Kristallgebunden",
+      "Kurzatmig",
+      "Lahm",
+      "Lästige Mindergeister",
+      "Lichtempfindlich",
+      "Lichtscheu",
+      "Loyalität",
+      "Madas Fluch",
+      "Medium",
+      "Meeresangst",
+      "Miserable Eigenschaft",
+      "Mondsüchtig",
+      "Moralkodex",
+      "Nachtblind",
+      "Nahrungsrestriktion",
+      "Neid",
+      "Neugier",
+      "Niedrige Astralkraft",
+      "Niedrige Lebenskraft",
+      "Niedrige Magieresistenz",
+      "Pechmagnet",
+      "Platzangst",
+      "Prinzipientreue",
+      "Rachsucht",
+      "Randgruppe",
+      "Raubtiergeruch",
+      "Raumangst",
+      "Rückschlag",
+      "Schlafstörungen",
+      "Schlafwandler",
+      "Schlechte Eigenschaft",
+      "Schlechte Regeneration",
+      "Schlechter Ruf",
+      "Schneller Alternd",
+      "Schulden",
+      "Schwache Ausstrahlung",
+      "Schwacher Astralkörper",
+      "Schwanzlos",
+      "Seffer Manich",
+      "Selbstgespräche",
+      "Sensibler Geruchssinn",
+      "Sippenlosigkeit",
+      "Sonnensucht",
+      "Speisegebote",
+      "Spielsucht",
+      "Sprachfehler",
+      "Spruchhemmung",
+      "Stigma",
+      "Streitsucht",
+      "Stubenhocker",
+      "Sucht",
+      "Thesisgebunden",
+      "Tollpatsch",
+      "Totenangst",
+      "Übler Geruch",
+      "Unangenehme Stimme",
+      "Unansehnlich",
+      "Unfähigkeit für",
+      "Unfrei",
+      "Ungebildet",
+      "Unstet",
+      "Unverträglichkeit mit verarbeitetem Metall",
+      "Vergesslichkeit",
+      "Verpflichtungen",
+      "Verschwendungssucht",
+      "Verwöhnt",
+      "Vorurteile",
+      "Wahnvorstellungen",
+      "Wahrer Name",
+      "Weltfremd",
+      "Widerwärtiges Aussehen",
+      "Wilde Magie",
+      "Zielschwierigkeiten",
+      "Zögerlicher Zauberer",
+      "Zwergenwuchs"
+    ];
     //var cleanup = CleanUpAsync(cleanupPrefix);
 
     //
@@ -14935,11 +15063,10 @@ ID      0           1          2         3         4
         // Liste Aller Vorteile/Nachteile anhand derer einsortiert wird.(HeldenSoft unterscheidet in der XML nicht)
         // Trennung Magische / Normale Vorteile? (attr_Magie-VT)(attr_Magie-NT)
         let entry = ParsedXML.helden.held.vt.vorteil[j];
-        const listVT = ["Gebildet", "Adlig"];
         let rowID_ = generateRowID();
         let parsedVt = entry["@name"];
         let value = entry["@value"];
-        let isAdvantage = (parsedVt in listVT);
+        let isAdvantage = !(parsedVt in listNT);
         // Wenn der Name in der Liste der VORteile auftaucht, als Vorteil eintragen, alles andere ist ein Nachteil.
         let repeatingStringBuilder =  isAdvantage ? cleanupPrefix[0] + "_" : cleanupPrefix[1] + "_";
         let suffixName = isAdvantage ? "_Vorteil" : "__Nachteil";
@@ -14968,9 +15095,25 @@ ID      0           1          2         3         4
       let indexCombatSf = listOfAllCombatSF.findIndex(element => element == name_);
       switch (true) {
         case (indexCombatSf !== -1):
-        // Set it to active(1)
-        DataFiled["sf_" + listOfAllCombatSF[indexCombatSf], "1"];
-        break;
+            // Sonderfälle für SF die im Kampf-Tab aktiviert werden (To-DO Rüstung)
+            switch (true) {
+              case (name_ in ["Scharfschütze", "Meisterschütze", "Schnellladen"]):
+                // For EACH possible Entry !
+                if (typeof(entry.talent) == "object") {
+                  name_ += " " + entry.talent["@name"];
+                  DataFiled["sf_" + listOfAllCombatSF[indexCombatSf] + "_" + String.prototype.toLowerCase(name_), "1"];
+                } else {
+                  entry.auswahl.forEach(
+                    (child_) => {name_ + " ; " + child_["@name"]};
+                    DataFiled["sf_" + listOfAllCombatSF[indexCombatSf] + "_" + String.prototype.toLowerCase(child_["@name"]), "1"];
+                  );
+                }
+
+                break;
+              default:
+                DataFiled["sf_" + listOfAllCombatSF[indexCombatSf], "1"];
+            }
+          // break; // Follow throug to write it to the sf list too
         case (name_.indexOf("Liturgie") !== -1):
             prefix = "repeating_Liturgien_";
             suffixName = "_LiturgieName";
@@ -15042,14 +15185,12 @@ ID      0           1          2         3         4
         for(let u=0; u < ParsedXML.helden.held.zauberliste.zauber.length; u++){
           const prefix = "ZfW_";
           const prefixCheckbox = "zauber_";
-
           let zauber_ = ParsedXML.helden.held.zauberliste.zauber[u];
           let name_ = zauber_["@name"];
           let value_ = zauber_["@value"];
           name_ = HeldenSoftStringCleaning(name_, true);
           DataField[prefix + name_] = value_;
           DataField[prefixCheckbox + name_] = "1";
-
         }
     }
 
@@ -15083,83 +15224,83 @@ ID      0           1          2         3         4
       // Unterscheidung Nahkampf, Fernkampf und Schilde(Parier)
       switch(true){
         case (slot_.indexOf("nkwaffe") !== -1):
-        prefixEquipment = "NKW";
-        localIndex = indexNK;
-        indexNK += 1;
-        // Safety
-        if (indexNK > 4) break;
-        index_ = itemArray.indexOf(weapon_);
-        // Wenn die Waffe im Inventar gefunden wurde
-        if (index_ != -1) {
-          // attr_BFAktuellNKW1
-          DataField[prefixEquipment + "BFAktuellNKW" + localIndex] = itemArray[index_].nahkampfwaffe.bf["@aktuell"];
-          // attr_BFStartNKW1
-          DataField[prefixEquipment + "BFStartNKW" + localIndex] = itemArray[index_].nahkampfwaffe.bf["@min"];
-          //attr_NKW1_SchwellenwertKK
-          DataField[prefixEquipment + "NKW" + localIndex + "_SchwellenwertKK"] = itemArray[index_].nahkampfwaffe.tpkk["@kk"];
-          //attr_NKW1_Schwellenwert
-          DataField[prefixEquipment + "NKW" + localIndex + "_Schwellenwert"] = itemArray[index_].nahkampfwaffe.tpkk["@schrittweite"];
-          // attr_NKWschaden1_1 (Anzahl würfel)
-          DataField[prefixEquipment + "NKWschaden" + localIndex + "_1"] = itemArray[index_].nahkampfwaffe.trefferpunkte["@mul"];
-          // attr_NKWschaden1_2 (plus schaden)
-          DataField[prefixEquipment + "NKWschaden" + localIndex + "_2"] = itemArray[index_].nahkampfwaffe.trefferpunkte["@sum"];
-          // attr_INIModNKW1
-          DataField[prefixEquipment + "INIModNKW" + localIndex] = itemArray[index_].nahkampfwaffe.inimod["@ini"];
-          // attr_NKW1ATMod
-          DataField[prefixEquipment + "NKW" + localIndex + "ATMod"] = itemArray[index_].nahkampfwaffe.wm["@at"];
-          // attr_NKW1PAMod
-          DataField[prefixEquipment + "NKW" + localIndex + "PAMod"] = itemArray[index_].nahkampfwaffe.wm["@at"];
-        }
-        DataField[prefixEquipment + "_AT_type" + localIndex] = talent;
-        DataField[prefixEquipment + "_PA_type" + localIndex] = talent;
-        break;
+          prefixEquipment = "NKW";
+          localIndex = indexNK;
+          indexNK += 1;
+          // Safety
+          if (indexNK > 4) break;
+          index_ = itemArray.indexOf(weapon_);
+          // Wenn die Waffe im Inventar gefunden wurde
+          if (index_ != -1) {
+            // attr_BFAktuellNKW1
+            DataField[prefixEquipment + "BFAktuellNKW" + localIndex] = itemArray[index_].nahkampfwaffe.bf["@aktuell"];
+            // attr_BFStartNKW1
+            DataField[prefixEquipment + "BFStartNKW" + localIndex] = itemArray[index_].nahkampfwaffe.bf["@min"];
+            //attr_NKW1_SchwellenwertKK
+            DataField[prefixEquipment + "NKW" + localIndex + "_SchwellenwertKK"] = itemArray[index_].nahkampfwaffe.tpkk["@kk"];
+            //attr_NKW1_Schwellenwert
+            DataField[prefixEquipment + "NKW" + localIndex + "_Schwellenwert"] = itemArray[index_].nahkampfwaffe.tpkk["@schrittweite"];
+            // attr_NKWschaden1_1 (Anzahl würfel)
+            DataField[prefixEquipment + "NKWschaden" + localIndex + "_1"] = itemArray[index_].nahkampfwaffe.trefferpunkte["@mul"];
+            // attr_NKWschaden1_2 (plus schaden)
+            DataField[prefixEquipment + "NKWschaden" + localIndex + "_2"] = itemArray[index_].nahkampfwaffe.trefferpunkte["@sum"];
+            // attr_INIModNKW1
+            DataField[prefixEquipment + "INIModNKW" + localIndex] = itemArray[index_].nahkampfwaffe.inimod["@ini"];
+            // attr_NKW1ATMod
+            DataField[prefixEquipment + "NKW" + localIndex + "ATMod"] = itemArray[index_].nahkampfwaffe.wm["@at"];
+            // attr_NKW1PAMod
+            DataField[prefixEquipment + "NKW" + localIndex + "PAMod"] = itemArray[index_].nahkampfwaffe.wm["@at"];
+          }
+          DataField[prefixEquipment + "_AT_type" + localIndex] = talent;
+          DataField[prefixEquipment + "_PA_type" + localIndex] = talent;
+          break;
         case (slot_.indexOf("fkwaffe") !== -1):
-        prefixEquipment = "FKW"; //attr_FKWname1 attr_FKWtyp1
-        localIndex = indexFK;
-        indexFK ++;
-        // Skip after 4 FK weapons (as long as the list is non repeating we have only limited slots)
-        if (indexFK > 4) return;
-        // Nur wenn der Gegenstand auch in Gegenstände gefunden wurde, kann man nach den mod suchen !
-        index_ = itemArray.indexOf(weapon_);
-        if (index_ != -1) {
-          // attr_FKWLadezeit1" style="width: 3em;" min="1" value="3">
-          DataField[prefixEquipment + "FKW" + "Ladezeit" + localIndex] = itemArray[index_].fernkampfwaffe.laden["@aktionen"];
-          // attr_FKWSchaden1_1" min="0" value="1" style="width: 3em;">
-          DataField[prefixEquipment + "FKW" + "Schaden" + localIndex + "_1"] = itemArray[index_].fernkampfwaffe.trefferpunkte["@mul"];
-          // attr_FKWSchaden1_2" min="-5" value="0" style="width: 3em;">
-          DataField[prefixEquipment + "FKW" + "Schaden" + localIndex + "_2"] = itemArray[index_].fernkampfwaffe.trefferpunkte["@sum"];
-          // attr_FKW1_RW1" min="0" value="10" style="width: 3.5em;">
-          DataField[prefixEquipment + "FKW" + localIndex + "_RW1"] = itemArray[index_].fernkampfwaffe.entfernung["@E0"];
-          // attr_FKW1_RW2" min="0" value="20" style="width: 3.5em;">
-          DataField[prefixEquipment + "FKW" + localIndex + "_RW2"] = itemArray[index_].fernkampfwaffe.entfernung["@E1"];
-          // attr_FKW1_RW3" min="0" value="30" style="width: 3.5em;">
-          DataField[prefixEquipment + "FKW" + localIndex + "_RW3"] = itemArray[index_].fernkampfwaffe.entfernung["@E2"];
-          // attr_FKW1_RW4" min="0" value="40" style="width: 3.5em;">
-          DataField[prefixEquipment + "FKW" + localIndex + "_RW4"] = itemArray[index_].fernkampfwaffe.entfernung["@E3"];
-          // attr_FKW1_RW5" min="0" value="50" style="width: 3.5em;">
-          DataField[prefixEquipment + "FKW" + localIndex + "_RW5"] = itemArray[index_].fernkampfwaffe.entfernung["@E4"];
-          // attr_FKW1_TPRW1" value="0" style="width: 3.5em;">
-          DataField[prefixEquipment + "FKW" + localIndex + "_TPRW1"] = itemArray[index_].fernkampfwaffe.tpmod["@M0"];
-          // attr_FKW1_TPRW2" value="0" style="width: 3.5em;">
-          DataField[prefixEquipment + "FKW" + localIndex + "_TPRW2"] = itemArray[index_].fernkampfwaffe.tpmod["@M1"];
-          // attr_FKW1_TPRW3" value="0" style="width: 3.5em;">
-          DataField[prefixEquipment + "FKW" + localIndex + "_TPRW3"] = itemArray[index_].fernkampfwaffe.tpmod["@M2"];
-          // attr_FKW1_TPRW4" value="0" style="width: 3.5em;">
-          DataField[prefixEquipment + "FKW" + localIndex + "_TPRW4"] = itemArray[index_].fernkampfwaffe.tpmod["@M3"];
-          // attr_FKW1_TPRW5" value="0" style="width: 3.5em;">
-          DataField[prefixEquipment + "FKW" + localIndex + "_TPRW5"] = itemArray[index_].fernkampfwaffe.tpmod["@M4"];
-        }
-        // FK Spezifische eingaben
-        // attr_FKWname1
-        DataField[prefixEquipment + "name" + localIndex] = weapon_;
-        // attr_FKWtyp1
-        DataField[prefixEquipment + "typ" + localIndex] = talentStripped;
-        break;
+          prefixEquipment = "FKW"; //attr_FKWname1 attr_FKWtyp1
+          localIndex = indexFK;
+          indexFK ++;
+          // Skip after 4 FK weapons (as long as the list is non repeating we have only limited slots)
+          if (indexFK > 4) return;
+          // Nur wenn der Gegenstand auch in Gegenstände gefunden wurde, kann man nach den mod suchen !
+          index_ = itemArray.indexOf(weapon_);
+          if (index_ != -1) {
+            // attr_FKWLadezeit1" style="width: 3em;" min="1" value="3">
+            DataField[prefixEquipment + "FKW" + "Ladezeit" + localIndex] = itemArray[index_].fernkampfwaffe.laden["@aktionen"];
+            // attr_FKWSchaden1_1" min="0" value="1" style="width: 3em;">
+            DataField[prefixEquipment + "FKW" + "Schaden" + localIndex + "_1"] = itemArray[index_].fernkampfwaffe.trefferpunkte["@mul"];
+            // attr_FKWSchaden1_2" min="-5" value="0" style="width: 3em;">
+            DataField[prefixEquipment + "FKW" + "Schaden" + localIndex + "_2"] = itemArray[index_].fernkampfwaffe.trefferpunkte["@sum"];
+            // attr_FKW1_RW1" min="0" value="10" style="width: 3.5em;">
+            DataField[prefixEquipment + "FKW" + localIndex + "_RW1"] = itemArray[index_].fernkampfwaffe.entfernung["@E0"];
+            // attr_FKW1_RW2" min="0" value="20" style="width: 3.5em;">
+            DataField[prefixEquipment + "FKW" + localIndex + "_RW2"] = itemArray[index_].fernkampfwaffe.entfernung["@E1"];
+            // attr_FKW1_RW3" min="0" value="30" style="width: 3.5em;">
+            DataField[prefixEquipment + "FKW" + localIndex + "_RW3"] = itemArray[index_].fernkampfwaffe.entfernung["@E2"];
+            // attr_FKW1_RW4" min="0" value="40" style="width: 3.5em;">
+            DataField[prefixEquipment + "FKW" + localIndex + "_RW4"] = itemArray[index_].fernkampfwaffe.entfernung["@E3"];
+            // attr_FKW1_RW5" min="0" value="50" style="width: 3.5em;">
+            DataField[prefixEquipment + "FKW" + localIndex + "_RW5"] = itemArray[index_].fernkampfwaffe.entfernung["@E4"];
+            // attr_FKW1_TPRW1" value="0" style="width: 3.5em;">
+            DataField[prefixEquipment + "FKW" + localIndex + "_TPRW1"] = itemArray[index_].fernkampfwaffe.tpmod["@M0"];
+            // attr_FKW1_TPRW2" value="0" style="width: 3.5em;">
+            DataField[prefixEquipment + "FKW" + localIndex + "_TPRW2"] = itemArray[index_].fernkampfwaffe.tpmod["@M1"];
+            // attr_FKW1_TPRW3" value="0" style="width: 3.5em;">
+            DataField[prefixEquipment + "FKW" + localIndex + "_TPRW3"] = itemArray[index_].fernkampfwaffe.tpmod["@M2"];
+            // attr_FKW1_TPRW4" value="0" style="width: 3.5em;">
+            DataField[prefixEquipment + "FKW" + localIndex + "_TPRW4"] = itemArray[index_].fernkampfwaffe.tpmod["@M3"];
+            // attr_FKW1_TPRW5" value="0" style="width: 3.5em;">
+            DataField[prefixEquipment + "FKW" + localIndex + "_TPRW5"] = itemArray[index_].fernkampfwaffe.tpmod["@M4"];
+          }
+          // FK Spezifische eingaben
+          // attr_FKWname1
+          DataField[prefixEquipment + "name" + localIndex] = weapon_;
+          // attr_FKWtyp1
+          DataField[prefixEquipment + "typ" + localIndex] = talentStripped;
+          break;
         case (slot_.indexOf("schild") !== -1):
-        prefixEquipment = "";
-        break;
+          prefixEquipment = "";
+          break;
         default:
-        skipFlag = true;
+          skipFlag = true;
       }
       if (!skipFlag) {
         DataField[prefixEquipment + "name" + localIndex] = weapon_;
@@ -15173,7 +15314,28 @@ ID      0           1          2         3         4
 
   }
 
+/*
+* Event for the Safety measures, only when the user types the current character
+* name correctly, will the importField and buttons been shown!
+* HIDE again whenever the UI switches ?
+*/
 
+  on ("change:xmlsecuritycheck", async (_values) =>{
+      //
+      var names_ = await getAttrsAsync(["Name", "xmlImport_name"]);
+      setAttrs({xmlsecuritycheck_hidden : !(names_.Name === names_.xmlImport_name)});
+  });
+
+/*
+* Writes Event/Log Info to the import-Field as "output"
+*
+*/
+  function ImportLog(_caller, _args){
+    if (_caller) _caller = "Unknown";
+    let message = _caller + ":", ..._args;
+    setAttrs({xmlImport : message});
+    return;
+  }
 
 /*
 * Generalized Import Event
@@ -15181,36 +15343,33 @@ ID      0           1          2         3         4
 */
     //on("clicked:xmlimportbutton", async (values)=>{
     on("clicked:xmlimportbutton", async (values_)=>{
-        console.log("Event Import startet");
         // Get selected Import Type from dropdown
         var values = await getAttrsAsync(["xmlimportername", "xmlimport"]);
-        console.log("ImporterName: " + values.xmlimportername);
         // Variable to store generated Attr - value pairs
         var mappedData = {};
         // switch based on the implemented importer Functions
         switch(values.xmlimportername){
             case "heldensoftware":
-                console.log("Parse Data");
                 mappedData = await ImporterHeldenSoftware(b64DecodeUnicode(values.xmlimport));
-                console.log("Data Parsed");
-            break;
+                break;
             default:
-                console.log("Default @Switch  = error");
-            // implement debugLog   like "attr" to write to, Caller, Text
+              ImportLog("ImportEvent", "The selected importer ("+values.xmlimportername+") is not implemented" );
         }
         // Validate / cleanup entrys / uggly
-        console.log("Cleanup started");
-        if (!mappedData) return;
-        for(let i=mappedData.length -1;i>=0;i--){
+        if (!mappedData) {
+            ImportLog("ImportEvent", "The import didn't result in valid mapped Data." );
+            return;
+        }
+        for(let i=Object.keys(mappedData).length -1;i>=0;i--){
             // remove anything with no value / nan / nil / undefined
             if (!mappedData[i] ) {
                 mappedData.splice(i);
             }
         }
-        console.log("cleanup finisched");
+
         // write
         safeSetAttrs(mappedData);
-        console.log("Writing finisched");
+        ImportLog("ImportEvent", "Import complete, data has been written!" );
     });
 
 
