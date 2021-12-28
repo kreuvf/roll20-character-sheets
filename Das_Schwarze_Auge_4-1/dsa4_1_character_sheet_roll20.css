@@ -1817,7 +1817,7 @@ table.sheet-wound-effects-table td,{
     font-weight: bold;
 }
 
-.charsheet input.sheet-section-import-securitycheck_hidden:checked ~ div.sheet-section-import-xmlimport{
+.charsheet .sheet-importsecuritycheck:[value="1"] ~ .sheet-section.sheet-section-xmlimport {
     border-color: #806940;
     border-style: solid;
     border-width: 0.2em 0 0.2em 0;
@@ -1828,4 +1828,5 @@ table.sheet-wound-effects-table td,{
     opacity: 1;
     transition: opacity 0.5s linear 0s;
     overflow: hidden;
+    display: block;
 }
