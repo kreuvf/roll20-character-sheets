@@ -12704,7 +12704,8 @@
             </label>
         </div>
         <div class="sheet-section sheet-section-import">
-            <label class="sheet-lone-input-label">Charaktername:<input type="text" name="attr_xmlToggle_check" title="Charaktername" /></label>
+            <p><B><U><I>Warnung!</I></U></B> <br/> Vor dem Import sollt der Charakterbogen gesichtert werden, z.B. in die Vault. <br/> Wenn du dir Sicher bist alle notwendigen Vorkehrungen getroffen zu haben, kannst du den Import freischalten indem du <B> den Namen des aktuellen Charakters </B> eingibst. </p>
+            <label class="sheet-desc-show sheet-lone-input-label"><input type="text" name="attr_xmlToggle_check" title="Charaktername" /></label>
             <input class="sheet-default-hide sheet-import" type="checkbox" name="attr_show_xmlimport" value="1"/>
             <div class="sheet-importfield">
                 <button type="action" value="" name="act_xmlimportbutton">Importieren</button>
@@ -14842,7 +14843,7 @@ ID      0           1          2         3         4
     string_ = string_.replace("-",'');
     return string_;
   }
-/*
+
     async function CleanUpAsync(array_){
         var acid=getActiveCharacterId(); //save the current activeCharacterID in case it has changed when the promise runs
         var prevAcid=null;               //local variable defined here, because it needs to be shared across the promise callbacks defined below
@@ -14861,7 +14862,7 @@ ID      0           1          2         3         4
             setActiveCharacterId(prevAcid); //restore activeCharcterId to what it was when the promise first ran
         });
     }
-*/
+
 
 
 /*
@@ -14870,10 +14871,11 @@ ID      0           1          2         3         4
   async function ImporterHeldenSoftware(xmlString) {
     // List has to be worked and cleaned too! To-DO
     const listOfAllCombatSF = ["aufmerksamkeit", "ausfall", "ausweichenI", "ausweichenII", "ausweicheniII", "befreiungsschlag", "beidhandigerkampfI", "beidhandigerkampfII", "binden", "betaubungsschlag", "blindkampf", "defensiverkampfstil", "doppelangriff", "entwaffnen", "festnageln", "finte", "formation", "gegenhalten", "gezielterstich", "halbschwert", "hammerschlag", "improvisiertewaffen", "kampfimwasser", "kampfgespur", "kampfreflexe", "klingensturm", "klingentanzer", "klingenwand", "linkhand", "meisterlichesentwaffnen", "meisterparade", "niederwerfen", "parierwaffenI", "parierwaffenII", "rustungsgewohnungI", "rustungsgewohnungII", "rustungsgewohnungIII", "schildkampfI", "schildkampfII", "schildspalter", "schnellziehen", "spiessgespann", "sturmangriff", "todvonlinks", "todesstoss", "umreissen", "unterwasserkampf", "waffezerbrechen", "waffenmeister", "windmuehle", "wuchtschlag", "berittenerschutze", "eisenhagel", "meisterschutze_armbrust", "meisterschutze_blasrohr", "meisterschutze_bogen", "meisterschutze_schleuder", "meisterschutze_wurfbeile", "meisterschutze_wurfmesser", "meisterschutze_wurfspeere", "scharfschutze_armbrust", "scharfschutze_blasrohr", "scharfschutze_bogen", "scharfschutze_schleuder", "scharfschutze_wurfbeile", "scharfschutze_wurfmesser", "scharfschutze_wurfspeere", "schnellladenarmbrust", "schnellladenbogen", "schnellziehen", "stil_bornlandisch", "stil_gladiatorenstil", "stil_hammerfaust", "stil_hruruzat", "stil_mercenario", "stil_unauerschule", "auspendeln", "beinarbeit", "biss", "block", "doppelschlag", "eisenarm", "fussfeger", "gerade", "griff", "halten", "handkante", "hohertritt", "klammer", "knaufschlag", "knie", "kopfstoss", "kreuzblock", "niederringen", "schmetterschlag", "schmutzigetricks", "schwanzfeger", "schwanzschlag", "schwinger", "schwitzkasten", "sprung", "sprungtritt", "tritt", "versteckteklinge", "wurgegriff", "wurf"];
-    const cleanupPrefix = ["repeating_Vorteile", "repeating_Nachteile", "repeating_Metatalente201904", "repeating_gaben"]; //Nah und Fernkampf sobald umgerüstet
+    const cleanupPrefix = ["Vorteile", "Nachteile", "Metatalente201904", "gaben"]; //Nah und Fernkampf sobald umgerüstet
     const listVT = ["Gebildet", "Adlig"];
     const listNT = ["Aberglaube", "Albino", "Angst vor", "Animalische Magie", "Arkanophobie", "Arroganz", "Artefaktgebunden", "Astraler Block", "Autoritätsgläubig", "Behäbig", "Blutdurst", "Blutrausch", "Brünstigkeit", "Dunkelangst", "Einarmig", "Einäugig", "Einbeinig", "Einbildungen", "Eingeschränkte Elementarnähe", "Eingeschränkter Sinn", "Einhändig", "Eitelkeit", "Elfische Weltsicht", "Farbenblind", "Feind", "Feste Gewohnheit", "Festgefügtes Denken", "Fettleibig", "Fluch der Finsternis", "Geiz", "Gerechtigkeitswahn", "Gesucht", "Glasknochen", "Goldgier", "Größenwahn", "Heimwehkrank", "Hitzeempfindlichkeit", "Höhenangst", "Impulsiv", "Jähzorn", "Kälteempfindlichkeit", "Kältestarre", "Kein Vertrauter", "Kleinwüchsig", "Körpergebundene Kraft", "Krankhafte Reinlichkeit", "Krankheitsanfällig", "Kristallgebunden", "Kurzatmig", "Lahm", "Lästige Mindergeister", "Lichtempfindlich", "Lichtscheu", "Loyalität", "Madas Fluch", "Medium", "Meeresangst", "Miserable Eigenschaft", "Mondsüchtig", "Moralkodex", "Nachtblind", "Nahrungsrestriktion", "Neid", "Neugier", "Niedrige Astralkraft", "Niedrige Lebenskraft", "Niedrige Magieresistenz", "Pechmagnet", "Platzangst", "Prinzipientreue", "Rachsucht", "Randgruppe", "Raubtiergeruch", "Raumangst", "Rückschlag", "Schlafstörungen", "Schlafwandler", "Schlechte Eigenschaft", "Schlechte Regeneration", "Schlechter Ruf", "Schneller Alternd", "Schulden", "Schwache Ausstrahlung", "Schwacher Astralkörper", "Schwanzlos", "Seffer Manich", "Selbstgespräche", "Sensibler Geruchssinn", "Sippenlosigkeit", "Sonnensucht", "Speisegebote", "Spielsucht", "Sprachfehler", "Spruchhemmung", "Stigma", "Streitsucht", "Stubenhocker", "Sucht", "Thesisgebunden", "Tollpatsch", "Totenangst", "Übler Geruch", "Unangenehme Stimme", "Unansehnlich", "Unfähigkeit für", "Unfrei", "Ungebildet", "Unstet", "Unverträglichkeit mit verarbeitetem Metall", "Vergesslichkeit", "Verpflichtungen", "Verschwendungssucht", "Verwöhnt", "Vorurteile", "Wahnvorstellungen", "Wahrer Name", "Weltfremd", "Widerwärtiges Aussehen", "Wilde Magie", "Zielschwierigkeiten", "Zögerlicher Zauberer", "Zwergenwuchs"];
-    //var cleanup = CleanUpAsync(cleanupPrefix);
+    // Currently missing several Attr. -> create complete List ??
+    var cleanup = CleanUpAsync(cleanupPrefix);
 
     //
     if (xmlString.length <= 0) return;
@@ -14948,7 +14950,7 @@ ID      0           1          2         3         4
         let repeatingStringBuilder =  isAdvantage ? cleanupPrefix[0] + "_" : cleanupPrefix[1] + "_";
         let suffixName = isAdvantage ? "_Vorteil" : "__Nachteil";
         let suffixValue = isAdvantage ? "_Vorteilswert" : "_Nachteilwert";
-        DataField[repeatingStringBuilder + rowID_ + suffixName] = parsedVt;
+        DataField["repeating_" + repeatingStringBuilder + rowID_ + suffixName] = parsedVt;
         // Nur wenn der Vor- Nachteil mit einem Wert versehen ist, sollte dieser geschrieben werden
         if (value) {
             DataField[repeatingStringBuilder + rowID_  + suffixValue] = value;
@@ -15086,7 +15088,7 @@ ID      0           1          2         3         4
     }
     // Nahkampf
     // Gegenstandsliste zum Abgleichen / Auslesen besonderer Werte
-    var itemArray = ParsedXML.helden.held.gegenstände.gegenstand;
+    var itemArray = (ParsedXML.helden.held.gegenstände) ? ParsedXML.helden.held.gegenstände.gegenstand : [];
     var prefixEquipment = "";
     var indexNK = 1; // Zähler, notwendig bis repeating NK eingebaut
     var indexFK = 1; // Zähler, notwendig bis repeating FK eingebaut
@@ -15199,7 +15201,7 @@ ID      0           1          2         3         4
 * HIDE again whenever the UI switches ?
 */
 
-  on("change:xmlToggle_check", async (_values)=>{
+  on("change:xmlToggle_check change:Name", async (_values)=>{
       //
       var names_ = await getAttrsAsync(["Name", "xmlToggle_check"]);
       setAttrs({show_xmlimport : +(!(names_.Name == names_.xmlToggle_check))});
@@ -15238,10 +15240,11 @@ ID      0           1          2         3         4
             ImportLog("ImportEvent", "The import didn't result in valid mapped Data." );
             return;
         }
-        for(let i=Object.keys(mappedData).length -1;i>=0;i--){
+        
+        for(entry_ in mappedData){
             // remove anything with no value / nan / nil / undefined
-            if (!mappedData[i] ) {
-                mappedData.splice(i);
+            if (!entry_) {
+                delete entry_;
             }
         }
 
