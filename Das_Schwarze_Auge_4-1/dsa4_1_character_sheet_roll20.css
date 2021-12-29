@@ -1817,16 +1817,7 @@ table.sheet-wound-effects-table td,{
     font-weight: bold;
 }
 
-.charsheet .sheet-importsecuritycheck:[value="1"] ~ .sheet-section.sheet-section-xmlimport {
-    border-color: #806940;
-    border-style: solid;
-    border-width: 0.2em 0 0.2em 0;
-    margin: 0.3em 0 0.3em 0;
-    padding: 0.3em 0 0.3em 0;
-    max-height: 999999px;
-    visibility: visible;
-    opacity: 1;
-    transition: opacity 0.5s linear 0s;
-    overflow: hidden;
-    display: block;
+
+.charsheet input.sheet-import:checked ~ div.sheet-importfield{
+    display: none;
 }

@@ -12704,9 +12704,9 @@
             </label>
         </div>
         <div class="sheet-section sheet-section-import">
-            <input type="text" name="attr_xmlsecuritycheck" title="Charaktername" />
-            <input class="sheet-importsecuritycheck" type="text" name="attr_xmlsecuritychecktoggle" value="0"/>
-            <div class="sheet-section sheet-section-xmlimport">
+            <label class="sheet-lone-input-label">Charaktername:<input type="text" name="attr_xmlToggle_check" title="Charaktername" /></label>
+            <input class="sheet-default-hide sheet-import" type="checkbox" name="attr_show_xmlimport" value="1"/>
+            <div class="sheet-importfield">
                 <button type="action" value="" name="act_xmlimportbutton">Importieren</button>
                 <select name="attr_xmlimportername">
                   <option value="heldensoftware" selected="selected">HeldenSoftware</option>
@@ -15199,12 +15199,10 @@ ID      0           1          2         3         4
 * HIDE again whenever the UI switches ?
 */
 
-  on("change:xmlsecuritycheck", async (_values)=>{
+  on("change:xmlToggle_check", async (_values)=>{
       //
-      console.log("check fired");
-      var names_ = await getAttrsAsync(["Name", "xmlsecuritycheck"]);
-      console.log(names_);
-      setAttrs({xmlsecuritychecktoggle : +(!(names_.Name === names_.xmlsecuritycheck))});
+      var names_ = await getAttrsAsync(["Name", "xmlToggle_check"]);
+      setAttrs({show_xmlimport : +(!(names_.Name == names_.xmlToggle_check))});
   });
 
 /*
