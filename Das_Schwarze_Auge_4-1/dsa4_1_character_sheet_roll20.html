@@ -14844,17 +14844,22 @@ ID      0           1          2         3         4
     return string_;
   }
 
-    async function CleanUpAsync(array_){
+    function CleanUpAsync(array_){
         var acid=getActiveCharacterId(); //save the current activeCharacterID in case it has changed when the promise runs
         var prevAcid=null;               //local variable defined here, because it needs to be shared across the promise callbacks defined below
         return new Promise((resolve,reject)=>{
             prevAcid=setActiveCharacterId(acid);  //in case the activeCharacterId has changed, restore it to what we were expecting and save the current value to restore later
             try{
-                for(entry in array_){
-                    listOfIDs = await getSectionIDsAsync("repeating_" + entry);
-                    for(id_ in listOfIDs){
-                        removeRepeatingRow("repeating_" + entry + id_);
-                    }
+                // Populate array 
+                let compiledList = [];
+                for(id_ in array_){
+                    let prefix = array_[id_];
+                    getSectionIDs("repeating_" + prefix, (values_)=> {
+                        for(id_ in values_){
+                            removeRepeatingRow("repeating_" + prefix + "_"+ values_[id_]);
+                        }
+                        //resolve(true);
+                    });
                 }
             }
             catch{ reject(); }
@@ -14871,7 +14876,7 @@ ID      0           1          2         3         4
   async function ImporterHeldenSoftware(xmlString) {
     // List has to be worked and cleaned too! To-DO
     const listOfAllCombatSF = ["aufmerksamkeit", "ausfall", "ausweichenI", "ausweichenII", "ausweicheniII", "befreiungsschlag", "beidhandigerkampfI", "beidhandigerkampfII", "binden", "betaubungsschlag", "blindkampf", "defensiverkampfstil", "doppelangriff", "entwaffnen", "festnageln", "finte", "formation", "gegenhalten", "gezielterstich", "halbschwert", "hammerschlag", "improvisiertewaffen", "kampfimwasser", "kampfgespur", "kampfreflexe", "klingensturm", "klingentanzer", "klingenwand", "linkhand", "meisterlichesentwaffnen", "meisterparade", "niederwerfen", "parierwaffenI", "parierwaffenII", "rustungsgewohnungI", "rustungsgewohnungII", "rustungsgewohnungIII", "schildkampfI", "schildkampfII", "schildspalter", "schnellziehen", "spiessgespann", "sturmangriff", "todvonlinks", "todesstoss", "umreissen", "unterwasserkampf", "waffezerbrechen", "waffenmeister", "windmuehle", "wuchtschlag", "berittenerschutze", "eisenhagel", "meisterschutze_armbrust", "meisterschutze_blasrohr", "meisterschutze_bogen", "meisterschutze_schleuder", "meisterschutze_wurfbeile", "meisterschutze_wurfmesser", "meisterschutze_wurfspeere", "scharfschutze_armbrust", "scharfschutze_blasrohr", "scharfschutze_bogen", "scharfschutze_schleuder", "scharfschutze_wurfbeile", "scharfschutze_wurfmesser", "scharfschutze_wurfspeere", "schnellladenarmbrust", "schnellladenbogen", "schnellziehen", "stil_bornlandisch", "stil_gladiatorenstil", "stil_hammerfaust", "stil_hruruzat", "stil_mercenario", "stil_unauerschule", "auspendeln", "beinarbeit", "biss", "block", "doppelschlag", "eisenarm", "fussfeger", "gerade", "griff", "halten", "handkante", "hohertritt", "klammer", "knaufschlag", "knie", "kopfstoss", "kreuzblock", "niederringen", "schmetterschlag", "schmutzigetricks", "schwanzfeger", "schwanzschlag", "schwinger", "schwitzkasten", "sprung", "sprungtritt", "tritt", "versteckteklinge", "wurgegriff", "wurf"];
-    const cleanupPrefix = ["Vorteile", "Nachteile", "Metatalente201904", "gaben"]; //Nah und Fernkampf sobald umgerüstet
+    const cleanupPrefix = ["Vorteile", "Nachteile", "Metatalente201904", "gaben", "Sonderfertigkeiten"]; //Nah und Fernkampf sobald umgerüstet
     const listVT = ["Gebildet", "Adlig"];
     const listNT = ["Aberglaube", "Albino", "Angst vor", "Animalische Magie", "Arkanophobie", "Arroganz", "Artefaktgebunden", "Astraler Block", "Autoritätsgläubig", "Behäbig", "Blutdurst", "Blutrausch", "Brünstigkeit", "Dunkelangst", "Einarmig", "Einäugig", "Einbeinig", "Einbildungen", "Eingeschränkte Elementarnähe", "Eingeschränkter Sinn", "Einhändig", "Eitelkeit", "Elfische Weltsicht", "Farbenblind", "Feind", "Feste Gewohnheit", "Festgefügtes Denken", "Fettleibig", "Fluch der Finsternis", "Geiz", "Gerechtigkeitswahn", "Gesucht", "Glasknochen", "Goldgier", "Größenwahn", "Heimwehkrank", "Hitzeempfindlichkeit", "Höhenangst", "Impulsiv", "Jähzorn", "Kälteempfindlichkeit", "Kältestarre", "Kein Vertrauter", "Kleinwüchsig", "Körpergebundene Kraft", "Krankhafte Reinlichkeit", "Krankheitsanfällig", "Kristallgebunden", "Kurzatmig", "Lahm", "Lästige Mindergeister", "Lichtempfindlich", "Lichtscheu", "Loyalität", "Madas Fluch", "Medium", "Meeresangst", "Miserable Eigenschaft", "Mondsüchtig", "Moralkodex", "Nachtblind", "Nahrungsrestriktion", "Neid", "Neugier", "Niedrige Astralkraft", "Niedrige Lebenskraft", "Niedrige Magieresistenz", "Pechmagnet", "Platzangst", "Prinzipientreue", "Rachsucht", "Randgruppe", "Raubtiergeruch", "Raumangst", "Rückschlag", "Schlafstörungen", "Schlafwandler", "Schlechte Eigenschaft", "Schlechte Regeneration", "Schlechter Ruf", "Schneller Alternd", "Schulden", "Schwache Ausstrahlung", "Schwacher Astralkörper", "Schwanzlos", "Seffer Manich", "Selbstgespräche", "Sensibler Geruchssinn", "Sippenlosigkeit", "Sonnensucht", "Speisegebote", "Spielsucht", "Sprachfehler", "Spruchhemmung", "Stigma", "Streitsucht", "Stubenhocker", "Sucht", "Thesisgebunden", "Tollpatsch", "Totenangst", "Übler Geruch", "Unangenehme Stimme", "Unansehnlich", "Unfähigkeit für", "Unfrei", "Ungebildet", "Unstet", "Unverträglichkeit mit verarbeitetem Metall", "Vergesslichkeit", "Verpflichtungen", "Verschwendungssucht", "Verwöhnt", "Vorurteile", "Wahnvorstellungen", "Wahrer Name", "Weltfremd", "Widerwärtiges Aussehen", "Wilde Magie", "Zielschwierigkeiten", "Zögerlicher Zauberer", "Zwergenwuchs"];
     // Currently missing several Attr. -> create complete List ??
