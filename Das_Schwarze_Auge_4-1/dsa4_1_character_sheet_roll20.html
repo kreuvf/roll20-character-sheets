@@ -14825,21 +14825,24 @@ ID      0           1          2         3         4
   /*
   * Parse XML from Inputbox upton button click
   */
-  function HeldenSoftStringCleaning(string_, magicVariant_) {
+  function HeldenSoftStringCleaning(string_, truncate_) {
     // Strip ÄÖÜ
     string_ = string_.replace("\ä","a");
     string_ = string_.replace("\ö","o");
     string_ = string_.replace("\ü","u");
+    //no ?
+    string_ = string_.replace("ß","ss");
     // Strip space
-    if (magicVariant_){
-        string_ = string_.split(" ")[0]; //Only use the first part of the word
+    if (truncate_){
+        string_ = string_.split(" ")[0];
+        string_ = string_.split("/")[0]; //Only use the first part of the word
     }else{
         string_ = string_.replace(" ",'');
     }
     // Strip \
     string_ = string_.replace("\\",'');
     // Strip /
-    string_ = string_.replace("\/",'');
+    string_ = string_.replace("/",'');
     string_ = string_.replace("-",'');
     return string_;
   }
@@ -14876,9 +14879,9 @@ ID      0           1          2         3         4
   async function ImporterHeldenSoftware(xmlString) {
     // List has to be worked and cleaned too! To-DO
     const listOfAllCombatSF = ["aufmerksamkeit", "ausfall", "ausweichenI", "ausweichenII", "ausweicheniII", "befreiungsschlag", "beidhandigerkampfI", "beidhandigerkampfII", "binden", "betaubungsschlag", "blindkampf", "defensiverkampfstil", "doppelangriff", "entwaffnen", "festnageln", "finte", "formation", "gegenhalten", "gezielterstich", "halbschwert", "hammerschlag", "improvisiertewaffen", "kampfimwasser", "kampfgespur", "kampfreflexe", "klingensturm", "klingentanzer", "klingenwand", "linkhand", "meisterlichesentwaffnen", "meisterparade", "niederwerfen", "parierwaffenI", "parierwaffenII", "rustungsgewohnungI", "rustungsgewohnungII", "rustungsgewohnungIII", "schildkampfI", "schildkampfII", "schildspalter", "schnellziehen", "spiessgespann", "sturmangriff", "todvonlinks", "todesstoss", "umreissen", "unterwasserkampf", "waffezerbrechen", "waffenmeister", "windmuehle", "wuchtschlag", "berittenerschutze", "eisenhagel", "meisterschutze_armbrust", "meisterschutze_blasrohr", "meisterschutze_bogen", "meisterschutze_schleuder", "meisterschutze_wurfbeile", "meisterschutze_wurfmesser", "meisterschutze_wurfspeere", "scharfschutze_armbrust", "scharfschutze_blasrohr", "scharfschutze_bogen", "scharfschutze_schleuder", "scharfschutze_wurfbeile", "scharfschutze_wurfmesser", "scharfschutze_wurfspeere", "schnellladenarmbrust", "schnellladenbogen", "schnellziehen", "stil_bornlandisch", "stil_gladiatorenstil", "stil_hammerfaust", "stil_hruruzat", "stil_mercenario", "stil_unauerschule", "auspendeln", "beinarbeit", "biss", "block", "doppelschlag", "eisenarm", "fussfeger", "gerade", "griff", "halten", "handkante", "hohertritt", "klammer", "knaufschlag", "knie", "kopfstoss", "kreuzblock", "niederringen", "schmetterschlag", "schmutzigetricks", "schwanzfeger", "schwanzschlag", "schwinger", "schwitzkasten", "sprung", "sprungtritt", "tritt", "versteckteklinge", "wurgegriff", "wurf"];
-    const cleanupPrefix = ["Vorteile", "Nachteile", "Metatalente201904", "gaben", "Sonderfertigkeiten"]; //Nah und Fernkampf sobald umgerüstet
+    const cleanupPrefix = ["Vorteile", "Nachteile", "Metatalente201904", "Gaben", "Sonderfertigkeiten", "Liturgien"]; //Nah und Fernkampf sobald umgerüstet
     const listVT = ["Gebildet", "Adlig"];
-    const listNT = ["Aberglaube", "Albino", "Angst vor", "Animalische Magie", "Arkanophobie", "Arroganz", "Artefaktgebunden", "Astraler Block", "Autoritätsgläubig", "Behäbig", "Blutdurst", "Blutrausch", "Brünstigkeit", "Dunkelangst", "Einarmig", "Einäugig", "Einbeinig", "Einbildungen", "Eingeschränkte Elementarnähe", "Eingeschränkter Sinn", "Einhändig", "Eitelkeit", "Elfische Weltsicht", "Farbenblind", "Feind", "Feste Gewohnheit", "Festgefügtes Denken", "Fettleibig", "Fluch der Finsternis", "Geiz", "Gerechtigkeitswahn", "Gesucht", "Glasknochen", "Goldgier", "Größenwahn", "Heimwehkrank", "Hitzeempfindlichkeit", "Höhenangst", "Impulsiv", "Jähzorn", "Kälteempfindlichkeit", "Kältestarre", "Kein Vertrauter", "Kleinwüchsig", "Körpergebundene Kraft", "Krankhafte Reinlichkeit", "Krankheitsanfällig", "Kristallgebunden", "Kurzatmig", "Lahm", "Lästige Mindergeister", "Lichtempfindlich", "Lichtscheu", "Loyalität", "Madas Fluch", "Medium", "Meeresangst", "Miserable Eigenschaft", "Mondsüchtig", "Moralkodex", "Nachtblind", "Nahrungsrestriktion", "Neid", "Neugier", "Niedrige Astralkraft", "Niedrige Lebenskraft", "Niedrige Magieresistenz", "Pechmagnet", "Platzangst", "Prinzipientreue", "Rachsucht", "Randgruppe", "Raubtiergeruch", "Raumangst", "Rückschlag", "Schlafstörungen", "Schlafwandler", "Schlechte Eigenschaft", "Schlechte Regeneration", "Schlechter Ruf", "Schneller Alternd", "Schulden", "Schwache Ausstrahlung", "Schwacher Astralkörper", "Schwanzlos", "Seffer Manich", "Selbstgespräche", "Sensibler Geruchssinn", "Sippenlosigkeit", "Sonnensucht", "Speisegebote", "Spielsucht", "Sprachfehler", "Spruchhemmung", "Stigma", "Streitsucht", "Stubenhocker", "Sucht", "Thesisgebunden", "Tollpatsch", "Totenangst", "Übler Geruch", "Unangenehme Stimme", "Unansehnlich", "Unfähigkeit für", "Unfrei", "Ungebildet", "Unstet", "Unverträglichkeit mit verarbeitetem Metall", "Vergesslichkeit", "Verpflichtungen", "Verschwendungssucht", "Verwöhnt", "Vorurteile", "Wahnvorstellungen", "Wahrer Name", "Weltfremd", "Widerwärtiges Aussehen", "Wilde Magie", "Zielschwierigkeiten", "Zögerlicher Zauberer", "Zwergenwuchs"];
+    const listNT = ["Aberglaube", "Albino", "Angst vor", "Animalische Magie", "Arkanophobie", "Arroganz", "Artefaktgebunden", "Astraler Block", "Autoritätsgläubig", "Behäbig", "Blutdurst", "Blutrausch", "Brünstigkeit", "Dunkelangst", "Einarmig", "Einäugig", "Einbeinig", "Einbildungen", "Eingeschränkte Elementarnähe", "Eingeschränkter Sinn", "Einhändig", "Eitelkeit", "Elfische Weltsicht", "Farbenblind", "Feind", "Feste Gewohnheit", "Festgefügtes Denken", "Fettleibig", "Fluch der Finsternis", "Geiz", "Gerechtigkeitswahn", "Gesucht", "Glasknochen", "Goldgier", "Größenwahn", "Heimwehkrank", "Hitzeempfindlichkeit", "Höhenangst", "Impulsiv", "Jähzorn", "Kälteempfindlichkeit", "Kältestarre", "Kein Vertrauter", "Kleinwüchsig", "Körpergebundene Kraft", "Krankhafte Reinlichkeit", "Krankheitsanfällig", "Kristallgebunden", "Kurzatmig", "Lahm", "Lästige Mindergeister", "Lichtempfindlich", "Lichtscheu", "Loyalität", "Madas Fluch", "Medium", "Meeresangst", "Miserable Eigenschaft", "Mondsüchtig", "Moralkodex", "Nachtblind", "Nahrungsrestriktion", "Neid", "Neugier", "Niedrige Astralkraft", "Niedrige Lebenskraft", "Niedrige Magieresistenz", "Pechmagnet", "Platzangst", "Prinzipientreue", "Rachsucht", "Randgruppe", "Raubtiergeruch", "Raumangst", "Rückschlag", "Schlafstörungen", "Schlafwandler", "Schlechte Eigenschaft", "Schlechte Regeneration", "Schlechter Ruf", "Schneller Alternd", "Schulden", "Schwache Ausstrahlung", "Schwacher Astralkörper", "Schwanzlos", "Seffer Manich", "Selbstgespräche", "Sensibler Geruchssinn", "Sippenlosigkeit", "Sonnensucht", "Speisegebote", "Spielsucht", "Sprachfehler", "Spruchhemmung", "Stigma", "Streitsucht", "Stubenhocker", "Sucht", "Thesisgebunden", "Tollpatsch", "Totenangst", "Übler Geruch", "Unangenehme Stimme", "Unansehnlich", "Unfähigkeit für", "Unfrei", "Ungebildet", "Unstet", "Unverträglichkeit mit verarbeitetem Metall", "Vergesslichkeit", "Verpflichtungen", "Verschwendungssucht", "Verwöhnt", "Vorurteile", "Wahnvorstellungen", "Wahrer Name", "Weltfremd bzgl.", "Widerwärtiges Aussehen", "Wilde Magie", "Zielschwierigkeiten", "Zögerlicher Zauberer", "Zwergenwuchs"];
     // Currently missing several Attr. -> create complete List ??
     var cleanup = CleanUpAsync(cleanupPrefix);
 
@@ -14896,7 +14899,9 @@ ID      0           1          2         3         4
     // Kultur
     DataField["Kultur"] = ParsedXML.helden.held.basis.kultur["@string"];
     // Stand
-    DataField["Rasse"] = ParsedXML.helden.held.basis.rasse.aussehen["@stand"];
+    DataField["Stand"] = ParsedXML.helden.held.basis.rasse.aussehen["@stand"];
+    //alter
+    DataField["Alter"] = ParsedXML.helden.held.basis.rasse.aussehen["@alter"];
     // Sozialstatus
     DataField["Sozialstatus"] = ParsedXML.helden.held.eigenschaften.eigenschaft[8]["@value"];
     // Titel
@@ -14904,15 +14909,15 @@ ID      0           1          2         3         4
     // Geschlecht
     DataField["Geschlecht"] = ParsedXML.helden.held.basis.geschlecht["@name"];
     // GröÃŸte
-    DataField["Grosse"] = ParsedXML.helden.held.basis.rasse.groesse["@value"];
+    DataField["Groesse"] = ParsedXML.helden.held.basis.rasse.groesse["@value"];
     // Gewicht
     DataField["Gewicht"] = ParsedXML.helden.held.basis.rasse.groesse["@gewicht"];
     // Haarfarbe
-    DataField["Haarfarbe"] = ParsedXML.helden.held.basis.rasse.aussehen["@haarfarbe"];
+    DataField["Haare"] = ParsedXML.helden.held.basis.rasse.aussehen["@haarfarbe"];
     // Augenfarbe
-    DataField["Augenfarbe"] = ParsedXML.helden.held.basis.rasse.aussehen["@augenfarbe"];
+    DataField["Augen"] = ParsedXML.helden.held.basis.rasse.aussehen["@augenfarbe"];
     // Profession !!
-    DataField["Augenfarbe"] = ParsedXML.helden.held.basis.ausbildungen.ausbildung["@string"];
+    DataField["Profession"] = ParsedXML.helden.held.basis.ausbildungen.ausbildung["@string"];
     // MU
     DataField["MU_Basis"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[0]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[0]["@value"]);
     // KL
@@ -14948,17 +14953,26 @@ ID      0           1          2         3         4
         // Trennung Magische / Normale Vorteile? (attr_Magie-VT)(attr_Magie-NT)
         let entry = ParsedXML.helden.held.vt.vorteil[j];
         let rowID_ = generateRowID();
-        let parsedVt = entry["@name"];
+        let name_ = entry["@name"];
         let value = entry["@value"];
-        let isAdvantage = !(parsedVt in listNT);
+        let isListedNt = listNT.includes(name_);
+        // Sonderfälle
+        switch (true) {
+            case (name_.indexOf("Weltfremd") !=-1):
+                value = entry.auswahl[0]["@value"];
+                name_ += " " + entry.auswahl[1]["@value"];
+                break;
+            default:
+                break;
+        }
         // Wenn der Name in der Liste der VORteile auftaucht, als Vorteil eintragen, alles andere ist ein Nachteil.
-        let repeatingStringBuilder =  isAdvantage ? cleanupPrefix[0] + "_" : cleanupPrefix[1] + "_";
-        let suffixName = isAdvantage ? "_Vorteil" : "__Nachteil";
-        let suffixValue = isAdvantage ? "_Vorteilswert" : "_Nachteilwert";
-        DataField["repeating_" + repeatingStringBuilder + rowID_ + suffixName] = parsedVt;
+        let repeatingStringBuilder =  isListedNt ? "Nachteile_" : "Vorteile_";
+        let suffixName = isListedNt ? "__Nachteil" : "_Vorteil";
+        let suffixValue = isListedNt ? "_Nachteilwert" : "_Vorteilswert";
+        DataField["repeating_" + repeatingStringBuilder + rowID_ + suffixName] = name_;
         // Nur wenn der Vor- Nachteil mit einem Wert versehen ist, sollte dieser geschrieben werden
         if (value) {
-            DataField[repeatingStringBuilder + rowID_  + suffixValue] = value;
+            DataField["repeating_" + repeatingStringBuilder + rowID_  + suffixValue] = value;
         }
     }
     // Sonderfertigkeiten
@@ -14977,7 +14991,7 @@ ID      0           1          2         3         4
       let name_ = entry["@name"];
       let tmpString = "";
       // Probably enhance the search with some regex or smth
-      let indexCombatSf = listOfAllCombatSF.findIndex((element) => element === name_);
+      let indexCombatSf = listOfAllCombatSF.indexOf(HeldenSoftStringCleaning(name_.toLowerCase(),true));
       switch (true) {
           case (indexCombatSf !== -1):
             // Sonderfälle für SF die im Kampf-Tab aktiviert werden (To-DO Rüstung)
@@ -14986,20 +15000,23 @@ ID      0           1          2         3         4
                 // For EACH possible Entry !
                 if (typeof(entry.talent) == "object") {
                   name_ += " " + entry.talent["@name"];
-                  DataField["sf_" + listOfAllCombatSF[indexCombatSf] + "_" + String.prototype.toLowerCase(name_)] = "1";
+                  DataField["sf_" + listOfAllCombatSF[indexCombatSf] + "_" + name_.toLowerCase()] = "on";
                 } else {
                     entry.auswahl.forEach((child_) => {
                           name = name_ + " ; " + child_["@name"];
-                          DataField["sf_" + listOfAllCombatSF[indexCombatSf] + "_" + String.prototype.toLowerCase(child_["@name"])] = "1";
+                          DataField["sf_" + listOfAllCombatSF[indexCombatSf] + "_" + child_["@name"].toLowerCase()] = "on";
                         });
                 }
                 break;
                 default:
-                    DataField["sf_" + listOfAllCombatSF[indexCombatSf]] = "1";
+                    DataField["sf_" + listOfAllCombatSF[indexCombatSf]] = "on";
                     break;
             }
-            // break; // Follow throug to write it to the sf list too
-        case (name_.indexOf("Liturgie") !== -1):
+            //
+            prefix = "repeating_Sonderfertigkeiten_";
+            suffixName = "__Sonderfertigkeiten";
+            break; // Follow throug to write it to the sf list too
+        case (name_.includes("Liturgie")):
             prefix = "repeating_Liturgien_";
             suffixName = "_LiturgieName";
             suffixValue = "";
@@ -15023,9 +15040,9 @@ ID      0           1          2         3         4
             prefix = "repeating_Vorteile_";
             // Typ kann objekt ODER array sein <.<
             if (typeof(entry.kultur) == "object") {
-              data_ = data_ + entry.kultur["@name"];
+              name_ += " " + entry.kultur["@name"];
             } else {
-              entry.kultur.forEach((child_) => {data_ + " ; " + child_["@name"]});
+              entry.kultur.forEach((child_) => {name_ + " ; " + child_["@name"]});
             }
             break;
         default:
@@ -15048,7 +15065,7 @@ ID      0           1          2         3         4
       let name_ = talent_["@name"];
       let value_ = talent_["@value"];
       // Cleanup Name
-      name_ = HeldenSoftStringCleaning(name_, false);
+      name_ = HeldenSoftStringCleaning(name_, true);
       // If Lesen change pref
       if (name_.indexOf("Lesen") !== -1 || name_.indexOf("Schreiben") !== -1) {
         prefix += "schrift_";
@@ -15062,7 +15079,7 @@ ID      0           1          2         3         4
       DataField[prefix + name_] = value_;
       // Aktivierbar -> Pauschal aktivieren, datenmüll wird inkauf genommen?!
       // attr_talent_schrift_
-      DataField[prefixCheckbox + String.prototype.toLowerCase(name_)] = "0";
+      DataField[prefixCheckbox + name_.toLowerCase()] = "1";
 
     }
 
@@ -15085,7 +15102,7 @@ ID      0           1          2         3         4
       const prefix = "";
       let kampftalent_ = ParsedXML.helden.held.kampf.kampfwerte[o];
       let talentName = kampftalent_["@name"];
-      taletName = HeldenSoftStringCleaning(talentName, false);
+      talentName = HeldenSoftStringCleaning(talentName, true);
       let atValue = kampftalent_.attacke["@value"];
       let paValue = kampftalent_.parade["@value"];
       DataField[prefix + "AT_" + talentName] = atValue;
@@ -15206,7 +15223,7 @@ ID      0           1          2         3         4
 * HIDE again whenever the UI switches ?
 */
 
-  on("change:xmlToggle_check change:Name", async (_values)=>{
+  on("change:xmlToggle_check", async (_values)=>{
       //
       var names_ = await getAttrsAsync(["Name", "xmlToggle_check"]);
       setAttrs({show_xmlimport : +(!(names_.Name == names_.xmlToggle_check))});
@@ -15246,13 +15263,6 @@ ID      0           1          2         3         4
             return;
         }
         
-        for(entry_ in mappedData){
-            // remove anything with no value / nan / nil / undefined
-            if (!entry_) {
-                delete entry_;
-            }
-        }
-
         // write
         safeSetAttrs(mappedData);
         ImportLog("ImportEvent", "Import complete, data has been written!" );
