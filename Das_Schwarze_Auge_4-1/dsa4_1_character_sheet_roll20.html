@@ -15020,7 +15020,7 @@ ID      0           1          2         3         4
             prefix = "repeating_Sonderfertigkeiten_";
             suffixName = "__Sonderfertigkeiten";
             break; // Follow throug to write it to the sf list too
-        case (name_.includes("Liturgie")):
+        case ( (name_.includes("Liturgie")) && !(name_.includes("Liturgiekenntnis")) ):
             prefix = "repeating_Liturgien_";
             suffixName = "_LiturgieName";
             suffixValue = "";
@@ -15095,7 +15095,12 @@ ID      0           1          2         3         4
                 prefix = "repeating_Spell-Sonderfertigkeiten_" + id_;
                 prefixCheckbox = false;
                 break;
-                
+            case (name_.indexOf("Liturgiekenntnis ") !== -1):
+                DataField["Kirche"] = name_.replace("Liturgiekenntnis (",'').replace(')','');
+                prefix = "Liturgie";
+                name_ = "kenntnis";
+                prefixCheckbox = "";
+                break;
             default:
                 // Cleanup Name
                 name_ = HeldenSoftStringCleaning(name_, true);
