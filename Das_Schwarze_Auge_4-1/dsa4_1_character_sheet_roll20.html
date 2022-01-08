@@ -14826,6 +14826,8 @@ ID      0           1          2         3         4
   * Parse XML from Inputbox upton button click
   */
   function HeldenSoftStringCleaning(string_, truncate_) {
+    //
+    string_ = string_.replace(" und ","");
     // Strip ÄÖÜ
     string_ = string_.replace("\ä","a");
     string_ = string_.replace("\ö","o");
@@ -14946,6 +14948,8 @@ ID      0           1          2         3         4
     DataField["MRZugeK"] = parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[13]["@mod"]) + parseInt(ParsedXML.helden.held.eigenschaften.eigenschaft[13]["@value"]);
     // AP(Gesamt)
     DataField["AP_gesamt"] = ParsedXML.helden.held.basis.abenteuerpunkte["@value"];
+    //attr_AP_ausgegeben
+    DataField["AP_ausgegeben"] = parseInt(ParsedXML.helden.held.basis.abenteuerpunkte["@value"]) - parseInt(ParsedXML.helden.held.basis.freieabenteuerpunkte["@value"]);
     
     // Vorteile / Nachteile
     for(let j=0;j < ParsedXML.helden.held.vt.vorteil.length;j++){
@@ -15059,23 +15063,25 @@ ID      0           1          2         3         4
     }
     // Talente
     for(let z=0; z < ParsedXML.helden.held.talentliste.talent.length; z++){
-      const prefixCheckbox = "talent_";
+      let prefixCheckbox = "talent_";
       var prefix = "TaW_";
       let talent_ = ParsedXML.helden.held.talentliste.talent[z];
       let name_ = talent_["@name"];
       let value_ = talent_["@value"];
-      // Cleanup Name
-      name_ = HeldenSoftStringCleaning(name_, true);
       // If Lesen change pref
       if (name_.indexOf("Lesen") !== -1 || name_.indexOf("Schreiben") !== -1) {
         prefix += "schrift_";
-        name_ = name_.replace("Lesen",'');
-        name_ = name_.replace("Schreiben",'');
+        prefixCheckbox += "schrift_";
+        name_ = name_.replace("Lesen/Schreiben ",'');
+        name_ = HeldenSoftStringCleaning(name_, false);
       }
       if (name_.indexOf("Sprache") !== -1) {
-        name_ = name_.replace("Sprachenkennen ", "");
+        name_ = name_.replace("Sprachen kennen ", "");
         //attr_TaW_bosparano
       }
+      // Cleanup Name
+      name_ = HeldenSoftStringCleaning(name_, true);
+      
       DataField[prefix + name_] = value_;
       // Aktivierbar -> Pauschal aktivieren, datenmüll wird inkauf genommen?!
       // attr_talent_schrift_
