@@ -15120,6 +15120,12 @@ ID      0           1          2         3         4
 
     if (ParsedXML.helden.held.zauberliste){
         //  // Magie
+        // If only only one entry force to conform to array style.
+        if (ParsedXML.helden.held.zauberliste.zauber.constructor === Object) {
+            let tmp = ParsedXML.helden.held.zauberliste.zauber;
+            ParsedXML.helden.held.zauberliste.zauber = [];
+            ParsedXML.helden.held.zauberliste.zauber[0] = tmp;
+        }
         for(let u=0; u < ParsedXML.helden.held.zauberliste.zauber.length; u++){
           const prefix = "ZfW_";
           const prefixCheckbox = "zauber_";
