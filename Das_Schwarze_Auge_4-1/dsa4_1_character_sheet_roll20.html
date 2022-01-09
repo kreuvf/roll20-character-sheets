@@ -15038,21 +15038,23 @@ ID      0           1          2         3         4
             prefix = "repeating_MagieSK_";
             break;
         case ( (name_.includes("Ortskenntnis"))):
-            prefix = "repeating_Vorteile_";
+            prefix = "repeating_Sonderfertigkeiten_";
+            suffixName = "__Sonderfertigkeiten";
             // Typ kann objekt ODER array sein <.<
-            if (typeof(entry.auswahl) == "object") {
-              name_ += " " + entry.auswahl["@name"];
+            if (entry.auswahl.constructor === Array) {
+                entry.auswahl.forEach((child_) => {name_ += " ; " + child_["@name"]});
             } else {
-              entry.auswahl.forEach((child_) => {name_ + " ; " + child_["@name"]});
+                name_ += " " + entry.auswahl["@name"];
             }
         break;
         case ( (name_.includes("Kulturkunde"))  ):
-            prefix = "repeating_Vorteile_";
+            prefix = "repeating_Sonderfertigkeiten_";
+            suffixName = "__Sonderfertigkeiten";
             // Typ kann objekt ODER array sein <.<
-            if (typeof(entry.kultur) == "object") {
-              name_ += " " + entry.kultur["@name"];
+            if (entry.kultur.constructor === Array) {
+                entry.kultur.forEach((child_) => {name_ += " ; " + child_["@name"]});
             } else {
-              entry.kultur.forEach((child_) => {name_ + " ; " + child_["@name"]});
+                name_ += " " + entry.kultur["@name"];
             }
             break;
         default:
