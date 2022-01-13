@@ -15088,6 +15088,15 @@ ID      0           1          2         3         4
             //    break;
             // ODRsON
             case ( listOfAllMagicSF.toString().indexOf(name_.split(" ")[0].split(":")[0]) !== -1 ):
+                
+                if (name_.includes("Merkmalskenntnis")) {
+                    let merkamValue = "";
+                    if (DataField["Magiemerkmale"]) {
+                        merkamValue = DataField["Magiemerkmale"];
+                    }
+                    merkamValue += name_.replace("Merkmalskenntnis: "," / ")
+                    DataField["Magiemerkmale"] = merkamValue;
+                }
                 prefix = "repeating_Magie-Sonderfertigkeiten_";
                 suffixName = "_MagieSK";
                 break;
