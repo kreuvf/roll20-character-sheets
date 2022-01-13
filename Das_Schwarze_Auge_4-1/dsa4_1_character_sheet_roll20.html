@@ -15089,13 +15089,21 @@ ID      0           1          2         3         4
             // ODRsON
             case ( listOfAllMagicSF.toString().indexOf(name_.split(" ")[0].split(":")[0]) !== -1 ):
                 
-                if (name_.includes("Merkmalskenntnis")) {
-                    let merkamValue = "";
-                    if (DataField["Magiemerkmale"]) {
-                        merkamValue = DataField["Magiemerkmale"];
-                    }
-                    merkamValue += name_.replace("Merkmalskenntnis: "," / ")
-                    DataField["Magiemerkmale"] = merkamValue;
+                switch (true){
+                    
+                    case (name_.includes("Merkmalskenntnis")):
+                        let merkamValue = "";
+                        if (DataField["Magiemerkmale"]) {
+                            merkamValue = DataField["Magiemerkmale"];
+                        }
+                        merkamValue += name_.replace("Merkmalskenntnis: "," / ");
+                        DataField["Magiemerkmale"] = merkamValue;
+                        break;
+                    case (name_.includes("Ritualkenntnis")):
+                        let id = generateRowID();
+                        DataField["repeating_Metatalente201904_" + id + "_TaW"] = ParsedXML.helden.held.talentliste.talent.find(value => value["@name"] == name_)["@value"];
+                        DataField["repeating_Metatalente201904_" + id + "_Name_Metatalent_Eigen"] = name_;
+                        break;
                 }
                 prefix = "repeating_Magie-Sonderfertigkeiten_";
                 suffixName = "_MagieSK";
