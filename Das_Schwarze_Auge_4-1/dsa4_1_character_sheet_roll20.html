@@ -14955,120 +14955,166 @@ ID      0           1          2         3         4
     DataField["AP_ausgegeben"] = parseInt(ParsedXML.helden.held.basis.abenteuerpunkte["@value"]) - parseInt(ParsedXML.helden.held.basis.freieabenteuerpunkte["@value"]);
     
     // Vorteile / Nachteile
-    for(let j=0;j < ParsedXML.helden.held.vt.vorteil.length;j++){
-        // Liste Aller Vorteile/Nachteile anhand derer einsortiert wird.(HeldenSoft unterscheidet in der XML nicht)
-        // Trennung Magische / Normale Vorteile? (attr_Magie-VT)(attr_Magie-NT)
-        let entry = ParsedXML.helden.held.vt.vorteil[j];
-        let rowID_ = generateRowID();
-        let name_ = entry["@name"];
-        let value = entry["@value"];
-        let isListedNt = listNT.includes(name_);
-        // Sonderfälle
-        switch (true) {
-            case (name_.indexOf("Weltfremd") !=-1):
-                value = entry.auswahl[0]["@value"];
-                name_ += " " + entry.auswahl[1]["@value"];
-                break;
-            default:
-                break;
+    if (ParsedXML.helden.held.vt){
+        // If only only one entry force to conform to array style.
+        if (ParsedXML.helden.held.vt.vorteil.constructor === Object) {
+            let tmp = ParsedXML.helden.held.vt.vorteil;
+            ParsedXML.helden.held.vt.vorteil = [tmp];
         }
-        // Wenn der Name in der Liste der VORteile auftaucht, als Vorteil eintragen, alles andere ist ein Nachteil.
-        let repeatingStringBuilder =  isListedNt ? "Nachteile_" : "Vorteile_";
-        let suffixName = isListedNt ? "__Nachteil" : "_Vorteil";
-        let suffixValue = isListedNt ? "_Nachteilwert" : "_Vorteilswert";
-        DataField["repeating_" + repeatingStringBuilder + rowID_ + suffixName] = name_;
-        // Nur wenn der Vor- Nachteil mit einem Wert versehen ist, sollte dieser geschrieben werden
-        if (value) {
-            DataField["repeating_" + repeatingStringBuilder + rowID_  + suffixValue] = value;
-        }
-    }
-    // Sonderfertigkeiten
-    for(let i=0;  i < ParsedXML.helden.held.sf.sonderfertigkeit.length; i++){
-
-      //"constLlistKampfSF" wurde zu "listOfAllCombatSF"
-      const constListMagieSF = []; //attr_MagieSK
-      const constListRitualSF = []; //attr_
-
-      let entry = ParsedXML.helden.held.sf.sonderfertigkeit[i];
-      let rowID_ = generateRowID();
-      let prefix = "repeating_Vorteile_";
-      let suffixName = "_Vorteil";
-      let suffixValue = "_Vorteilswert";
-      let data_ = "";
-      let name_ = entry["@name"];
-      let tmpString = "";
-      // Probably enhance the search with some regex or smth
-      let indexCombatSf = listOfAllCombatSF.indexOf(HeldenSoftStringCleaning(name_.toLowerCase(),true));
-      switch (true) {
-          case (indexCombatSf !== -1):
-            // Sonderfälle für SF die im Kampf-Tab aktiviert werden (To-DO Rüstung)
+        for(let j=0;j < ParsedXML.helden.held.vt.vorteil.length;j++){
+            // Liste Aller Vorteile/Nachteile anhand derer einsortiert wird.(HeldenSoft unterscheidet in der XML nicht)
+            // Trennung Magische / Normale Vorteile? (attr_Magie-VT)(attr_Magie-NT)
+            let entry = ParsedXML.helden.held.vt.vorteil[j];
+            let rowID_ = generateRowID();
+            let name_ = entry["@name"];
+            let value = entry["@value"];
+            let isListedNt = listNT.includes(name_);
+            // Sonderfälle
             switch (true) {
-              case (name_ in ["Scharfschütze", "Meisterschütze", "Schnellladen"]):
-                // For EACH possible Entry !
-                if (typeof(entry.talent) == "object") {
-                  name_ += " " + entry.talent["@name"];
-                  DataField["sf_" + listOfAllCombatSF[indexCombatSf] + "_" + name_.toLowerCase()] = "on";
-                } else {
-                    entry.auswahl.forEach((child_) => {
-                          name = name_ + " ; " + child_["@name"];
-                          DataField["sf_" + listOfAllCombatSF[indexCombatSf] + "_" + child_["@name"].toLowerCase()] = "on";
-                        });
-                }
-                break;
+                case (name_.indexOf("Vorurteile") !=-1):
+                case (name_.indexOf("Weltfremd") !=-1):
+                    value = entry.auswahl[0]["@value"];
+                    name_ += " " + entry.auswahl[1]["@value"];
+                    break;
                 default:
-                    DataField["sf_" + listOfAllCombatSF[indexCombatSf]] = "on";
                     break;
             }
-            //
-            prefix = "repeating_Sonderfertigkeiten_";
-            suffixName = "__Sonderfertigkeiten";
-            break; // Follow throug to write it to the sf list too
-        case ( (name_.includes("Liturgie")) && !(name_.includes("Liturgiekenntnis")) ):
-            prefix = "repeating_Liturgien_";
-            suffixName = "_LiturgieName";
-            suffixValue = "";
-            break;
-        //case (name_.includes("Zauberzeichen")):
-        //case (name_.includes("Arkanoglyphen")):
-        //case (name_.includes("Runen")):
-        //case (name_.includes("Ritualkentnis")):
-        //    prefix = "repeating_Spell-Sonderfertigkeiten_";
-        //    break;
-        case (entry["@name"] in constListMagieSF):
-            prefix = "repeating_MagieSK_";
-            break;
-        case ( (name_.includes("Ortskenntnis"))):
-            prefix = "repeating_Sonderfertigkeiten_";
-            suffixName = "__Sonderfertigkeiten";
-            // Typ kann objekt ODER array sein <.<
-            if (entry.auswahl.constructor === Array) {
-                entry.auswahl.forEach((child_) => {name_ += " ; " + child_["@name"]});
-            } else {
-                name_ += " " + entry.auswahl["@name"];
-            }
-        break;
-        case ( (name_.includes("Kulturkunde"))  ):
-            prefix = "repeating_Sonderfertigkeiten_";
-            suffixName = "__Sonderfertigkeiten";
-            // Typ kann objekt ODER array sein <.<
-            if (entry.kultur.constructor === Array) {
-                entry.kultur.forEach((child_) => {name_ += " ; " + child_["@name"]});
-            } else {
-                name_ += " " + entry.kultur["@name"];
-            }
-            break;
-        default:
-            prefix = "repeating_Sonderfertigkeiten_";
-            suffixName = "__Sonderfertigkeiten";
-            break;
-      }
-        if (suffixName){
-            DataField[prefix + rowID_ + suffixName] = name_;
-            if (suffixValue && data_){
-                DataField[prefix + rowID_ + suffixValue] = data_;
+            // Wenn der Name in der Liste der VORteile auftaucht, als Vorteil eintragen, alles andere ist ein Nachteil.
+            let repeatingStringBuilder =  isListedNt ? "Nachteile_" : "Vorteile_";
+            let suffixName = isListedNt ? "__Nachteil" : "_Vorteil";
+            let suffixValue = isListedNt ? "_Nachteilwert" : "_Vorteilswert";
+            DataField["repeating_" + repeatingStringBuilder + rowID_ + suffixName] = name_;
+            // Nur wenn der Vor- Nachteil mit einem Wert versehen ist, sollte dieser geschrieben werden
+            if (value) {
+                DataField["repeating_" + repeatingStringBuilder + rowID_  + suffixValue] = value;
             }
         }
     }
+        
+    // Sonderfertigkeiten
+    if (ParsedXML.helden.held.sf){
+        // If only only one entry force to conform to array style.
+        if (ParsedXML.helden.held.sf.sonderfertigkeit.constructor === Object) {
+            let tmp = ParsedXML.helden.held.sf.sonderfertigkeit;
+            ParsedXML.helden.held.sf.sonderfertigkeit = [tmp];
+        }
+        for(let i=0;  i < ParsedXML.helden.held.sf.sonderfertigkeit.length; i++){
+
+          //"constLlistKampfSF" wurde zu "listOfAllCombatSF"
+          const constListMagieSF = []; //attr_MagieSK
+          const constListRitualSF = []; //attr_
+
+          let entry = ParsedXML.helden.held.sf.sonderfertigkeit[i];
+          let rowID_ = generateRowID();
+          let prefix = "repeating_Vorteile_";
+          let suffixName = "_Vorteil";
+          let suffixValue = "_Vorteilswert";
+          let data_ = "";
+          let name_ = entry["@name"];
+          let tmpString = "";
+          let spezName = "";
+          let spezValue = "";
+          // Probably enhance the search with some regex or smth
+          let indexCombatSf = listOfAllCombatSF.indexOf(HeldenSoftStringCleaning(name_.toLowerCase(),true));
+          switch (true) {
+              case (name_.indexOf("Zauberspezialisierung ") !== -1):
+                  spezName = HeldenSoftStringCleaning(entry.zauber["@name"], true);
+                  spezValue = entry.spezialisierung["@name"];
+                  // 
+                  if (DataField["Spez_" + spezName]) {
+                      spezValue = DataField["Spez_" + spezName] + " / " + spezValue;
+                  }
+                  DataField["Spez_" + spezName] = spezValue;
+                  
+                  prefix = "repeating_Sonderfertigkeiten_";
+                  suffixName = "__Sonderfertigkeiten";          
+                  name_ = HeldenSoftStringCleaning(name_, true);
+                  break;
+              case (name_.indexOf("Talentspezialisierung ") !== -1):
+                  spezName = HeldenSoftStringCleaning(entry.talent["@name"], false);
+                  spezValue = entry.spezialisierung["@name"];
+                  // 
+                  if (DataField["Spez_" + spezName]) {
+                      spezValue = DataField["Spez_" + spezName] + " / " + spezValue;
+                  }
+                  DataField["Spez_" + spezName] = spezValue;
+                  
+                  prefix = "repeating_Sonderfertigkeiten_";
+                  suffixName = "__Sonderfertigkeiten";          
+                  name_ = HeldenSoftStringCleaning(name_, true);
+                  break;
+              case (indexCombatSf !== -1):
+                // Sonderfälle für SF die im Kampf-Tab aktiviert werden (To-DO Rüstung)
+                switch (true) {
+                  case (name_ in ["Scharfschütze", "Meisterschütze", "Schnellladen"]):
+                    // For EACH possible Entry !
+                    if (typeof(entry.talent) == "object") {
+                      name_ += " " + entry.talent["@name"];
+                      DataField["sf_" + listOfAllCombatSF[indexCombatSf] + "_" + name_.toLowerCase()] = "on";
+                    } else {
+                        entry.auswahl.forEach((child_) => {
+                              name = name_ + " ; " + child_["@name"];
+                              DataField["sf_" + listOfAllCombatSF[indexCombatSf] + "_" + child_["@name"].toLowerCase()] = "on";
+                        });
+                    }
+                    break;
+                    default:
+                        DataField["sf_" + listOfAllCombatSF[indexCombatSf]] = "on";
+                        break;
+                }
+                //
+                prefix = "repeating_Sonderfertigkeiten_";
+                suffixName = "__Sonderfertigkeiten";
+                break; // Follow throug to write it to the sf list too
+            case ( (name_.includes("Liturgie")) && !(name_.includes("Liturgiekenntnis")) ):
+                prefix = "repeating_Liturgien_";
+                suffixName = "_LiturgieName";
+                suffixValue = "";
+                break;
+            //case (name_.includes("Zauberzeichen")):
+            //case (name_.includes("Arkanoglyphen")):
+            //case (name_.includes("Runen")):
+            //case (name_.includes("Ritualkentnis")):
+            //    prefix = "repeating_Spell-Sonderfertigkeiten_";
+            //    break;
+            case (entry["@name"] in constListMagieSF):
+                prefix = "repeating_MagieSK_";
+                break;
+            case ( (name_.includes("Ortskenntnis"))):
+                prefix = "repeating_Sonderfertigkeiten_";
+                suffixName = "__Sonderfertigkeiten";
+                // Typ kann objekt ODER array sein <.<
+                if (entry.auswahl.constructor === Array) {
+                    entry.auswahl.forEach((child_) => {name_ += " ; " + child_["@name"]});
+                } else {
+                    name_ += " " + entry.auswahl["@name"];
+                }
+            break;
+            case ( (name_.includes("Kulturkunde"))  ):
+                prefix = "repeating_Sonderfertigkeiten_";
+                suffixName = "__Sonderfertigkeiten";
+                // Typ kann objekt ODER array sein <.<
+                if (entry.kultur.constructor === Array) {
+                    entry.kultur.forEach((child_) => {name_ += " ; " + child_["@name"]});
+                } else {
+                    name_ += " " + entry.kultur["@name"];
+                }
+                break;
+            default:
+                prefix = "repeating_Sonderfertigkeiten_";
+                suffixName = "__Sonderfertigkeiten";
+                break;
+          }
+            if (suffixName){
+                DataField[prefix + rowID_ + suffixName] = name_;
+                if (suffixValue && data_){
+                    DataField[prefix + rowID_ + suffixValue] = data_;
+                }
+            }
+        }
+        
+    }
+    
     // Talente
     for(let z=0; z < ParsedXML.helden.held.talentliste.talent.length; z++){
         let prefixCheckbox = "talent_";
