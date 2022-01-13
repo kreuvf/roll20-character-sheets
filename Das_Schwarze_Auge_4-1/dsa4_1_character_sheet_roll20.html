@@ -15000,10 +15000,6 @@ ID      0           1          2         3         4
         }
         for(let i=0;  i < ParsedXML.helden.held.sf.sonderfertigkeit.length; i++){
 
-          //"constLlistKampfSF" wurde zu "listOfAllCombatSF"
-          const constListMagieSF = []; //attr_MagieSK
-          const constListRitualSF = []; //attr_
-
           let entry = ParsedXML.helden.held.sf.sonderfertigkeit[i];
           let rowID_ = generateRowID();
           let prefix = "repeating_Vorteile_";
@@ -15077,8 +15073,10 @@ ID      0           1          2         3         4
             //case (name_.includes("Ritualkentnis")):
             //    prefix = "repeating_Spell-Sonderfertigkeiten_";
             //    break;
-            case (entry["@name"] in constListMagieSF):
-                prefix = "repeating_MagieSK_";
+            // ODRsON
+            case ( listOfAllMagicSF.toString().indexOf(name_.split(" ")[0].split(":")[0]) !== -1 ):
+                prefix = "repeating_Magie-Sonderfertigkeiten_";
+                suffixName = "_MagieSK";
                 break;
             case ( (name_.includes("Ortskenntnis"))):
                 prefix = "repeating_Sonderfertigkeiten_";
