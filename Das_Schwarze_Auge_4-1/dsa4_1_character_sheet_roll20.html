@@ -14825,54 +14825,120 @@ ID      0           1          2         3         4
   /*
   * Parse XML from Inputbox upton button click
   */
-  function HeldenSoftStringCleaning(string_, truncate_) {
-    //
-    string_ = string_.replace(" und ",'');
-    //
-    string_ = string_.replace(": ",'');
+    function HeldenSoftStringCleaning(string_, truncate_, isToggle_ = false) {
+        // 
+        let tmp = [];
+        //
+        string_ = string_.replace(" und ",'');
+        //
+        string_ = string_.replace(": ",'');
+
+        // Strip ÄÖÜ
+        string_ = string_.replace("\ä","a");
+        string_ = string_.replace("\ö","o");
+        string_ = string_.replace("\ü","u");
+        string_ = string_.replace("\Ü","U");
+        string_ = string_.replace("\Ä","A");
+        string_ = string_.replace("\Ö","O");
+        //no ?
+        string_ = string_.replace("ß","ss");
+        // Strip space
+        if (truncate_){
+            tmp = string_.split(" ");
+            string_ = (tmp) ? tmp[0] : string_;
+            string_ = string_.split("/")[0]; //Only use the first part of the word
+        }else{
+            string_ = string_.replace(" ",'');
+        }
+        // Strip \
+        string_ = string_.replace("\\",'');
+        // Strip /
+        string_ = string_.replace("/",'');
+        string_ = string_.replace("-",'');
+        
+        
+        switch (true){
+            case (string_ == "Sinnenscharfe"):
+                string_ = "Sinnesscharfe";
+                break;
+            case (string_ == "Zweihandhiebwaffen"):
+                string_ = (isToggle_) ? "zweihandhiebwaffen" : "zweihand-hiebwaffen";
+                break;
+            case (string_ == "Sich"):
+                if (tmp && tmp[1] == "verstecken"){
+                    string_ = "Sichverstecken";
+                }else{
+                    string_ = "sichverkleiden";
+                }
+                break;
+            case (string_ == "GotterKulte"):
+                string_ = "gotter";
+                break;
+            case (string_ == "Malen"):
+                string_ = "malenzeichnen";
+                break;
+            case (string_ == "Stimmen"):
+                string_ = "stimmenimmitieren";
+                break;
+            case (string_ == "Fallen"):
+                string_ = "fallenstellen";
+                break;
+            case (string_ == "Fahrzeug"):
+                string_ = "fahrzeuglenken";
+                break;
+            case (string_ == "Schriftlicher"):
+                string_ = "schriftlicherausdruck";
+                break;
+            case (string_ == "Brett"):
+                string_ = "brettspiel";
+                break;
+            case (string_ == "Boote"):
+                string_ = "bootefahren";
+                break;
+            case (string_ == "Geografie"):
+                string_ = "geographie";
+                break;
+            case (string_ == "Schlosser"):
+                string_ = "schlosserknacken";
+                break;
+            case (string_ == "Schnaps"):
+                string_ = "schnapsbrennen";
+                break;
+            case (string_ == "Stoffe"):
+                string_ = "stoffefarben";
+                break;
+            case (string_ == "Kartografie"):
+                string_ = "karthographie";
+                break;
+            case (string_ == "AltImperial"):
+                string_ = "aureliani";
+                break;
+            case (string_ == "Altes"):
+                string_ = "alteskemi";
+                break;
+            case (string_ == "Z'Lit"):
+                string_ = "zlit";
+                break;
+            case (string_ == "TrollischeRaumbilderschrift"):
+                string_ = "troll";
+                break;
+            case (string_ == "IsdiraAsdharia"):
+                string_ = "isdira";
+                break;
+            case (string_ == "(Alt)ImperialeZeichen"):
+                string_ = "imperialezeichen";
+                break;
+            case (string_ == "GimarilGlyphen"):
+                string_ = "gimaril";
+                break;
+            case (string_ == "GeheiligteGlyphen"):
+                string_ = "glyphenvonunau";
+                break;
+        }
+        
     
-    // Strip ÄÖÜ
-    string_ = string_.replace("\ä","a");
-    string_ = string_.replace("\ö","o");
-    string_ = string_.replace("\ü","u");
-    string_ = string_.replace("\Ü","U");
-    string_ = string_.replace("\Ä","A");
-    string_ = string_.replace("\Ö","O");
-    //no ?
-    string_ = string_.replace("ß","ss");
-    // Strip space
-    if (truncate_){
-        string_ = string_.split(" ")[0];
-        string_ = string_.split("/")[0]; //Only use the first part of the word
-    }else{
-        string_ = string_.replace(" ",'');
+        return string_;
     }
-    // Strip \
-    string_ = string_.replace("\\",'');
-    // Strip /
-    string_ = string_.replace("/",'');
-    string_ = string_.replace("-",'');
-    
-    switch (true){
-        case (string_ == "Sinnenscharfe"):
-            string_ = "Sinnesscharfe";
-            break;
-        case (string_ == "Zweihandhiebwaffen"):
-            string_ = "zweihand-hiebwaffen";
-            break;
-        case (string_ == "Sich"):
-            string_ = "Sichverstecken";
-            break;
-        case (string_ == "GotterKulte"):
-            string_ = "gotter";
-            break;
-        case (string_ == "Malen"):
-            string_ = "malenzeichnen";
-            break;
-    }
-    
-    return string_;
-  }
 
     function CleanUpAsync(array_){
         var acid=getActiveCharacterId(); //save the current activeCharacterID in case it has changed when the promise runs
