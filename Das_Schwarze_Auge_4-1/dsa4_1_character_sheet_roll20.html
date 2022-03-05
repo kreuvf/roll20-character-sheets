@@ -15268,7 +15268,7 @@ ID      0           1          2         3         4
             
         }
     }
-
+    
     if (ParsedXML.helden.held.zauberliste){
         //  // Magie
         // If only only one entry force to conform to array style.
@@ -15309,11 +15309,10 @@ ID      0           1          2         3         4
     var localIndex = 1;
     for(let p=0; p < ParsedXML.helden.held.ausrüstungen.heldenausruestung.length; p++){
       let entry_ = ParsedXML.helden.held.ausrüstungen.heldenausruestung[p];
-      let skipFlag = false;
       let slot_ = entry_["@name"];
       let type_ = entry_["@verwendungsArt"]; //Can be NIL
       let talent = entry_["@talent"];
-      let talentStripped = (talent) ? HeldenSoftStringCleaning(talent, false) : "";
+      let talentStripped = (talent) ? HeldenSoftStringCleaning(talent, true) : "";
       let weapon_ = entry_["@waffenname"];
       let index_ = -1;
       // Unterscheidung Nahkampf, Fernkampf und Schilde(Parier)
@@ -15323,7 +15322,7 @@ ID      0           1          2         3         4
           localIndex = indexNK;
           indexNK += 1;
           // Safety
-          if (indexNK > 4) break;
+          if (localIndex > 4) break;
           index_ = itemArray.indexOf(weapon_);
           // Wenn die Waffe im Inventar gefunden wurde
           if (index_ != -1) {
@@ -15346,15 +15345,16 @@ ID      0           1          2         3         4
             // attr_NKW1PAMod
             DataField[prefixEquipment + "NKW" + localIndex + "PAMod"] = itemArray[index_].nahkampfwaffe.wm["@at"];
           }
-          DataField[prefixEquipment + "_AT_type" + localIndex] = talent;
-          DataField[prefixEquipment + "_PA_type" + localIndex] = talent;
+          DataField[prefixEquipment + "_AT_typ" + localIndex] = "@{AT_" + talentStripped + "}";
+          DataField[prefixEquipment + "_PA_typ" + localIndex] =  "@{PA_" + talentStripped + "}";
+          DataField[prefixEquipment + "name" + localIndex] = weapon_;
           break;
         case (slot_.indexOf("fkwaffe") !== -1):
           prefixEquipment = "FKW"; //attr_FKWname1 attr_FKWtyp1
           localIndex = indexFK;
           indexFK ++;
           // Skip after 4 FK weapons (as long as the list is non repeating we have only limited slots)
-          if (indexFK > 4) return;
+          if (localIndex > 4) break;
           // Nur wenn der Gegenstand auch in Gegenstände gefunden wurde, kann man nach den mod suchen !
           index_ = itemArray.indexOf(weapon_);
           if (index_ != -1) {
@@ -15385,20 +15385,18 @@ ID      0           1          2         3         4
             // attr_FKW1_TPRW5" value="0" style="width: 3.5em;">
             DataField[prefixEquipment + "FKW" + localIndex + "_TPRW5"] = itemArray[index_].fernkampfwaffe.tpmod["@M4"];
           }
-          DataField[prefixEquipment + "typ" + localIndex] = talentStripped;
+          DataField[prefixEquipment + "typ" + localIndex] = "@{AT_" + talentStripped  + "}";
+          DataField[prefixEquipment + "name" + localIndex] = weapon_;
           break;
         case (slot_.indexOf("schild") !== -1):
           prefixEquipment = "";
+          DataField[prefixEquipment + "name" + localIndex] = weapon_;
           break;
-        default:
-          skipFlag = true;
       }
-      if (!skipFlag) {
-        DataField[prefixEquipment + "name" + localIndex] = weapon_;
-        skipFlag = false;
-      }
-    }
 
+    }
+    //await cleanup;
+    
     return DataField;
 
   }
