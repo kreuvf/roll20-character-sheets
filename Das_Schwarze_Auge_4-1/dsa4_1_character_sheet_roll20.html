@@ -1785,6 +1785,20 @@ on('clicked:test', (info) => {
 		    rolls = results.results.roll.rolls[0].results;
 		    console.log(rolls);
 		    taw = results.results.taw.result;
+/*
+Encode/Decode Unicode Strings to Base64
+
+Base64 is compatible with Roll20's strings. In order to push data from one roll to the next, conversion to and from Base64 is used.
+
+*/
+function base64EncodeUTF8(str) {
+  return btoa(encodeURIComponent(str));
+}
+
+function base64DecodeUTF8(str) {
+  return decodeURIComponent(atob(str));
+}
+
 
 			crits = { "success": 0, "failure": 0 };
 		    for (roll of rolls) {
