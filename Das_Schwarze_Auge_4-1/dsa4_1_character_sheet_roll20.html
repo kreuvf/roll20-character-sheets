@@ -250,17 +250,6 @@
 	</table>
 </rolltemplate>
 
-<rolltemplate class="sheet-rolltemplate-test">
-    <div class="sheet-template-container">
-        <div class="sheet-results">
-            <h4>{{name}} von {{characterid}}/{{charactername}} ({{taw}}): Roll {{roll}}/{{computed::roll}}</h4>
-			<div class="sheet-rolltemplate-button-outer">
-				<span class="sheet-rolltemplate-button-inner">[ZWEITA BATTEN](~{{characterid}}|reacttest||{{computed::passthrough}})</span>
-			</div>
-        </div>
-    </div>
-</rolltemplate>
-
 <rolltemplate class="sheet-rolltemplate-DSA-Talente">
 {{#rollGreater() Talent -1}}
     <table class="sheet-templates-succ-uncr">
@@ -1757,6 +1746,45 @@ ID      0           1          2         3         4
         </tr>
     </table>
 </rolltemplate>
+
+<rolltemplate class="sheet-rolltemplate-test">
+<div class="sheet-template-container">
+	<div class="sheet-results">
+		<table>
+			<tr>
+				<th>Probe auf {{name}}</th>
+			</tr>
+			<tr>
+				<td>Charakter: {{charactername}}/{{characterid}}</td>
+			</tr>
+			<tr>
+				<td>Talentwert: {{taw}}</td>
+			</tr>
+			<tr>
+				<td>Würfelergebnis: {{roll}}/{{computed::roll}}</td>
+			</tr>
+			<tr>
+		{{#rollGreater() computed::confirmationRoll 0}}
+			<tr>
+				<td>Zweiter Wurf notwendig!</td>
+			</tr>
+			<tr>
+				<td>
+					<div class="sheet-rolltemplate-button-outer">
+						<span class="sheet-rolltemplate-button-inner">[ZWEITA BATTEN](~{{characterid}}|reacttest||{{computed::passthrough}})</span>
+					</div>
+				</td>
+			</tr>
+		{{/rollGreater() computed::confirmationRoll 0}}
+		{{#rollGreater() computed::rollTime 0}}
+			<tr>
+				<td>Zwischen dieser Reaktion und dem Ursprungswurf liegt eine lange Zeit. Bitte sicherstellen, dass der richtige Reaktionsknopf benutzt wurde.</td>
+			</tr>
+		{{/rollGreater() computed::rollTime 0}}
+		</table>
+	</div>
+</div>
+</rolltemplate>
 <script type="text/worker">
 function rollEval (type = "talent", roll = 10, criticalSuccess = 1, criticalFailure = 20) {
 	var result = "uncritical";
@@ -1771,20 +1799,6 @@ function rollEval (type = "talent", roll = 10, criticalSuccess = 1, criticalFail
 	return result;
 }
 
-on('clicked:test', (info) => {
-    startRoll(
-    	"&{template:test} " +
-    	"{{name=Akrobatik}} " +
-    	"{{taw=[[@{TaW_akrobatik}]]}} " +
-    	"{{roll=[[3d20cs1cf20]]}} " +
-    	"{{characterid=@{character_id}}} " +
-    	"{{charactername=@{character_name}}} " +
-    	"{{passthrough=[[0]]}}",
-    	(results) => {
-		    console.log("test: info:", info, "results:", results);
-		    rolls = results.results.roll.rolls[0].results;
-		    console.log(rolls);
-		    taw = results.results.taw.result;
 /*
 Encode/Decode Unicode Strings to Base64
 
@@ -1799,50 +1813,91 @@ function base64DecodeUTF8(str) {
   return decodeURIComponent(atob(str));
 }
 
+on('clicked:test', (info, rollMacro = "&{template:test} " +
+	"{{name=Akrobatik}} " +
+	"{{taw=[[@{TaW_akrobatik}]]}} " +
+	"{{roll=[[3d20cs1cf20]]}} " +
+	"{{characterid=@{character_id}}} " +
+	"{{charactername=@{character_name}}} " +
+	"{{confirmationRoll=[[0]]}} " +
+	"{{passthrough=[[0]]}}") => {
+	startRoll(
+	rollMacro,
+	(results) => {
+		var confirmationRoll = 0;
+		var passthrough = {};
+		console.log("test: info:", info, "results:", results);
+		rolls = results.results.roll.rolls[0].results;
+		console.log(rolls);
+		taw = results.results.taw.result;
 
-			crits = { "success": 0, "failure": 0 };
-		    for (roll of rolls) {
-		    	if (rollEval("talent", roll, 4, 16) === "critical success") {
-		    		crits["success"] += 1;
-		    	} else if (rollEval("talent", roll, 4, 16) === "critical failure") {
-		    		crits["failure"] += 1;
-		    	}
-		    }
-		    console.log(rolls, crits);
-		    finishRoll(
-		        results.rollId,
-		        {
-		            roll: -100,
-		            passthrough: 100,
-		            originator: "Testo"
-		        }
-		    );
+		crits = { "success": 0, "failure": 0 };
+		for (roll of rolls) {
+			if (rollEval("talent", roll, 2, 19) === "critical success") {
+				crits["success"] += 1;
+			} else if (rollEval("talent", roll, 2, 19) === "critical failure") {
+				crits["failure"] += 1;
+			}
 		}
-    );
+		console.log(rolls, crits);
+		if (crits["success"] > 0 || crits["failure"] > 0) {
+			confirmationRoll = 1;
+			passthrough["confirmationRoll"] = confirmationRoll;
+			passthrough["rollTime"] = Date.now();
+			passthrough["name"] = rollMacro.replace(/^.*\{\{name=([^}]+)\}\}.*$/, '$1');
+		}
+		console.log(passthrough);
+
+		finishRoll(
+			results.rollId,
+			{
+				roll: -100,
+				confirmationRoll: confirmationRoll,
+				passthrough: base64EncodeUTF8(JSON.stringify(passthrough)),
+				originator: "Testo"
+			}
+		);
+	}
+	);
 });
 
-on('clicked:reacttest', (info) => {
-    startRoll(
-    	"&{template:test} " +
-    	"{{name=KACKrobatik}} " +
-    	"{{taw=[[@{TaW_akrobatik}]]}} " +
-    	"{{roll=[[1d20cs1cf20-10]]}} " +
-    	"{{characterid=@{character_id}}} " +
-    	"{{charactername=@{character_name}}} " +
-    	"{{passthrough=[[0]]}}",
-    	(results) => {
-		    console.log("test: info:", info, "results:", results);
-		    roll = results.results.roll.result;
-		    taw = results.results.taw.result;
-		    
-		    finishRoll(
-		        results.rollId,
-		        {
-		            roll: 200
-		        }
-		    );
+on('clicked:reacttest', (info, rollMacro = "&{template:test} " +
+	"{{name=" + JSON.parse(base64DecodeUTF8(info["originalRollId"]))["name"] + "}} " +
+	"{{taw=[[@{TaW_akrobatik}]]}} " +
+	"{{roll=[[1d20cs1cf20-10]]}} " +
+	"{{characterid=@{character_id}}} " +
+	"{{charactername=@{character_name}}} " +
+	"{{passthrough=[[0]]}} " +
+	"{{rollTime=[[0]]}}") => {
+	startRoll(rollMacro,
+	(results) => {
+		var received = JSON.parse(base64DecodeUTF8(info["originalRollId"]));
+		var rollTime = 0;
+		// Time for triggering reaction before warning appears, in milliseconds
+		var reactionTimeLimit = 15 * 60 * 1000;
+		console.log("test: info:", info, "results:", results, "received:", received);
+		roll = results.results.roll.result;
+		taw = results.results.taw.result;
+
+		var timeDifference = Date.now() - received["rollTime"];
+
+		if (timeDifference < 0) {
+			console.log("Fishy time difference for roll and reaction roll gotten.", received);
+			rollTime = -1
+		} else if (timeDifference > reactionTimeLimit) {
+			rollTime = 1;
 		}
-    );
+
+		finishRoll(
+			results.rollId,
+			{
+				confirmationRoll: 0,
+				roll: 200,
+				rollTime: rollTime
+			}
+		);
+	}
+	);
 });
 
 
