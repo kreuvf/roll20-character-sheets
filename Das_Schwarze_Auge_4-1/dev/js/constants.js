@@ -526,7 +526,23 @@ const talents = [
 	't_h_webkunst',
 	't_h_winzer',
 	't_h_zimmermann',
-	't_sp_myranor_gemeinimperial'
+	/* Myranor */
+	't_sp_gemeinimperial',
+	't_sp_hieroimperial',
+	't_sp_fruehimperial',
+	't_sp_dorinthisch',
+	't_sp_kentorisch',
+	't_sp_draydalanisch',
+	't_sp_yachyach',
+	't_sp_alamarasharielitisch',
+	't_sp_ravesaran',
+	't_sp_pristidial',
+	't_sp_gemeinamaunal',
+	't_sp_hieroamaunal',
+	't_sp_leonal',
+	't_sp_pardiral',
+	't_sp_tighral',
+	't_sp_lyncal'
 ];
 
 const talents_ebe = [
@@ -1041,7 +1057,7 @@ const talentsData = {
 	't_w_tierkunde': {'internal': "tierkunde", 'ui': "Tierkunde"},
 	't_sp_garethi': {'internal': "garethi", 'ui': "Garethi"},
 	't_sp_bosparano': {'internal': "bosparano", 'ui': "Bosparano"},
-	't_sp_aureliani': {'internal': "aureliani", 'ui': "Aureliani/Alt-Imperial"},
+	't_sp_aureliani': {'internal': "aureliani", 'ui': "Aureliani"},
 	't_sp_zyklopaeisch': {'internal': "zyklopaisch", 'ui': "Zyklopäisch"},
 	't_sp_tulamidya': {'internal': "tulamidya", 'ui': "Tulamidya"},
 	't_sp_urtulamidya': {'internal': "urtulamidya", 'ui': "Urtulamidya"},
@@ -1146,7 +1162,23 @@ const talentsData = {
 	't_h_webkunst': {'internal': "webkunst", 'ui': "Webkunst"},
 	't_h_winzer': {'internal': "winzer", 'ui': "Winzer"},
 	't_h_zimmermann': {'internal': "zimmermann", 'ui': "Zimmermann"},
-	't_sp_myranor_gemeinimperial': {'internal': "myranor_gemeinimperial", 'ui': "Gemein-Imperial"}
+	/* Myranor */
+	't_sp_gemeinimperial': {'internal': "gemeinimperial", 'ui': "Gemein-Imperial"},
+	't_sp_hieroimperial': {'internal': "hieroimperial", 'ui': "Hiero-Imperial"},
+	't_sp_fruehimperial': {'internal': "fruehimperial", 'ui': "Früh-Imperial"},
+	't_sp_dorinthisch': {'internal': "dorinthisch", 'ui': "Dorinthisch"},
+	't_sp_kentorisch': {'internal': "kentorisch", 'ui': "Kentorisch"},
+	't_sp_draydalanisch': {'internal': "draydalanisch", 'ui': "Draydalanisch"},
+	't_sp_yachyach': {'internal': "yachyach", 'ui': "Yachyach"},
+	't_sp_alamarasharielitisch': {'internal': "alamarasharielitisch", 'ui': "Alamar-Asharielitisch"},
+	't_sp_ravesaran': {'internal': "ravesaran", 'ui': "Ravesaran"},
+	't_sp_pristidial': {'internal': "pristidial", 'ui': "Pristidial"},
+	't_sp_gemeinamaunal': {'internal': "gemeinamaunal", 'ui': "Gemein-Amaunal/AhMa"},
+	't_sp_hieroamaunal': {'internal': "hieroamaunal", 'ui': "Hiero-Amaunal/AhMaGao"},
+	't_sp_leonal': {'internal': "leonal", 'ui': "Leonal/Khorrzu"},
+	't_sp_pardiral': {'internal': "pardiral", 'ui': "Pardiral/Bhagrach"},
+	't_sp_tighral': {'internal': "tighral", 'ui': "Tighral/Tharr'Orr"},
+	't_sp_lyncal': {'internal': "lyncal", 'ui': "Lyncal/Fhi'ai"}
 };
 const spellsData = {
 	'z_abvenenum': {'internal': "abvenenum", 'ui': "Abvenenum Reine Speise", 'stats': ['KL', 'KL', 'FF']},
