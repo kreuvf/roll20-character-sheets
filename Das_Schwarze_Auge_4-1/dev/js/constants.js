@@ -525,7 +525,8 @@ const talents = [
 	't_h_viehzucht',
 	't_h_webkunst',
 	't_h_winzer',
-	't_h_zimmermann'
+	't_h_zimmermann',
+	't_sp_myranor_gemeinimperial'
 ];
 
 const talents_ebe = [
@@ -1040,7 +1041,7 @@ const talentsData = {
 	't_w_tierkunde': {'internal': "tierkunde", 'ui': "Tierkunde"},
 	't_sp_garethi': {'internal': "garethi", 'ui': "Garethi"},
 	't_sp_bosparano': {'internal': "bosparano", 'ui': "Bosparano"},
-	't_sp_aureliani': {'internal': "aureliani", 'ui': "Aureliani"},
+	't_sp_aureliani': {'internal': "aureliani", 'ui': "Aureliani/Alt-Imperial"},
 	't_sp_zyklopaeisch': {'internal': "zyklopaisch", 'ui': "Zyklopäisch"},
 	't_sp_tulamidya': {'internal': "tulamidya", 'ui': "Tulamidya"},
 	't_sp_urtulamidya': {'internal': "urtulamidya", 'ui': "Urtulamidya"},
@@ -1144,7 +1145,8 @@ const talentsData = {
 	't_h_viehzucht': {'internal': "viehzucht", 'ui': "Viehzucht"},
 	't_h_webkunst': {'internal': "webkunst", 'ui': "Webkunst"},
 	't_h_winzer': {'internal': "winzer", 'ui': "Winzer"},
-	't_h_zimmermann': {'internal': "zimmermann", 'ui': "Zimmermann"}
+	't_h_zimmermann': {'internal': "zimmermann", 'ui': "Zimmermann"},
+	't_sp_myranor_gemeinimperial': {'internal': "myranor_gemeinimperial", 'ui': "Gemein-Imperial"}
 };
 const spellsData = {
 	'z_abvenenum': {'internal': "abvenenum", 'ui': "Abvenenum Reine Speise", 'stats': ['KL', 'KL', 'FF']},
