@@ -882,6 +882,7 @@ The solution: convert the <input>s to type="text" and make them look like normal
 .charsheet .talent-zhayad:checked + div.talent,
 .charsheet .talent-atak:checked + div.talent,
 .charsheet .talent-fuchsisch:checked + div.talent,
+.charsheet .talent-my-gemein-imperial:checked + div.talent,
 .charsheet .talent-schrift-altesalaani:checked + div.talent,
 .charsheet .talent-schrift-alteskemi:checked + div.talent,
 .charsheet .talent-schrift-amulashtra:checked + div.talent,

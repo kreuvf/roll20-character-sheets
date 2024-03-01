@@ -4045,7 +4045,7 @@
 					<button type="action" name="act_t_sp_aureliani-action" class="default-hide"></button>
 					<input type="hidden" name="attr_t_sp_aureliani_action" value="">
 					<div class="talent-cell talent-name">
-						<button type="roll" name="roll_t_sp_aureliani" value="@{t_sp_aureliani_action}"> <span>Aureliani</span></button>
+						<button type="roll" name="roll_t_sp_aureliani" value="@{t_sp_aureliani_action}"> <span>Aureliani/Alt-Imperial</span></button>
 					</div>
 					<input type="text" class="talent-spez" name="attr_Spez_aureliani">
 					<input type="number" class="talent-taw" name="attr_TaW_aureliani" min="-4" value="0">
@@ -4460,6 +4460,18 @@
 					<input type="text" class="talent-komp stat-immutable" name="attr_Komp_fuchsisch" disabled="disabled" value="12">
 					<br>
 				</div>
+				<input class="talent-my-gemein-imperial default-hide" type="checkbox" name="attr_talent_my_gemein_imperial" value="1">
+				<div class="talent">
+					<button type="action" name="act_t_sp_my_gemein_imperial-action" class="default-hide"></button>
+					<input type="hidden" name="attr_t_sp_my_gemein_imperial_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_t_sp_my_gemein_imperial" value="@{t_sp_my_gemein_imperial_action}"> <span>Gemein-Imperial</span></button>
+					</div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_gemein_imperial">
+					<input type="number" class="talent-taw" name="attr_TaW_my_gemein_imperial" min="-4" value="0">
+					<input type="text" class="talent-komp stat-immutable" name="attr_Komp_my_gemein_imperial" disabled="disabled" value="18">
+					<br>
+				</div>
 				<div align="left">
 					<div align="left" style="font-weight:bold; display:inline-block; width:9em;">Aktivierung</div>
 					<label class="desc-show">
@@ -4522,6 +4534,33 @@
 									</td>
 								</tr>
 							</table>
+							<div class="hideable-myranor">
+								<div align="left" style="font-weight:bold; display:inline-block; width:9em;">Myranische Sprachen</div>
+								<table class="hideable-myranor" style="width: 100%">
+									<td valign="top">
+										<label><input type="checkbox" class="invisible">------Imperiale Sprachfamilie------</label>
+										<label><input type="checkbox" name="attr_talent_my_gemein_imperial" value="1">Gemein-Imperial</label>
+										<label><input type="checkbox" name="attr_talent_my_hiero_imperial" value="1">Hiero-Imperial</label>
+										<label><input type="checkbox" name="attr_talent_aureliani" value="1">Alt-Imperial</label>
+										<label><input type="checkbox" name="attr_talent_my_frueh_imperial" value="1">Früh-Imperial</label>
+										<label><input type="checkbox" name="attr_talent_my_dorinthisch" value="1">Dorinthisch</label>
+										<label><input type="checkbox" name="attr_talent_hjaldingsch" value="1">Hjaldingsch</label>
+										<label><input type="checkbox" name="attr_talent_my_kentorisch" value="1">Kentorisch</label>
+										<label><input type="checkbox" name="attr_talent_my_draydalanisch" value="1">Draydalanisch</label>
+										<label><input type="checkbox" name="attr_talent_my_yachyach" value="1">Yachyach</label>
+										<label><input type="checkbox" name="attr_talent_my_asharielitisch" value="1">Alamar-Asharielitisch</label>
+										<label><input type="checkbox" name="attr_talent_my_ravesaran" value="1">Ravesaran</label>
+										<label><input type="checkbox" name="attr_talent_my_pristidial" value="1">Pristidial</label>
+										<label><input type="checkbox" class="invisible">------Felide Sprachfamilie------</label>
+										<label><input type="checkbox" name="attr_talent_my_ahma" value="1">Gemein-Amaunal/AhMa</label>
+										<label><input type="checkbox" name="attr_talent_my_ahmagao" value="1">Hiero-Amaunal/AhMaGao</label>
+										<label><input type="checkbox" name="attr_talent_my_leonal" value="1">Leonal/Khorrzu</label>
+										<label><input type="checkbox" name="attr_talent_my_pardiral" value="1">Pardiral/Bhagrach</label>
+										<label><input type="checkbox" name="attr_talent_my_tighral" value="1">Tighral/Tharr'Orr</label>
+										<label><input type="checkbox" name="attr_talent_my_lyncal" value="1">Lyncal/Fhi'Ai</label>
+									</td>
+								</table>
+							</div>
 						</div>
 					</label>
 				</div>
@@ -19537,6 +19576,7 @@ const talents = [
 	't_sp_zhayad',
 	't_sp_atak',
 	't_sp_fuechsisch',
+	't_sp_my_gemein_imperial',
 	't_sc_altesalaani',
 	't_sc_alteskemi',
 	't_sc_amulashtra',
@@ -20165,7 +20205,7 @@ const talentsData = {
 	't_w_tierkunde': {'internal': "tierkunde", 'ui': "Tierkunde"},
 	't_sp_garethi': {'internal': "garethi", 'ui': "Garethi"},
 	't_sp_bosparano': {'internal': "bosparano", 'ui': "Bosparano"},
-	't_sp_aureliani': {'internal': "aureliani", 'ui': "Aureliani"},
+	't_sp_aureliani': {'internal': "aureliani", 'ui': "Aureliani/Alt-Imperial"},
 	't_sp_zyklopaeisch': {'internal': "zyklopaisch", 'ui': "Zyklopäisch"},
 	't_sp_tulamidya': {'internal': "tulamidya", 'ui': "Tulamidya"},
 	't_sp_urtulamidya': {'internal': "urtulamidya", 'ui': "Urtulamidya"},
@@ -20200,6 +20240,7 @@ const talentsData = {
 	't_sp_zhayad': {'internal': "zhayad", 'ui': "Zhayad"},
 	't_sp_atak': {'internal': "atak", 'ui': "Atak"},
 	't_sp_fuechsisch': {'internal': "fuchsisch", 'ui': "Füchsisch"},
+	't_sp_my_gemein_imperial': {'internal': "my_gemein_imperial", 'ui': "Gemein-Imperial"},
 	't_sc_altesalaani': {'internal': "schrift_altesalaani", 'ui': "Altes Alaani"},
 	't_sc_alteskemi': {'internal': "schrift_alteskemi", 'ui': "Altes Kemi"},
 	't_sc_amulashtra': {'internal': "schrift_amulashtra", 'ui': "Amulashtra"},
