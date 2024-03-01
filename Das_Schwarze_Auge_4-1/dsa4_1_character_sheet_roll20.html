@@ -7262,6 +7262,34 @@
 					<div class="talent-cell talent-taw talent-head">Seite</div>
 					<div class="talent-cell talent-probe talent-head">Probe</div>
 				</div>
+				<input class="talent-zauber-my-abgrund-e default-hide" type="checkbox" name="attr_zauber_my_abgrund_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_abgrund_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_abgrund_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_abgrund_e" value="@{z_my_abgrund_e_action}"> <span>Abgrund Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_abgrund_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_abgrund_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="AbgrundESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Abgrund Essenzbeschwörung (@{spez_my_abgrund_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_abgrund_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_abgrund_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_abgrund_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_abgrund_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_abgrund_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_abgrund_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-abgrund-w default-hide" type="checkbox" name="attr_zauber_my_abgrund_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_abgrund_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_abgrund_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_abgrund_w" value="@{z_my_abgrund_w_action}"> <span>Abgrund Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_abgrund_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_abgrund_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="AbgrundWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Abgrund Essenzbeschwörung (@{spez_my_abgrund_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_abgrund_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_abgrund_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_abgrund_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_abgrund_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_abgrund_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_abgrund_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
 				<input class="talent-zauber-abvenenum default-hide" type="checkbox" name="attr_zauber_abvenenum" value="1">
 				<div class="zauber">
 					<button type="action" name="act_z_abvenenum-action" class="default-hide"></button>
@@ -7387,6 +7415,62 @@
 					<div class="talent-cell talent-taw">-</div>
 					<button name="AeropulvisSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Aeropulvis Sanfter Fall (@{spez_Aeropulvis})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_Aeropulvis} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{GE}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_Aeropulvis} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Aeropulvis} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Aeropulvis} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Aeropulvis} + 2), 0d1}kh1]] - @{GE}, 0d1}kh1, 0d1 + @{ZfW_Aeropulvis} + 2}dh1]]}}">Spez</button>
 					<br>
+				</div>
+				<input class="talent-zauber-my-aggari-e default-hide" type="checkbox" name="attr_zauber_my_aggari_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_aggari_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_aggari_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_aggari_e" value="@{z_my_aggari_e_action}"> <span>Aggari Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_aggari_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_aggari_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="AggariESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Aggari Essenzbeschwörung (@{spez_my_aggari_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_aggari_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_aggari_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_aggari_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_aggari_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_aggari_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_aggari_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-aggari-w default-hide" type="checkbox" name="attr_zauber_my_aggari_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_aggari_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_aggari_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_aggari_w" value="@{z_my_aggari_w_action}"> <span>Aggari Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_aggari_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_aggari_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="AggariWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Aggari Essenzbeschwörung (@{spez_my_aggari_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_aggari_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_aggari_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_aggari_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_aggari_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_aggari_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_aggari_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-aggression-e default-hide" type="checkbox" name="attr_zauber_my_aggression_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_aggression_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_aggression_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_aggression_e" value="@{z_my_aggression_e_action}"> <span>Aggression Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_aggression_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_aggression_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="AggressionESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Aggression Essenzbeschwörung (@{spez_my_aggression_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_aggression_e} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_aggression_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_aggression_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_aggression_e} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_aggression_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_aggression_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-aggression-w default-hide" type="checkbox" name="attr_zauber_my_aggression_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_aggression_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_aggression_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_aggression_w" value="@{z_my_aggression_w_action}"> <span>Aggression Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_aggression_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_aggression_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="AggressionWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Aggression Essenzbeschwörung (@{spez_my_aggression_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_aggression_w} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_aggression_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_aggression_w} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_aggression_w} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_aggression_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_aggression_w} + 2}dh1]]}}">Spez</button>
+                    <br>
 				</div>
 				<input class="talent-zauber-dz-agrimothbann default-hide" type="checkbox" name="attr_zauber_dz_agrimothbann" value="1">
 				<div class="zauber">
@@ -7679,6 +7763,34 @@
 					<button name="AurisSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Auris Nasus Oculus (@{spez_Auris})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_Auris} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{CH}]]}} {{stat3=[[@{FF}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_Auris} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Auris} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Auris} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Auris} + 2), 0d1}kh1]] - @{FF}, 0d1}kh1, 0d1 + @{ZfW_Auris} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-zauber-my-avastada-e default-hide" type="checkbox" name="attr_zauber_my_avastada_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_avastada_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_avastada_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_avastada_e" value="@{z_my_avastada_e_action}"> <span>Avastada Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_avastada_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_avastada_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="AvastadaESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Avastada Essenzbeschwörung (@{spez_my_avastada_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_avastada_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_avastada_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_avastada_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_avastada_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_avastada_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_avastada_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-avastada-w default-hide" type="checkbox" name="attr_zauber_my_avastada_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_avastada_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_avastada_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_avastada_w" value="@{z_my_avastada_w_action}"> <span>Avastada Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_avastada_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_avastada_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="AvastadaWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Avastada Essenzbeschwörung (@{spez_my_avastada_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_avastada_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_avastada_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_avastada_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_avastada_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_avastada_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_avastada_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
 				<input class="talent-zauber-axxeleratus default-hide" type="checkbox" name="attr_zauber_Axxeleratus" value="1">
 				<div class="zauber">
 					<button type="action" name="act_z_axxeleratus-action" class="default-hide"></button>
@@ -7748,6 +7860,34 @@
 					<div class="talent-cell talent-taw">40</div>
 					<button name="BarenruheSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Bärenruhe Winterschlaf (@{spez_Barenruhe})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_Barenruhe} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{KO}]]}} {{stat3=[[@{KK}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_Barenruhe} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Barenruhe} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Barenruhe} + 2), 0d1}kh1]] - @{KO}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Barenruhe} + 2), 0d1}kh1]] - @{KK}, 0d1}kh1, 0d1 + @{ZfW_Barenruhe} + 2}dh1]]}}">Spez</button>
 					<br>
+				</div>
+				<input class="talent-zauber-my-begierde-e default-hide" type="checkbox" name="attr_zauber_my_begierde_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_begierde_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_begierde_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_begierde_e" value="@{z_my_begierde_e_action}"> <span>Begierde Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_begierde_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_begierde_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="BegierdeESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Begierde Essenzbeschwörung (@{spez_my_begierde_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_begierde_e} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_begierde_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_begierde_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_begierde_e} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_begierde_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_begierde_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-begierde-w default-hide" type="checkbox" name="attr_zauber_my_begierde_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_begierde_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_begierde_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_begierde_w" value="@{z_my_begierde_w_action}"> <span>Begierde Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_begierde_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_begierde_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="BegierdeWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Begierde Essenzbeschwörung (@{spez_my_begierde_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_begierde_w} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_begierde_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_begierde_w} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_begierde_w} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_begierde_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_begierde_w} + 2}dh1]]}}">Spez</button>
+                    <br>
 				</div>
 				<input class="talent-zauber-beherrschung default-hide" type="checkbox" name="attr_zauber_Beherrschung" value="1">
 				<div class="zauber">
@@ -7945,6 +8085,34 @@
 					<button name="caldofrigoSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Caldofrigo Heiss und Kalt (@{spez_caldofrigo})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_caldofrigo} + 2]]}} {{stat1=[[@{IN}]]}} {{stat2=[[@{CH}]]}} {{stat3=[[@{KO}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_caldofrigo} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_caldofrigo} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_caldofrigo} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_caldofrigo} + 2), 0d1}kh1]] - @{KO}, 0d1}kh1, 0d1 + @{ZfW_caldofrigo} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-zauber-my-carafai-e default-hide" type="checkbox" name="attr_zauber_my_carafai_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_carafai_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_carafai_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_carafai_e" value="@{z_my_carafai_e_action}"> <span>Carafai Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_carafai_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_carafai_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="CarafaiESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Carafai Essenzbeschwörung (@{spez_my_carafai_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_carafai_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_carafai_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_carafai_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_carafai_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_carafai_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_carafai_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-carafai-w default-hide" type="checkbox" name="attr_zauber_my_carafai_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_carafai_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_carafai_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_carafai_w" value="@{z_my_carafai_w_action}"> <span>Carafai Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_carafai_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_carafai_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="CarafaiWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Carafai Essenzbeschwörung (@{spez_my_carafai_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_carafai_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_carafai_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_carafai_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_carafai_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_carafai_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_carafai_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
 				<input class="talent-zauber-chamaelioni default-hide" type="checkbox" name="attr_zauber_chamaelioni" value="1">
 				<div class="zauber">
 					<button type="action" name="act_z_chamaelioni-action" class="default-hide"></button>
@@ -8085,6 +8253,34 @@
 					<button name="damonenbannSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Dämonenbann (@{spez_damonenbann})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_damonenbann} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{CH}]]}} {{stat3=[[@{KO}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_damonenbann} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_damonenbann} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_damonenbann} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_damonenbann} + 2), 0d1}kh1]] - @{KO}, 0d1}kh1, 0d1 + @{ZfW_damonenbann} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-zauber-my-darcalya-e default-hide" type="checkbox" name="attr_zauber_my_darcalya_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_darcalya_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_darcalya_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_darcalya_e" value="@{z_my_darcalya_e_action}"> <span>Darcalya Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_darcalya_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_darcalya_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="DarcalyaESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Darcalya Essenzbeschwörung (@{spez_my_darcalya_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_darcalya_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_darcalya_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_darcalya_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_darcalya_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_darcalya_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_darcalya_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-darcalya-w default-hide" type="checkbox" name="attr_zauber_my_darcalya_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_darcalya_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_darcalya_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_darcalya_w" value="@{z_my_darcalya_w_action}"> <span>Darcalya Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_darcalya_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_darcalya_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="DarcalyaWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Darcalya Essenzbeschwörung (@{spez_my_darcalya_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_darcalya_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_darcalya_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_darcalya_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_darcalya_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_darcalya_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_darcalya_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
 				<input class="talent-zauber-delicioso default-hide" type="checkbox" name="attr_zauber_delicioso" value="1">
 				<div class="zauber">
 					<button type="action" name="act_z_delicioso-action" class="default-hide"></button>
@@ -8183,6 +8379,34 @@
 					<button name="duplicatusSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Duplicatus Doppelbild (@{spez_duplicatus})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_duplicatus} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{CH}]]}} {{stat3=[[@{GE}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_duplicatus} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_duplicatus} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_duplicatus} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_duplicatus} + 2), 0d1}kh1]] - @{GE}, 0d1}kh1, 0d1 + @{ZfW_duplicatus} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-zauber-my-dyakhol-e default-hide" type="checkbox" name="attr_zauber_my_dyakhol_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_dyakhol_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_dyakhol_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_dyakhol_e" value="@{z_my_dyakhol_e_action}"> <span>Dya'khol Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_dyakhol_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_dyakhol_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="DyakholESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Dyakhol Essenzbeschwörung (@{spez_my_dyakhol_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_dyakhol_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_dyakhol_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_dyakhol_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_dyakhol_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_dyakhol_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_dyakhol_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-dyakhol-w default-hide" type="checkbox" name="attr_zauber_my_dyakhol_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_dyakhol_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_dyakhol_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_dyakhol_w" value="@{z_my_dyakhol_w_action}"> <span>Dya'khol Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_dyakhol_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_dyakhol_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="DyakholWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Dyakhol Essenzbeschwörung (@{spez_my_dyakhol_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_dyakhol_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_dyakhol_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_dyakhol_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_dyakhol_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_dyakhol_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_dyakhol_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
 				<input class="talent-zauber-ecliptifactus default-hide" type="checkbox" name="attr_zauber_ecliptifactus" value="1">
 				<div class="zauber">
 					<button type="action" name="act_z_ecliptifactus-action" class="default-hide"></button>
@@ -8252,6 +8476,34 @@
 					<div class="talent-cell talent-taw">76</div>
 					<button name="einsSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Eins mit der Natur (@{spez_eins})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_eins} + 2]]}} {{stat1=[[@{IN}]]}} {{stat2=[[@{GE}]]}} {{stat3=[[@{KO}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_eins} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_eins} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_eins} + 2), 0d1}kh1]] - @{GE}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_eins} + 2), 0d1}kh1]] - @{KO}, 0d1}kh1, 0d1 + @{ZfW_eins} + 2}dh1]]}}">Spez</button>
 					<br>
+				</div>
+				<input class="talent-zauber-my-eis-e default-hide" type="checkbox" name="attr_zauber_my_eis_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_eis_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_eis_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_eis_e" value="@{z_my_eis_e_action}"> <span>Eis Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/KL/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_eis_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_eis_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="EisESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Eis Essenzbeschwörung (@{spez_my_eis_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_eis_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{KL}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_eis_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_eis_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_eis_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_eis_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_eis_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-eis-w default-hide" type="checkbox" name="attr_zauber_my_eis_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_eis_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_eis_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_eis_w" value="@{z_my_eis_w_action}"> <span>Eis Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/KL/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_eis_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_eis_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="EisWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Eis Essenzbeschwörung (@{spez_my_eis_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_eis_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{KL}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_eis_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_eis_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_eis_w} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_eis_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_eis_w} + 2}dh1]]}}">Spez</button>
+                    <br>
 				</div>
 				<input class="talent-zauber-eisenrost default-hide" type="checkbox" name="attr_zauber_eisenrost" value="1">
 				<div class="zauber">
@@ -8337,6 +8589,34 @@
 					<button name="elfenstimmeSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Elfenstimme Flötenton (@{spez_elfenstimme})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_elfenstimme} + 2]]}} {{stat1=[[@{IN}]]}} {{stat2=[[@{CH}]]}} {{stat3=[[@{KO}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_elfenstimme} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_elfenstimme} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_elfenstimme} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_elfenstimme} + 2), 0d1}kh1]] - @{KO}, 0d1}kh1, 0d1 + @{ZfW_elfenstimme} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-zauber-my-endgueltigkeit-e default-hide" type="checkbox" name="attr_zauber_my_endgueltigkeit_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_endgueltigkeit_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_endgueltigkeit_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_endgueltigkeit_e" value="@{z_my_endgueltigkeit_e_action}"> <span>Endgültigkeit Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_endgueltigkeit_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_endgueltigkeit_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="EndgueltigkeitESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Endgueltigkeit Essenzbeschwörung (@{spez_my_endgueltigkeit_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_endgueltigkeit_e} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_endgueltigkeit_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_endgueltigkeit_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_endgueltigkeit_e} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_endgueltigkeit_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_endgueltigkeit_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-endgueltigkeit-w default-hide" type="checkbox" name="attr_zauber_my_endgueltigkeit_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_endgueltigkeit_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_endgueltigkeit_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_endgueltigkeit_w" value="@{z_my_endgueltigkeit_w_action}"> <span>Endgültigkeit Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_endgueltigkeit_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_endgueltigkeit_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="EndgueltigkeitWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Endgueltigkeit Essenzbeschwörung (@{spez_my_endgueltigkeit_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_endgueltigkeit_w} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_endgueltigkeit_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_endgueltigkeit_w} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_endgueltigkeit_w} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_endgueltigkeit_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_endgueltigkeit_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
 				<input class="talent-zauber-dz-entfesselung-des-getiers default-hide" type="checkbox" name="attr_zauber_dz_entfesselung-des-getiers" value="1">
 				<div class="zauber">
 					<button type="action" name="act_z_dz_entfesselungdesgetiers-action" class="default-hide"></button>
@@ -8351,6 +8631,34 @@
 					<button name="Entfesselung_des_GetiersSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Entfesselung des Getiers (@{spez_dz_Entfesselung_des_Getiers})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_Entfesselung_des_Getiers} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{CH}]]}} {{stat3=[[@{KO}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_Entfesselung_des_Getiers} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Entfesselung_des_Getiers} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Entfesselung_des_Getiers} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Entfesselung_des_Getiers} + 2), 0d1}kh1]] - @{KO}, 0d1}kh1, 0d1 + @{ZfW_Entfesselung_des_Getiers} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-zauber-my-erfolg-e default-hide" type="checkbox" name="attr_zauber_my_erfolg_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_erfolg_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_erfolg_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_erfolg_e" value="@{z_my_erfolg_e_action}"> <span>Erfolg Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_erfolg_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_erfolg_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="ErfolgESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Erfolg Essenzbeschwörung (@{spez_my_erfolg_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_erfolg_e} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_erfolg_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_erfolg_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_erfolg_e} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_erfolg_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_erfolg_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-erfolg-w default-hide" type="checkbox" name="attr_zauber_my_erfolg_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_erfolg_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_erfolg_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_erfolg_w" value="@{z_my_erfolg_w_action}"> <span>Erfolg Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_erfolg_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_erfolg_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="ErfolgWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Erfolg Essenzbeschwörung (@{spez_my_erfolg_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_erfolg_w} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_erfolg_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_erfolg_w} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_erfolg_w} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_erfolg_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_erfolg_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
 				<input class="talent-zauber-erinnerung default-hide" type="checkbox" name="attr_zauber_erinnerung" value="1">
 				<div class="zauber">
 					<button type="action" name="act_z_erinnerungverlassedich-action" class="default-hide"></button>
@@ -8364,6 +8672,76 @@
 					<div class="talent-cell talent-taw">82</div>
 					<button name="erinnerungSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Erinnerung verlasse dich! (@{spez_erinnerung})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_erinnerung} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_erinnerung} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_erinnerung} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_erinnerung} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_erinnerung} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_erinnerung} + 2}dh1]]}}">Spez</button>
 					<br>
+				</div>
+				<input class="talent-zauber-my-erkenntnis-e default-hide" type="checkbox" name="attr_zauber_my_erkenntnis_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_erkenntnis_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_erkenntnis_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_erkenntnis_e" value="@{z_my_erkenntnis_e_action}"> <span>Erkenntnis Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_erkenntnis_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_erkenntnis_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="ErkenntnisESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Erkenntnis Essenzbeschwörung (@{spez_my_erkenntnis_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_erkenntnis_e} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_erkenntnis_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_erkenntnis_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_erkenntnis_e} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_erkenntnis_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_erkenntnis_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-erkenntnis-w default-hide" type="checkbox" name="attr_zauber_my_erkenntnis_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_erkenntnis_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_erkenntnis_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_erkenntnis_w" value="@{z_my_erkenntnis_w_action}"> <span>Erkenntnis Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_erkenntnis_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_erkenntnis_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="ErkenntnisWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Erkenntnis Essenzbeschwörung (@{spez_my_erkenntnis_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_erkenntnis_w} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_erkenntnis_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_erkenntnis_w} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_erkenntnis_w} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_erkenntnis_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_erkenntnis_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-erz-e default-hide" type="checkbox" name="attr_zauber_my_erz_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_erz_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_erz_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_erz_e" value="@{z_my_erz_e_action}"> <span>Erz Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/KL/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_erz_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_erz_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="ErzESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Erz Essenzbeschwörung (@{spez_my_erz_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_erz_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{KL}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_erz_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_erz_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_erz_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_erz_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_erz_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-erz-w default-hide" type="checkbox" name="attr_zauber_my_erz_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_erz_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_erz_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_erz_w" value="@{z_my_erz_w_action}"> <span>Erz Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/KL/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_erz_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_erz_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="ErzWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Erz Essenzbeschwörung (@{spez_my_erz_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_erz_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{KL}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_erz_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_erz_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_erz_w} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_erz_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_erz_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-eskates-e default-hide" type="checkbox" name="attr_zauber_my_eskates_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_eskates_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_eskates_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_eskates_e" value="@{z_my_eskates_e_action}"> <span>Eskates Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_eskates_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_eskates_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="EskatesESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Eskates Essenzbeschwörung (@{spez_my_eskates_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_eskates_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_eskates_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_eskates_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_eskates_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_eskates_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_eskates_e} + 2}dh1]]}}">Spez</button>
+                    <br>
 				</div>
 				<input class="talent-zauber-exposami default-hide" type="checkbox" name="attr_zauber_exposami" value="1">
 				<div class="zauber">
@@ -8420,6 +8798,34 @@
 					<div class="talent-cell talent-taw">-</div>
 					<button name="FesselrankenSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Fesselranken (@{spez_Fesselranken})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_Fesselranken} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{KK}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_Fesselranken} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Fesselranken} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Fesselranken} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Fesselranken} + 2), 0d1}kh1]] - @{KK}, 0d1}kh1, 0d1 + @{ZfW_Fesselranken} + 2}dh1]]}}">Spez</button>
 					<br>
+				</div>
+				<input class="talent-zauber-my-feuer-e default-hide" type="checkbox" name="attr_zauber_my_feuer_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_feuer_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_feuer_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_feuer_e" value="@{z_my_feuer_e_action}"> <span>Feuer Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/KL/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_feuer_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_feuer_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="FeuerESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Feuer Essenzbeschwörung (@{spez_my_feuer_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_feuer_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{KL}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_feuer_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_feuer_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_feuer_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_feuer_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_feuer_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-feuer-w default-hide" type="checkbox" name="attr_zauber_my_feuer_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_feuer_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_feuer_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_feuer_w" value="@{z_my_feuer_w_action}"> <span>Feuer Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/KL/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_feuer_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_feuer_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="FeuerWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Feuer Essenzbeschwörung (@{spez_my_feuer_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_feuer_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{KL}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_feuer_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_feuer_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_feuer_w} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_feuer_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_feuer_w} + 2}dh1]]}}">Spez</button>
+                    <br>
 				</div>
 				<input class="talent-zauber-feuermaehne default-hide" type="checkbox" name="attr_zauber_Feuermaehne" value="1">
 				<div class="zauber">
@@ -8519,6 +8925,34 @@
 					<button name="fortifexSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Fortifex Arkane Wand (@{spez_fortifex})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_fortifex} + 2]]}} {{stat1=[[@{IN}]]}} {{stat2=[[@{KO}]]}} {{stat3=[[@{KK}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_fortifex} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_fortifex} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_fortifex} + 2), 0d1}kh1]] - @{KO}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_fortifex} + 2), 0d1}kh1]] - @{KK}, 0d1}kh1, 0d1 + @{ZfW_fortifex} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-zauber-my-freiheit-e default-hide" type="checkbox" name="attr_zauber_my_freiheit_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_freiheit_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_freiheit_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_freiheit_e" value="@{z_my_freiheit_e_action}"> <span>Freiheit Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_freiheit_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_freiheit_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="FreiheitESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Freiheit Essenzbeschwörung (@{spez_my_freiheit_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_freiheit_e} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_freiheit_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_freiheit_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_freiheit_e} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_freiheit_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_freiheit_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-freiheit-w default-hide" type="checkbox" name="attr_zauber_my_freiheit_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_freiheit_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_freiheit_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_freiheit_w" value="@{z_my_freiheit_w_action}"> <span>Freiheit Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_freiheit_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_freiheit_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="FreiheitWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Freiheit Essenzbeschwörung (@{spez_my_freiheit_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_freiheit_w} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_freiheit_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_freiheit_w} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_freiheit_w} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_freiheit_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_freiheit_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
 				<input class="talent-zauber-elementargeschoss-eis default-hide" type="checkbox" name="attr_zauber_Frigifaxius" value="1">
 				<div class="zauber">
 					<button type="action" name="act_z_frigifaxius-action" class="default-hide"></button>
@@ -8560,6 +8994,34 @@
 					<div class="talent-cell talent-taw">91</div>
 					<button name="fulminictusSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Fulminictus Donnerkeil (@{spez_fulminictus})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_fulminictus} + 2]]}} {{stat1=[[@{IN}]]}} {{stat2=[[@{GE}]]}} {{stat3=[[@{KO}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_fulminictus} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_fulminictus} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_fulminictus} + 2), 0d1}kh1]] - @{GE}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_fulminictus} + 2), 0d1}kh1]] - @{KO}, 0d1}kh1, 0d1 + @{ZfW_fulminictus} + 2}dh1]]}}">Spez</button>
 					<br>
+				</div>
+				<input class="talent-zauber-my-galkuzul-e default-hide" type="checkbox" name="attr_zauber_my_galkuzul_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_galkuzul_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_galkuzul_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_galkuzul_e" value="@{z_my_galkuzul_e_action}"> <span>Galkuzul Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_galkuzul_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_galkuzul_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="GalkuzulESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Galkuzul Essenzbeschwörung (@{spez_my_galkuzul_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_galkuzul_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_galkuzul_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_galkuzul_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_galkuzul_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_galkuzul_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_galkuzul_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-galkuzul-w default-hide" type="checkbox" name="attr_zauber_my_galkuzul_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_galkuzul_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_galkuzul_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_galkuzul_w" value="@{z_my_galkuzul_w_action}"> <span>Galkuzul Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_galkuzul_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_galkuzul_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="GalkuzulWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Galkuzul Essenzbeschwörung (@{spez_my_galkuzul_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_galkuzul_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_galkuzul_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_galkuzul_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_galkuzul_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_galkuzul_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_galkuzul_w} + 2}dh1]]}}">Spez</button>
+                    <br>
 				</div>
 				<input class="talent-zauber-gardianum default-hide" type="checkbox" name="attr_zauber_gardianum" value="1">
 				<div class="zauber">
@@ -8673,6 +9135,34 @@
 					<button name="Geschoss_der_NiederhoellenSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Geschoss der Niederhöllen (@{spez_dz_Geschoss_der_Niederhoellen})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_Geschoss_der_Niederhoellen} + 2]]}} {{stat1=[[@{CH}]]}} {{stat2=[[@{FF}]]}} {{stat3=[[@{KK}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_Geschoss_der_Niederhoellen} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Geschoss_der_Niederhoellen} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Geschoss_der_Niederhoellen} + 2), 0d1}kh1]] - @{FF}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Geschoss_der_Niederhoellen} + 2), 0d1}kh1]] - @{KK}, 0d1}kh1, 0d1 + @{ZfW_Geschoss_der_Niederhoellen} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-zauber-my-ghorgumor-e default-hide" type="checkbox" name="attr_zauber_my_ghorgumor_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_ghorgumor_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_ghorgumor_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_ghorgumor_e" value="@{z_my_ghorgumor_e_action}"> <span>Ghorgumor Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_ghorgumor_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_ghorgumor_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="GhorgumorESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Ghorgumor Essenzbeschwörung (@{spez_my_ghorgumor_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_ghorgumor_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_ghorgumor_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_ghorgumor_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_ghorgumor_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_ghorgumor_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_ghorgumor_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-ghorgumor-w default-hide" type="checkbox" name="attr_zauber_my_ghorgumor_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_ghorgumor_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_ghorgumor_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_ghorgumor_w" value="@{z_my_ghorgumor_w_action}"> <span>Ghorgumor Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_ghorgumor_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_ghorgumor_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="GhorgumorWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Ghorgumor Essenzbeschwörung (@{spez_my_ghorgumor_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_ghorgumor_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_ghorgumor_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_ghorgumor_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_ghorgumor_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_ghorgumor_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_ghorgumor_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
 				<input class="talent-zauber-glacoflumen default-hide" type="checkbox" name="attr_zauber_Glacoflumen" value="1">
 				<div class="zauber">
 					<button type="action" name="act_z_glacoflumen-action" class="default-hide"></button>
@@ -8784,6 +9274,34 @@
 					<div class="talent-cell talent-taw">103</div>
 					<button name="HarmloseSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Harmlose Gestalt (@{spez_Harmlose})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_Harmlose} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{CH}]]}} {{stat3=[[@{GE}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_Harmlose} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Harmlose} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Harmlose} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Harmlose} + 2), 0d1}kh1]] - @{GE}, 0d1}kh1, 0d1 + @{ZfW_Harmlose} + 2}dh1]]}}">Spez</button>
 					<br>
+				</div>
+				<input class="talent-zauber-my-harmonie-e default-hide" type="checkbox" name="attr_zauber_my_harmonie_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_harmonie_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_harmonie_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_harmonie_e" value="@{z_my_harmonie_e_action}"> <span>Harmonie Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_harmonie_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_harmonie_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="HarmonieESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Harmonie Essenzbeschwörung (@{spez_my_harmonie_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_harmonie_e} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_harmonie_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_harmonie_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_harmonie_e} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_harmonie_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_harmonie_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-harmonie-w default-hide" type="checkbox" name="attr_zauber_my_harmonie_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_harmonie_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_harmonie_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_harmonie_w" value="@{z_my_harmonie_w_action}"> <span>Harmonie Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_harmonie_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_harmonie_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="HarmonieWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Harmonie Essenzbeschwörung (@{spez_my_harmonie_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_harmonie_w} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_harmonie_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_harmonie_w} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_harmonie_w} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_harmonie_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_harmonie_w} + 2}dh1]]}}">Spez</button>
+                    <br>
 				</div>
 				<input class="talent-zauber-hartes default-hide" type="checkbox" name="attr_zauber_hartes" value="1">
 				<div class="zauber">
@@ -9093,6 +9611,34 @@
 					<button name="HumosphaeroSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Humosphaero (@{spez_Humosphaero})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_Humosphaero} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{KO}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_Humosphaero} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Humosphaero} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Humosphaero} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Humosphaero} + 2), 0d1}kh1]] - @{KO}, 0d1}kh1, 0d1 + @{ZfW_Humosphaero} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-zauber-my-humus-e default-hide" type="checkbox" name="attr_zauber_my_humus_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_humus_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_humus_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_humus_e" value="@{z_my_humus_e_action}"> <span>Humus Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/KL/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_humus_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_humus_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="HumusESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Humus Essenzbeschwörung (@{spez_my_humus_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_humus_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{KL}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_humus_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_humus_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_humus_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_humus_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_humus_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-humus-w default-hide" type="checkbox" name="attr_zauber_my_humus_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_humus_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_humus_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_humus_w" value="@{z_my_humus_w_action}"> <span>Humus Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/KL/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_humus_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_humus_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="HumusWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Humus Essenzbeschwörung (@{spez_my_humus_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_humus_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{KL}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_humus_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_humus_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_humus_w} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_humus_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_humus_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
 				<input class="talent-zauber-elementargeschoss-feuer default-hide" type="checkbox" name="attr_zauber_ignifaxius" value="1">
 				<div class="zauber">
 					<button type="action" name="act_z_ignifaxius-action" class="default-hide"></button>
@@ -9331,6 +9877,34 @@
 					<button name="iribaarsSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Iribaars Hand (@{spez_iribaars})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_iribaars} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{IN}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_iribaars} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_iribaars} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_iribaars} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_iribaars} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1, 0d1 + @{ZfW_iribaars} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-zauber-my-iryabaar-e default-hide" type="checkbox" name="attr_zauber_my_iryabaar_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_iryabaar_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_iryabaar_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_iryabaar_e" value="@{z_my_iryabaar_e_action}"> <span>Iryabaar Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_iryabaar_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_iryabaar_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="IryabaarESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Iryabaar Essenzbeschwörung (@{spez_my_iryabaar_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_iryabaar_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_iryabaar_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_iryabaar_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_iryabaar_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_iryabaar_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_iryabaar_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-iryabaar-w default-hide" type="checkbox" name="attr_zauber_my_iryabaar_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_iryabaar_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_iryabaar_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_iryabaar_w" value="@{z_my_iryabaar_w_action}"> <span>Iryabaar Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_iryabaar_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_iryabaar_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="IryabaarWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Iryabaar Essenzbeschwörung (@{spez_my_iryabaar_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_iryabaar_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_iryabaar_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_iryabaar_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_iryabaar_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_iryabaar_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_iryabaar_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
 				<input class="talent-zauber-juckreiz default-hide" type="checkbox" name="attr_zauber_juckreiz" value="1">
 				<div class="zauber">
 					<button type="action" name="act_z_juckreiz-action" class="default-hide"></button>
@@ -9372,6 +9946,34 @@
 					<div class="talent-cell talent-taw">137</div>
 					<button name="KatzenaugenSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Katzenaugen (@{spez_Katzenaugen})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_Katzenaugen} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{FF}]]}} {{stat3=[[@{KO}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_Katzenaugen} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Katzenaugen} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Katzenaugen} + 2), 0d1}kh1]] - @{FF}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Katzenaugen} + 2), 0d1}kh1]] - @{KO}, 0d1}kh1, 0d1 + @{ZfW_Katzenaugen} + 2}dh1]]}}">Spez</button>
 					<br>
+				</div>
+				<input class="talent-zauber-my-khalyanar-e default-hide" type="checkbox" name="attr_zauber_my_khalyanar_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_khalyanar_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_khalyanar_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_khalyanar_e" value="@{z_my_khalyanar_e_action}"> <span>Khalyanar Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_khalyanar_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_khalyanar_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="KhalyanarESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Khalyanar Essenzbeschwörung (@{spez_my_khalyanar_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_khalyanar_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_khalyanar_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_khalyanar_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_khalyanar_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_khalyanar_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_khalyanar_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-khalyanar-w default-hide" type="checkbox" name="attr_zauber_my_khalyanar_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_khalyanar_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_khalyanar_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_khalyanar_w" value="@{z_my_khalyanar_w_action}"> <span>Khalyanar Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_khalyanar_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_khalyanar_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="KhalyanarWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Khalyanar Essenzbeschwörung (@{spez_my_khalyanar_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_khalyanar_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_khalyanar_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_khalyanar_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_khalyanar_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_khalyanar_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_khalyanar_w} + 2}dh1]]}}">Spez</button>
+                    <br>
 				</div>
 				<input class="talent-zauber-klarum default-hide" type="checkbox" name="attr_zauber_klarum" value="1">
 				<div class="zauber">
@@ -9471,6 +10073,20 @@
 					<button name="krabbelnderSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Krabbelnder Schrecken (@{spez_krabbelnder})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_krabbelnder} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_krabbelnder} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_krabbelnder} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_krabbelnder} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_krabbelnder} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_krabbelnder} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-zauber-my-kraft-e default-hide" type="checkbox" name="attr_zauber_my_kraft_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_kraft_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_kraft_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_kraft_e" value="@{z_my_kraft_e_action}"> <span>Kraft Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/KL/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_kraft_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_kraft_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="KraftESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Kraft Essenzbeschwörung (@{spez_my_kraft_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_kraft_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{KL}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_kraft_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_kraft_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_kraft_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_kraft_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_kraft_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
 				<input class="talent-zauber-elementarkraft-erz default-hide" type="checkbox" name="attr_zauber_kraft" value="1">
 				<div class="zauber">
 					<button type="action" name="act_z_kraftdeserzes-action" class="default-hide"></button>
@@ -9512,6 +10128,34 @@
 					<div class="talent-cell talent-taw">146</div>
 					<button name="krahenrufSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Krähenruf (@{spez_krahenruf})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_krahenruf} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{CH}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_krahenruf} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_krahenruf} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_krahenruf} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_krahenruf} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_krahenruf} + 2}dh1]]}}">Spez</button>
 					<br>
+				</div>
+				<input class="talent-zauber-my-kreativitaet-e default-hide" type="checkbox" name="attr_zauber_my_kreativitaet_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_kreativitaet_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_kreativitaet_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_kreativitaet_e" value="@{z_my_kreativitaet_e_action}"> <span>Kreativität Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_kreativitaet_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_kreativitaet_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="KreativitaetESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Kreativitaet Essenzbeschwörung (@{spez_my_kreativitaet_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_kreativitaet_e} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_kreativitaet_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_kreativitaet_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_kreativitaet_e} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_kreativitaet_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_kreativitaet_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-kreativitaet-w default-hide" type="checkbox" name="attr_zauber_my_kreativitaet_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_kreativitaet_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_kreativitaet_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_kreativitaet_w" value="@{z_my_kreativitaet_w_action}"> <span>Kreativität Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_kreativitaet_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_kreativitaet_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="KreativitaetWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Kreativitaet Essenzbeschwörung (@{spez_my_kreativitaet_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_kreativitaet_w} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_kreativitaet_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_kreativitaet_w} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_kreativitaet_w} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_kreativitaet_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_kreativitaet_w} + 2}dh1]]}}">Spez</button>
+                    <br>
 				</div>
 				<input class="talent-zauber-krotensprung default-hide" type="checkbox" name="attr_zauber_krotensprung" value="1">
 				<div class="zauber">
@@ -9765,6 +10409,34 @@
 					<button name="lockrufSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Lockruf und Feenfüsse (@{spez_lockruf})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_lockruf} + 2]]}} {{stat1=[[@{IN}]]}} {{stat2=[[@{CH}]]}} {{stat3=[[@{FF}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_lockruf} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_lockruf} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_lockruf} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_lockruf} + 2), 0d1}kh1]] - @{FF}, 0d1}kh1, 0d1 + @{ZfW_lockruf} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-zauber-my-luft-e default-hide" type="checkbox" name="attr_zauber_my_luft_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_luft_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_luft_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_luft_e" value="@{z_my_luft_e_action}"> <span>Luft Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/KL/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_luft_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_luft_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="LuftESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Luft Essenzbeschwörung (@{spez_my_luft_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_luft_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{KL}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_luft_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_luft_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_luft_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_luft_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_luft_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-luft-w default-hide" type="checkbox" name="attr_zauber_my_luft_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_luft_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_luft_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_luft_w" value="@{z_my_luft_w_action}"> <span>Luft Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/KL/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_luft_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_luft_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="LuftWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Luft Essenzbeschwörung (@{spez_my_luft_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_luft_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{KL}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_luft_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_luft_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_luft_w} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_luft_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_luft_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
 				<input class="talent-zauber-lunge default-hide" type="checkbox" name="attr_zauber_lunge" value="1">
 				<div class="zauber">
 					<button type="action" name="act_z_lungedesleviatan-action" class="default-hide"></button>
@@ -9961,6 +10633,34 @@
 					<button name="metamorphoSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Metamorpho Gletscherform (@{spez_metamorpho})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_metamorpho} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{FF}]]}} {{stat3=[[@{KK}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_metamorpho} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_metamorpho} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_metamorpho} + 2), 0d1}kh1]] - @{FF}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_metamorpho} + 2), 0d1}kh1]] - @{KK}, 0d1}kh1, 0d1 + @{ZfW_metamorpho} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-zauber-my-mishkarya-e default-hide" type="checkbox" name="attr_zauber_my_mishkarya_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_mishkarya_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_mishkarya_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_mishkarya_e" value="@{z_my_mishkarya_e_action}"> <span>Mishkarya Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_mishkarya_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_mishkarya_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="MishkaryaESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Mishkarya Essenzbeschwörung (@{spez_my_mishkarya_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_mishkarya_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_mishkarya_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_mishkarya_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_mishkarya_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_mishkarya_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_mishkarya_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-mishkarya-w default-hide" type="checkbox" name="attr_zauber_my_mishkarya_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_mishkarya_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_mishkarya_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_mishkarya_w" value="@{z_my_mishkarya_w_action}"> <span>Mishkarya Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_mishkarya_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_mishkarya_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="MishkaryaWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Mishkarya Essenzbeschwörung (@{spez_my_mishkarya_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_mishkarya_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_mishkarya_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_mishkarya_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_mishkarya_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_mishkarya_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_mishkarya_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
 				<input class="talent-zauber-motoricus default-hide" type="checkbox" name="attr_zauber_motoricus" value="1">
 				<div class="zauber">
 					<button type="action" name="act_z_motoricus-action" class="default-hide"></button>
@@ -10016,6 +10716,34 @@
 					<div class="talent-cell talent-taw">185</div>
 					<button name="NackedeiSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Nackedei (@{spez_Nackedei})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_Nackedei} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{FF}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_Nackedei} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Nackedei} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Nackedei} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Nackedei} + 2), 0d1}kh1]] - @{FF}, 0d1}kh1, 0d1 + @{ZfW_Nackedei} + 2}dh1]]}}">Spez</button>
 					<br>
+				</div>
+				<input class="talent-zauber-my-naggarach-e default-hide" type="checkbox" name="attr_zauber_my_naggarach_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_naggarach_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_naggarach_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_naggarach_e" value="@{z_my_naggarach_e_action}"> <span>Naggarach Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_naggarach_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_naggarach_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="NaggarachESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Naggarach Essenzbeschwörung (@{spez_my_naggarach_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_naggarach_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_naggarach_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_naggarach_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_naggarach_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_naggarach_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_naggarach_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-naggarach-w default-hide" type="checkbox" name="attr_zauber_my_naggarach_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_naggarach_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_naggarach_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_naggarach_w" value="@{z_my_naggarach_w_action}"> <span>Naggarach Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_naggarach_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_naggarach_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="NaggarachWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Naggarach Essenzbeschwörung (@{spez_my_naggarach_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_naggarach_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_naggarach_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_naggarach_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_naggarach_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_naggarach_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_naggarach_w} + 2}dh1]]}}">Spez</button>
+                    <br>
 				</div>
 				<input class="talent-zauber-nebelleib default-hide" type="checkbox" name="attr_zauber_Nebelleib" value="1">
 				<div class="zauber">
@@ -11165,6 +11893,34 @@
 					<button name="ThargunitothbannSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Thargunitothbann (@{spez_dz_Thargunitothbann})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_Thargunitothbann} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{CH}]]}} {{stat3=[[@{KO}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_Thargunitothbann} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Thargunitothbann} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Thargunitothbann} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Thargunitothbann} + 2), 0d1}kh1]] - @{KO}, 0d1}kh1, 0d1 + @{ZfW_Thargunitothbann} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-zauber-my-thesephai-e default-hide" type="checkbox" name="attr_zauber_my_thesephai_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_thesephai_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_thesephai_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_thesephai_e" value="@{z_my_thesephai_e_action}"> <span>Thesephai Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_thesephai_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_thesephai_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="ThesephaiESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Thesephai Essenzbeschwörung (@{spez_my_thesephai_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_thesephai_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_thesephai_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_thesephai_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_thesephai_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_thesephai_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_thesephai_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-thesephai-w default-hide" type="checkbox" name="attr_zauber_my_thesephai_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_thesephai_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_thesephai_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_thesephai_w" value="@{z_my_thesephai_w_action}"> <span>Thesephai Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_thesephai_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_thesephai_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="ThesephaiWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Thesephai Essenzbeschwörung (@{spez_my_thesephai_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_thesephai_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_thesephai_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_thesephai_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_thesephai_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_thesephai_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_thesephai_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
 				<input class="talent-zauber-tiere default-hide" type="checkbox" name="attr_zauber_tiere" value="1">
 				<div class="zauber">
 					<button type="action" name="act_z_tierebesprechen-action" class="default-hide"></button>
@@ -11193,6 +11949,34 @@
 					<button name="tiergedankenSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Tiergedanken (@{spez_tiergedanken})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_tiergedanken} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_tiergedanken} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_tiergedanken} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_tiergedanken} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_tiergedanken} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_tiergedanken} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-zauber-my-tiergeister-e default-hide" type="checkbox" name="attr_zauber_my_tiergeister_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_tiergeister_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_tiergeister_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_tiergeister_e" value="@{z_my_tiergeister_e_action}"> <span>Tiergeister Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/KL/IN + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_tiergeister_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_tiergeister_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="TiergeisterESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Tiergeister Essenzbeschwörung (@{spez_my_tiergeister_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_tiergeister_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{KL}]]}} {{stat3=[[@{IN}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_tiergeister_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_tiergeister_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_tiergeister_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_tiergeister_e} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1, 0d1 + @{ZfW_my_tiergeister_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-tiergeister-w default-hide" type="checkbox" name="attr_zauber_my_tiergeister_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_tiergeister_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_tiergeister_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_tiergeister_w" value="@{z_my_tiergeister_w_action}"> <span>Tiergeister Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/KL/IN + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_tiergeister_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_tiergeister_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="TiergeisterWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Tiergeister Essenzbeschwörung (@{spez_my_tiergeister_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_tiergeister_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{KL}]]}} {{stat3=[[@{IN}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_tiergeister_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_tiergeister_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_tiergeister_w} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_tiergeister_w} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1, 0d1 + @{ZfW_my_tiergeister_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
 				<input class="talent-zauber-dz-tierruf default-hide" type="checkbox" name="attr_zauber_dz_tierruf" value="1">
 				<div class="zauber">
 					<button type="action" name="act_z_dz_tierruf-action" class="default-hide"></button>
@@ -11220,6 +12004,34 @@
 					<div class="talent-cell talent-taw">258</div>
 					<button name="tlalucsSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Tlalucs Odem Pestgestank (@{spez_tlalucs})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_tlalucs} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{GE}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_tlalucs} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_tlalucs} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_tlalucs} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_tlalucs} + 2), 0d1}kh1]] - @{GE}, 0d1}kh1, 0d1 + @{ZfW_tlalucs} + 2}dh1]]}}">Spez</button>
 					<br>
+				</div>
+				<input class="talent-zauber-my-totenwesen-e default-hide" type="checkbox" name="attr_zauber_my_totenwesen_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_totenwesen_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_totenwesen_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_totenwesen_e" value="@{z_my_totenwesen_e_action}"> <span>Totenwesen Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_totenwesen_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_totenwesen_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="TotenwesenESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Totenwesen Essenzbeschwörung (@{spez_my_totenwesen_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_totenwesen_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_totenwesen_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_totenwesen_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_totenwesen_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_totenwesen_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_totenwesen_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-totenwesen-w default-hide" type="checkbox" name="attr_zauber_my_totenwesen_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_totenwesen_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_totenwesen_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_totenwesen_w" value="@{z_my_totenwesen_w_action}"> <span>Totenwesen Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_totenwesen_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_totenwesen_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="TotenwesenWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Totenwesen Essenzbeschwörung (@{spez_my_totenwesen_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_totenwesen_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_totenwesen_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_totenwesen_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_totenwesen_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_totenwesen_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_totenwesen_w} + 2}dh1]]}}">Spez</button>
+                    <br>
 				</div>
 				<input class="talent-zauber-totes default-hide" type="checkbox" name="attr_zauber_totes" value="1">
 				<div class="zauber">
@@ -11290,6 +12102,34 @@
 					<div class="talent-cell talent-taw">263</div>
 					<button name="TraumgestaltSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Traumgestalt (@{spez_Traumgestalt})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_Traumgestalt} + 2]]}} {{stat1=[[@{IN}]]}} {{stat2=[[@{CH}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_Traumgestalt} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Traumgestalt} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Traumgestalt} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Traumgestalt} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_Traumgestalt} + 2}dh1]]}}">Spez</button>
 					<br>
+				</div>
+				<input class="talent-zauber-my-tyakaar-e default-hide" type="checkbox" name="attr_zauber_my_tyakaar_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_tyakaar_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_tyakaar_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_tyakaar_e" value="@{z_my_tyakaar_e_action}"> <span>Tyakaar Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_tyakaar_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_tyakaar_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="TyakaarESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Tyakaar Essenzbeschwörung (@{spez_my_tyakaar_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_tyakaar_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_tyakaar_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_tyakaar_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_tyakaar_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_tyakaar_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_tyakaar_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-tyakaar-w default-hide" type="checkbox" name="attr_zauber_my_tyakaar_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_tyakaar_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_tyakaar_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_tyakaar_w" value="@{z_my_tyakaar_w_action}"> <span>Tyakaar Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_tyakaar_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_tyakaar_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="TyakaarWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Tyakaar Essenzbeschwörung (@{spez_my_tyakaar_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_tyakaar_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_tyakaar_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_tyakaar_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_tyakaar_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_tyakaar_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_tyakaar_w} + 2}dh1]]}}">Spez</button>
+                    <br>
 				</div>
 				<input class="talent-zauber-umbraporta default-hide" type="checkbox" name="attr_zauber_Umbraporta" value="1">
 				<div class="zauber">
@@ -11487,6 +12327,34 @@
 					<button name="vogelzwitschernSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Vogelzwitschern Glockenspiel (@{spez_vogelzwitschern})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_vogelzwitschern} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{GE}]]}} {{stat3=[[@{GE}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_vogelzwitschern} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_vogelzwitschern} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_vogelzwitschern} + 2), 0d1}kh1]] - @{GE}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_vogelzwitschern} + 2), 0d1}kh1]] - @{GE}, 0d1}kh1, 0d1 + @{ZfW_vogelzwitschern} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-zauber-my-wahnsinn-e default-hide" type="checkbox" name="attr_zauber_my_wahnsinn_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_wahnsinn_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_wahnsinn_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_wahnsinn_e" value="@{z_my_wahnsinn_e_action}"> <span>Wahnsinn Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_wahnsinn_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_wahnsinn_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="WahnsinnESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Wahnsinn Essenzbeschwörung (@{spez_my_wahnsinn_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_wahnsinn_e} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_wahnsinn_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_wahnsinn_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_wahnsinn_e} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_wahnsinn_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_wahnsinn_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-wahnsinn-w default-hide" type="checkbox" name="attr_zauber_my_wahnsinn_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_wahnsinn_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_wahnsinn_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_wahnsinn_w" value="@{z_my_wahnsinn_w_action}"> <span>Wahnsinn Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_wahnsinn_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_wahnsinn_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="WahnsinnWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Wahnsinn Essenzbeschwörung (@{spez_my_wahnsinn_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_wahnsinn_w} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_wahnsinn_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_wahnsinn_w} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_wahnsinn_w} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_wahnsinn_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_wahnsinn_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
 				<input class="talent-zauber-elementarwand-humus default-hide" type="checkbox" name="attr_zauber_wandausdornen" value="1">
 				<div class="zauber">
 					<button type="action" name="act_z_wandausdornen-action" class="default-hide"></button>
@@ -11542,6 +12410,34 @@
 					<div class="talent-cell talent-taw">-</div>
 					<button name="Warmes_gefriereSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Warmes gefriere (@{spez_Warmes_gefriere})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_Warmes_gefriere} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{KL}]]}} {{stat3=[[@{KK}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_Warmes_gefriere} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Warmes_gefriere} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Warmes_gefriere} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Warmes_gefriere} + 2), 0d1}kh1]] - @{KK}, 0d1}kh1, 0d1 + @{ZfW_Warmes_gefriere} + 2}dh1]]}}">Spez</button>
 					<br>
+				</div>
+				<input class="talent-zauber-my-wasser-e default-hide" type="checkbox" name="attr_zauber_my_wasser_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_wasser_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_wasser_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_wasser_e" value="@{z_my_wasser_e_action}"> <span>Wasser Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/KL/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_wasser_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_wasser_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="WasserESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Wasser Essenzbeschwörung (@{spez_my_wasser_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_wasser_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{KL}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_wasser_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_wasser_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_wasser_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_wasser_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_wasser_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-wasser-w default-hide" type="checkbox" name="attr_zauber_my_wasser_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_wasser_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_wasser_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_wasser_w" value="@{z_my_wasser_w_action}"> <span>Wasser Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/KL/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_wasser_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_wasser_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="WasserWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Wasser Essenzbeschwörung (@{spez_my_wasser_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_wasser_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{KL}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_wasser_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_wasser_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_wasser_w} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_wasser_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_wasser_w} + 2}dh1]]}}">Spez</button>
+                    <br>
 				</div>
 				<input class="talent-zauber-wasseratem default-hide" type="checkbox" name="attr_zauber_wasseratem" value="1">
 				<div class="zauber">
@@ -11767,6 +12663,34 @@
 					<button name="xenographusSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Xenographus Schriftenkunde (@{spez_xenographus})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_xenographus} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{KL}]]}} {{stat3=[[@{IN}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_xenographus} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_xenographus} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_xenographus} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_xenographus} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1, 0d1 + @{ZfW_xenographus} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-zauber-my-xolovar-e default-hide" type="checkbox" name="attr_zauber_my_xolovar_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_xolovar_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_xolovar_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_xolovar_e" value="@{z_my_xolovar_e_action}"> <span>Xolovar Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_xolovar_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_xolovar_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="XolovarESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Xolovar Essenzbeschwörung (@{spez_my_xolovar_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_xolovar_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_xolovar_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_xolovar_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_xolovar_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_xolovar_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_xolovar_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-xolovar-w default-hide" type="checkbox" name="attr_zauber_my_xolovar_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_xolovar_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_xolovar_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_xolovar_w" value="@{z_my_xolovar_w_action}"> <span>Xolovar Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/MU/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_xolovar_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_xolovar_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="XolovarWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Xolovar Essenzbeschwörung (@{spez_my_xolovar_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_xolovar_w} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{MU}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_xolovar_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_xolovar_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_xolovar_w} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_xolovar_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_xolovar_w} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
 				<input class="talent-zauber-zagibu default-hide" type="checkbox" name="attr_zauber_zagibu" value="1">
 				<div class="zauber">
 					<button type="action" name="act_z_zagibu-action" class="default-hide"></button>
@@ -11794,6 +12718,34 @@
 					<div class="talent-cell talent-taw">291</div>
 					<button name="ZappendusterSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Zappenduster (@{spez_Zappenduster})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_Zappenduster} + 2]]}} {{stat1=[[@{IN}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{FF}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_Zappenduster} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Zappenduster} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Zappenduster} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_Zappenduster} + 2), 0d1}kh1]] - @{FF}, 0d1}kh1, 0d1 + @{ZfW_Zappenduster} + 2}dh1]]}}">Spez</button>
 					<br>
+				</div>
+				<input class="talent-zauber-my-zauberei-e default-hide" type="checkbox" name="attr_zauber_my_zauberei_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_zauberei_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_zauberei_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_zauberei_e" value="@{z_my_zauberei_e_action}"> <span>Zauberei Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_zauberei_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_zauberei_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="ZaubereiESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Zauberei Essenzbeschwörung (@{spez_my_zauberei_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_zauberei_e} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_zauberei_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_zauberei_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_zauberei_e} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_zauberei_e} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_zauberei_e} + 2}dh1]]}}">Spez</button>
+                    <br>
+				</div>
+				<input class="talent-zauber-my-zauberei-w default-hide" type="checkbox" name="attr_zauber_my_zauberei_w" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_zauberei_w-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_zauberei_w_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_zauberei_w" value="@{z_my_zauberei_w_action}"> <span>Zauberei Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">KL/IN/CH + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_zauberei_w">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_zauberei_w" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="ZaubereiWSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Zauberei Essenzbeschwörung (@{spez_my_zauberei_w})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_zauberei_w} + 2]]}} {{stat1=[[@{KL}]]}} {{stat2=[[@{IN}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_zauberei_w} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_zauberei_w} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_zauberei_w} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_zauberei_w} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_my_zauberei_w} + 2}dh1]]}}">Spez</button>
+                    <br>
 				</div>
 				<input class="talent-zauber-zauberklinge default-hide" type="checkbox" name="attr_zauber_zauberklinge" value="1">
 				<div class="zauber">
@@ -11850,6 +12802,20 @@
 					<div class="talent-cell talent-taw">295</div>
 					<button name="zauberzwangSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Zauberzwang (@{spez_zauberzwang})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_zauberzwang} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{CH}]]}} {{stat3=[[@{CH}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_zauberzwang} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_zauberzwang} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_zauberzwang} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_zauberzwang} + 2), 0d1}kh1]] - @{CH}, 0d1}kh1, 0d1 + @{ZfW_zauberzwang} + 2}dh1]]}}">Spez</button>
 					<br>
+				</div>
+				<input class="talent-zauber-my-zeit-e default-hide" type="checkbox" name="attr_zauber_my_zeit_e" value="1">
+				<div class="zauber">
+					<button type="action" name="act_z_my_zeit_e-action" class="default-hide"></button>
+					<input type="hidden" name="attr_z_my_zeit_e_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_z_my_zeit_e" value="@{z_my_zeit_e_action}"> <span>Zeit Essenzbeschwörung</span></button>
+					</div>
+					<div class="talent-cell talent-eigenschaften">MU/KL/IN + <span class="abbr" title="Anrufungsschwierigkeit und Qualität der Formel">Mod.</span></div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_zeit_e">
+					<input type="number" class="talent-taw" name="attr_ZfW_my_zeit_e" min="0" value="0">
+					<div class="talent-cell talent-taw"><span class="abbr" title="Myranische Magie">MyMa</span></div>
+					<button name="ZeitESpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Zauber} {{name=Zeit Essenzbeschwörung (@{spez_my_zeit_e})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{ZfW_my_zeit_e} + 2]]}} {{stat1=[[@{MU}]]}} {{stat2=[[@{KL}]]}} {{stat3=[[@{IN}]]}} {{Talent=[[ { [[{0d1 + @{ZfW_my_zeit_e} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_zeit_e} + 2), 0d1}kh1]] - @{MU}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_zeit_e} + 2), 0d1}kh1]] - @{KL}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{ZfW_my_zeit_e} + 2), 0d1}kh1]] - @{IN}, 0d1}kh1, 0d1 + @{ZfW_my_zeit_e} + 2}dh1]]}}">Spez</button>
+                    <br>
 				</div>
 				<input class="talent-zauber-zorn default-hide" type="checkbox" name="attr_zauber_zorn" value="1">
 				<div class="zauber">
@@ -12249,6 +13215,89 @@
 											<label><input type="checkbox" name="attr_zauber_dz_unsichtbare-glut" value="1">Unsichtbare Glut</label>
 											<label><input type="checkbox" name="attr_zauber_dz_valetudo-lebenskraft" value="1">Valetudo Lebenskraft</label>
 											<label><input type="checkbox" name="attr_zauber_dz_weisheit-der-steine" value="1">Weisheit der Steine</label>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<input type="checkbox" class="zeige-myranor default-hide" name="attr_Myranor">
+							<div class="hideable-myranor">
+								<div align="left" style="font-weight:bold; display:inline-block; width:9em;">Myranor</div>
+								<table class="hideable-myranor" style="width: 100%">
+									<tr>
+										<td valign="top">
+											<label><input type="checkbox" name="attr_zauber_my_abgrund_e" value="1">Abgrund Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_abgrund_w" value="1">Abgrund Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_aggari_e" value="1">Aggari Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_aggari_w" value="1">Aggari Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_aggression_e" value="1">Aggression Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_aggression_w" value="1">Aggression Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_avastada_e" value="1">Avastada Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_avastada_w" value="1">Avastada Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_begierde_e" value="1">Begierde Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_begierde_w" value="1">Begierde Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_carafai_e" value="1">Carafai Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_carafai_w" value="1">Carafai Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_darcalya_e" value="1">Darcalya Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_darcalya_w" value="1">Darcalya Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_dyakhol_e" value="1">Dya'Khol Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_dyakhol_w" value="1">Dya'Khol Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_eis_e" value="1">Eis Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_eis_w" value="1">Eis Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_endgueltigkeit_e" value="1">Endgültigkeit Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_endgueltigkeit_w" value="1">Endgültigkeit Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_erfolg_e" value="1">Erfolg Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_erfolg_w" value="1">Erfolg Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_erkenntnis_e" value="1">Erkenntnis Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_erkenntnis_w" value="1">Erkenntnis Wesensbeschwörung</label>
+										</td>
+										<td valign="top">
+											<label><input type="checkbox" name="attr_zauber_my_erz_e" value="1">Erz Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_erz_w" value="1">Erz Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_eskates_e" value="1">Eskates Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_feuer_e" value="1">Feuer Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_feuer_w" value="1">Feuer Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_freiheit_e" value="1">Freiheit Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_freiheit_w" value="1">Freiheit Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_galkuzul_e" value="1">Galkuzul Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_galkuzul_w" value="1">Galkuzul Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_ghorgumor_e" value="1">Ghorgumor Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_ghorgumor_w" value="1">Ghorgumor Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_harmonie_e" value="1">Harmonie Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_harmonie_w" value="1">Harmonie Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_humus_e" value="1">Humus Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_humus_w" value="1">Humus Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_iryabaar_e" value="1">Iryabaar Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_iryabaar_w" value="1">Iryabaar Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_khalyanar_e" value="1">Khalyanar Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_khalyanar_w" value="1">Khalyanar Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_kraft_e" value="1">Kraft Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_kreativitaet_e" value="1">Kreativität Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_kreativitaet_w" value="1">Kreativität Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_luft_e" value="1">Luft Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_luft_w" value="1">Luft Wesensbeschwörung</label>
+										</td>
+										<td valign="top">
+											<label><input type="checkbox" name="attr_zauber_my_mishkarya_e" value="1">Mishkarya Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_mishkarya_w" value="1">Mishkarya Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_naggarach_e" value="1">Naggarach Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_naggarach_w" value="1">Naggarach Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_thesephai_e" value="1">Thesephai Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_thesephai_w" value="1">Thesephai Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_tiergeister_e" value="1">Tiergeister Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_tiergeister_w" value="1">Tiergeister Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_totenwesen_e" value="1">Totenwesen Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_totenwesen_w" value="1">Totenwesen Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_tyakaar_e" value="1">Tyakaar Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_tyakaar_w" value="1">Tyakaar Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_wahnsinn_e" value="1">Wahnsinn Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_wahnsinn_w" value="1">Wahnsinn Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_wasser_e" value="1">Wasser Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_wasser_w" value="1">Wasser Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_xolovar_e" value="1">Xolovar Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_xolovar_w" value="1">Xolovar Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_zauberei_e" value="1">Zauberei Essenzbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_zauberei_w" value="1">Zauberei Wesensbeschwörung</label>
+											<label><input type="checkbox" name="attr_zauber_my_zeit_e" value="1">Zeit Essenzbeschwörung</label>
 										</td>
 									</tr>
 								</table>
@@ -14919,6 +15968,9 @@
 			</label>
 			<label>
 			 <input type="checkbox" class="verstecke-ueberanstrengung" name="attr_verstecke_ueberanstrengung"> Verstecke Überanstrengung
+			</label>
+			<label>
+			 <input type="checkbox" class="zeige-myranor" name="attr_Myranor"> Zeige myranische Talente und Zauber
 			</label>
 		</div>
 		<div class="fieldset-workaround">
@@ -18782,6 +19834,75 @@ const spells = [
 	'z_motoricus',
 	'z_movimento',
 	'z_murksundpatz',
+	'z_my_abgrund_e',
+	'z_my_abgrund_w',
+	'z_my_aggari_e',
+	'z_my_aggari_w',
+	'z_my_aggression_e',
+	'z_my_aggression_w',
+	'z_my_avastada_e',
+	'z_my_avastada_w',
+	'z_my_begierde_e',
+	'z_my_begierde_w',
+	'z_my_carafai_e',
+	'z_my_carafai_w',
+	'z_my_darcalya_e',
+	'z_my_darcalya_w',
+	'z_my_dyakhol_e',
+	'z_my_dyakhol_w',
+	'z_my_eis_e',
+	'z_my_eis_w',
+	'z_my_endgueltigkeit_e',
+	'z_my_endgueltigkeit_w',
+	'z_my_erfolg_e',
+	'z_my_erfolg_w',
+	'z_my_erkenntnis_e',
+	'z_my_erkenntnis_w',
+	'z_my_erz_e',
+	'z_my_erz_w',
+	'z_my_eskates_e',
+	'z_my_feuer_e',
+	'z_my_feuer_w',
+	'z_my_freiheit_e',
+	'z_my_freiheit_w',
+	'z_my_galkuzul_e',
+	'z_my_galkuzul_w',
+	'z_my_ghorgumor_e',
+	'z_my_ghorgumor_w',
+	'z_my_harmonie_e',
+	'z_my_harmonie_w',
+	'z_my_humus_e',
+	'z_my_humus_w',
+	'z_my_iryabaar_e',
+	'z_my_iryabaar_w',
+	'z_my_khalyanar_e',
+	'z_my_khalyanar_w',
+	'z_my_kraft_e',
+	'z_my_kreativitaet_e',
+	'z_my_kreativitaet_w',
+	'z_my_luft_e',
+	'z_my_luft_w',
+	'z_my_mishkarya_e',
+	'z_my_mishkarya_w',
+	'z_my_naggarach_e',
+	'z_my_naggarach_w',
+	'z_my_thesephai_e',
+	'z_my_thesephai_w',
+	'z_my_tiergeister_e',
+	'z_my_tiergeister_w',
+	'z_my_totenwesen_e',
+	'z_my_totenwesen_w',
+	'z_my_tyakaar_e',
+	'z_my_tyakaar_w',
+	'z_my_wahnsinn_e',
+	'z_my_wahnsinn_w',
+	'z_my_wasser_e',
+	'z_my_wasser_w',
+	'z_my_xolovar_e',
+	'z_my_xolovar_w',
+	'z_my_zauberei_e',
+	'z_my_zauberei_w',
+	'z_my_zeit_e',
 	'z_nackedei',
 	'z_nebelleib',
 	'z_nebelwand',
@@ -19151,6 +20272,8 @@ const talentsData = {
 	't_h_zimmermann': {'internal': "zimmermann", 'ui': "Zimmermann"}
 };
 const spellsData = {
+	'z_my_abgrund_e': {'internal': "my_abgrund_e", 'ui': "Abgrund Essenzbeschwörung", 'stats': ['MU', 'MU', 'CH']},
+	'z_my_abgrund_w': {'internal': "my_abgrund_w", 'ui': "Abgrund Wesenbeschwörung", 'stats': ['MU', 'MU', 'CH']},
 	'z_abvenenum': {'internal': "abvenenum", 'ui': "Abvenenum Reine Speise", 'stats': ['KL', 'KL', 'FF']},
 	'z_accuratum': {'internal': "accuratum", 'ui': "Accuratum Zaubernadel", 'stats': ['KL', 'CH', 'FF']},
 	'z_adamantium': {'internal': "adamantium", 'ui': "Adamantium Erzstruktur", 'stats': ['KL', 'FF', 'KO']},
@@ -19161,6 +20284,10 @@ const spellsData = {
 	'z_aerofugo': {'internal': "aerofugo", 'ui': "Aerofugo Vakuum", 'stats': ['MU', 'KO', 'KK']},
 	'z_aerogelo': {'internal': "aerogelo", 'ui': "Aerogelo Atemqual", 'stats': ['MU', 'IN', 'KO']},
 	'z_aeropulvis': {'internal': "aeropulvis", 'ui': "Aeropulvis Sanfter Fall", 'stats': ['KL', 'IN', 'GE']},
+	'z_my_aggari_e': {'internal': "my_aggari_e", 'ui': "Aggari Essenzbeschwörung", 'stats': ['MU', 'MU', 'CH']},
+	'z_my_aggari_w': {'internal': "my_aggari_w", 'ui': "Aggari Wesenbeschwörung", 'stats': ['MU', 'MU', 'CH']},
+	'z_my_aggression_e': {'internal': "my_aggression_e", 'ui': "Aggression Essenzbeschwörung", 'stats': ['KL', 'IN', 'CH']},
+	'z_my_aggression_w': {'internal': "my_aggression_w", 'ui': "Aggression Wesenbeschwörung", 'stats': ['KL', 'IN', 'CH']},
 	'z_dz_agrimothbann': {'internal': "agrimothbann", 'ui': "Agrimothbann", 'stats': ['MU', 'CH', 'KO']},
 	'z_alpgestalt': {'internal': "alpgestalt", 'ui': "Alpgestalt", 'stats': ['MU', 'CH', 'GE']},
 	'z_analys': {'internal': "analys", 'ui': "Analys Arcanstruktur", 'stats': ['KL', 'KL', 'IN']},
@@ -19180,11 +20307,15 @@ const spellsData = {
 	'z_augedeslimbus': {'internal': "auge", 'ui': "Auge des Limbus", 'stats': ['MU', 'KO', 'KK']},
 	'z_aureolus': {'internal': "aureolus", 'ui': "Aureolus Güldenglanz", 'stats': ['IN', 'CH', 'FF']},
 	'z_aurisnasusoculus': {'internal': "auris", 'ui': "Auris Nasus Oculus", 'stats': ['KL', 'CH', 'FF']},
+	'z_my_avastada_e': {'internal': "my_avastada_e", 'ui': "Avastada Essenzbeschwörung", 'stats': ['MU', 'MU', 'CH']},
+	'z_my_avastada_w': {'internal': "my_avastada_w", 'ui': "Avastada Wesenbeschwörung", 'stats': ['MU', 'MU', 'CH']},
 	'z_axxeleratus': {'internal': "axxeleratus", 'ui': "Axxeleratus Blitzgeschwind", 'stats': ['KL', 'GE', 'KO']},
 	'z_baerenruhe': {'internal': "barenruhe", 'ui': "Bärenruhe Winterschlaf", 'stats': ['MU', 'KK', 'KO']},
 	'z_balsam': {'internal': "balsam", 'ui': "Balsam Salabunde", 'stats': ['KL', 'IN', 'CH']},
 	'z_bandundfessel': {'internal': "band", 'ui': "Band und Fessel", 'stats': ['KL', 'CH', 'KK']},
 	'z_bannbaladin': {'internal': "bannbaladin", 'ui': "Bannbaladin", 'stats': ['IN', 'CH', 'CH']},
+	'z_my_begierde_e': {'internal': "my_begierde_e", 'ui': "Begierde Essenzbeschwörung", 'stats': ['KL', 'IN', 'CH']},
+	'z_my_begierde_w': {'internal': "my_begierde_w", 'ui': "Begierde Wesenbeschwörung", 'stats': ['KL', 'IN', 'CH']},
 	'z_beherrschungbrechen': {'internal': "beherrschung", 'ui': "Beherrschung brechen", 'stats': ['KL', 'IN', 'CH']},
 	'z_dz_belzhorashbann': {'internal': "belzhorashbann", 'ui': "Belzhorashbann", 'stats': ['MU', 'CH', 'KO']},
 	'z_beschwoerungvereiteln': {'internal': "beschworung", 'ui': "Beschwörung vereiteln", 'stats': ['MU', 'IN', 'CH']},
@@ -19199,6 +20330,8 @@ const spellsData = {
 	'z_boeserblick': {'internal': "boser", 'ui': "Böser Blick", 'stats': ['MU', 'CH', 'CH']},
 	'z_brenne': {'internal': "brenne", 'ui': "Brenne, toter Stoff!", 'stats': ['MU', 'KL', 'KO']},
 	'z_caldofrigo': {'internal': "caldofrigo", 'ui': "Caldofrigo Heiß und Kalt", 'stats': ['IN', 'CH', 'KO']},
+	'z_my_carafai_e': {'internal': "my_carafai_e", 'ui': "Carafai Essenzbeschwörung", 'stats': ['MU', 'MU', 'CH']},
+	'z_my_carafai_w': {'internal': "my_carafai_w", 'ui': "Carafai Wesenbeschwörung", 'stats': ['MU', 'MU', 'CH']},
 	'z_chamaelioni': {'internal': "chamaelioni", 'ui': "Chamaelioni Mimikry", 'stats': ['IN', 'CH', 'GE']},
 	'z_chimaeroform': {'internal': "chimaeroform", 'ui': "Chimaeroform Hybridgestalt", 'stats': ['KL', 'IN', 'KO']},
 	'z_chronoklassis': {'internal': "chronoklassis", 'ui': "Chronoklassis Urfossil", 'stats': ['KL', 'IN', 'KO']},
@@ -19209,6 +20342,8 @@ const spellsData = {
 	'z_cryptographo': {'internal': "cryptographo", 'ui': "Cryptographo Zauberschrift", 'stats': ['KL', 'KL', 'IN']},
 	'z_custodosigil': {'internal': "custodosigil", 'ui': "Custodosigil Diebesbann", 'stats': ['KL', 'FF', 'FF']},
 	'z_daemonenbann': {'internal': "damonenbann", 'ui': "Dämonenbann", 'stats': ['MU', 'CH', 'KO']},
+	'z_my_darcalya_e': {'internal': "my_darcalya_e", 'ui': "Darcalya Essenzbeschwörung", 'stats': ['MU', 'MU', 'CH']},
+	'z_my_darcalya_w': {'internal': "my_darcalya_w", 'ui': "Darcalya Wesenbeschwörung", 'stats': ['MU', 'MU', 'CH']},
 	'z_delicioso': {'internal': "delicioso", 'ui': "Delicioso Gaumenschmaus", 'stats': ['KL', 'CH', 'FF']},
 	'z_desintegratus': {'internal': "desintegratus", 'ui': "Desintegratus Pulverstaub", 'stats': ['KL', 'KO', 'KK']},
 	'z_destructibo': {'internal': "destructibo", 'ui': "Destructibo Arcanitas", 'stats': ['KL', 'KL', 'FF']},
@@ -19216,23 +20351,38 @@ const spellsData = {
 	'z_dschinnenruf': {'internal': "dschinnenruf", 'ui': "Dschinnenruf", 'stats': ['MU', 'KL', 'CH']},
 	'z_dunkelheit': {'internal': "dunkelheit", 'ui': "Dunkelheit", 'stats': ['KL', 'KL', 'FF']},
 	'z_duplicatus': {'internal': "duplicatus", 'ui': "Duplicatus Doppelbild", 'stats': ['KL', 'CH', 'GE']},
+	'z_my_dyakhol_e': {'internal': "my_dyakhol_e", 'ui': "Dya'khol Essenzbeschwörung", 'stats': ['MU', 'MU', 'CH']},
+	'z_my_dyakhol_w': {'internal': "my_dyakhol_w", 'ui': "Dya'khol Wesenbeschwörung", 'stats': ['MU', 'MU', 'CH']},
 	'z_ecliptifactus': {'internal': "ecliptifactus", 'ui': "Ecliptifactus Schattenkraft", 'stats': ['MU', 'KL', 'KO']},
 	'z_eigenschaftwiederherstellen': {'internal': "eigenschaft", 'ui': "Eigenschaft wiederherstellen", 'stats': ['KL', 'IN', 'CH']},
 	'z_eigneaengste': {'internal': "eigne", 'ui': "Eigne Ängste quälen dich!", 'stats': ['MU', 'IN', 'CH']},
 	'z_einflussbannen': {'internal': "einfluss", 'ui': "Einfluss bannen", 'stats': ['IN', 'CH', 'CH']},
 	'z_einsmitdernatur': {'internal': "eins", 'ui': "Eins mit der Natur", 'stats': ['IN', 'GE', 'KO']},
+	'z_my_eis_e': {'internal': "my_eis_e", 'ui': "Eis Essenzbeschwörung", 'stats': ['MU', 'KL', 'CH']},
+	'z_my_eis_w': {'internal': "my_eis_w", 'ui': "Eis Wesenbeschwörung", 'stats': ['MU', 'KL', 'CH']},
 	'z_eisenrost': {'internal': "eisenrost", 'ui': "Eisenrost und Patina", 'stats': ['KL', 'CH', 'GE']},
 	'z_eiseskaelte': {'internal': "eiseskalte", 'ui': "Eiseskälte Kämpferherz", 'stats': ['MU', 'IN', 'KO']},
 	'z_eiswirbel': {'internal': "eiswirbel", 'ui': "Eiswirbel", 'stats': ['MU', 'IN', 'KK']},
 	'z_elementarbann': {'internal': "elementarbann", 'ui': "Elementarbann", 'stats': ['IN', 'CH', 'KO']},
 	'z_elementarerdiener': {'internal': "elementarer", 'ui': "Elementarer Diener", 'stats': ['MU', 'KL', 'CH']},
 	'z_elfenstimme': {'internal': "elfenstimme", 'ui': "Elfenstimme Flötenton", 'stats': ['IN', 'CH', 'KO']},
+	'z_my_endgueltigkeit_e': {'internal': "my_endgueltigkeit_e", 'ui': "Endgültigkeit Essenzbeschwörung", 'stats': ['KL', 'IN', 'CH']},
+	'z_my_endgueltigkeit_w': {'internal': "my_endgueltigkeit_w", 'ui': "Endgültigkeit Wesenbeschwörung", 'stats': ['KL', 'IN', 'CH']},
 	'z_dz_entfesselungdesgetiers': {'internal': "Entfesselung_des_Getiers", 'ui': "Entfesselung des Getiers", 'stats': ['KL', 'CH', 'KO']},
+	'z_my_erfolg_e': {'internal': "my_erfolg_e", 'ui': "Erfolg Essenzbeschwörung", 'stats': ['KL', 'IN', 'CH']},
+	'z_my_erfolg_w': {'internal': "my_erfolg_w", 'ui': "Erfolg Wesenbeschwörung", 'stats': ['KL', 'IN', 'CH']},
+	'z_my_erkenntnis_e': {'internal': "my_erkenntnis_e", 'ui': "Erkenntnis Essenzbeschwörung", 'stats': ['KL', 'IN', 'CH']},
+	'z_my_erkenntnis_w': {'internal': "my_erkenntnis_w", 'ui': "Erkenntnis Wesenbeschwörung", 'stats': ['KL', 'IN', 'CH']},
 	'z_erinnerungverlassedich': {'internal': "erinnerung", 'ui': "Erinnerung verlasse dich!", 'stats': ['MU', 'IN', 'CH']},
+	'z_my_erz_e': {'internal': "my_erz_e", 'ui': "Erz Essenzbeschwörung", 'stats': ['MU', 'KL', 'CH']},
+	'z_my_erz_w': {'internal': "my_erz_w", 'ui': "Erz Wesenbeschwörung", 'stats': ['MU', 'KL', 'CH']},
+	'z_my_eskates_e': {'internal': "my_eskates_e", 'ui': "Eskates Essenzbeschwörung", 'stats': ['MU', 'MU', 'CH']},
 	'z_exposami': {'internal': "exposami", 'ui': "Exposami Lebenskraft", 'stats': ['KL', 'IN', 'IN']},
 	'z_falkenauge': {'internal': "falkenauge", 'ui': "Falkenauge Meisterschuss", 'stats': ['IN', 'FF', 'GE']},
 	'z_favilludo': {'internal': "favilludo", 'ui': "Favilludo Funkentanz", 'stats': ['IN', 'CH', 'FF']},
 	'z_fesselranken': {'internal': "fesselranken", 'ui': "Fesselranken", 'stats': ['KL', 'IN', 'KK']},
+	'z_my_feuer_e': {'internal': "my_feuer_e", 'ui': "Feuer Essenzbeschwörung", 'stats': ['MU', 'KL', 'CH']},
+	'z_my_feuer_w': {'internal': "my_feuer_w", 'ui': "Feuer Wesenbeschwörung", 'stats': ['MU', 'KL', 'CH']},
 	'z_feuermaehne': {'internal': "feuermaehne", 'ui': "Feuermähne Flammenhuf", 'stats': ['IN', 'CH', 'KO']},
 	'z_feuersturm': {'internal': "feuersturm", 'ui': "Feuersturm", 'stats': ['MU', 'IN', 'KK']},
 	'z_firnlauf': {'internal': "firnlauf", 'ui': "Firnlauf", 'stats': ['MU', 'KL', 'GE']},
@@ -19240,9 +20390,13 @@ const spellsData = {
 	'z_fluchderpestilenz': {'internal': "fluch", 'ui': "Fluch der Pestilenz", 'stats': ['MU', 'KL', 'CH']},
 	'z_foramen': {'internal': "foramen", 'ui': "Foramen Foraminor", 'stats': ['KL', 'KL', 'FF']},
 	'z_fortifex': {'internal': "fortifex", 'ui': "Fortifex Arkane Wand", 'stats': ['IN', 'KO', 'KK']},
+	'z_my_freiheit_e': {'internal': "my_freiheit_e", 'ui': "Freiheit Essenzbeschwörung", 'stats': ['KL', 'IN', 'CH']},
+	'z_my_freiheit_w': {'internal': "my_freiheit_w", 'ui': "Freiheit Wesenbeschwörung", 'stats': ['KL', 'IN', 'CH']},
 	'z_frigifaxius': {'internal': "frigifaxius", 'ui': "Frigifaxius", 'stats': ['KL', 'FF', 'KO']},
 	'z_frigisphaero': {'internal': "frigisphaero", 'ui': "Frigisphaero", 'stats': ['MU', 'IN', 'KO']},
 	'z_fulminictus': {'internal': "fulminictus", 'ui': "Fulminictus Donnerkeil", 'stats': ['IN', 'GE', 'KO']},
+	'z_my_galkuzul_e': {'internal': "my_galkuzul_e", 'ui': "Galkuzul Essenzbeschwörung", 'stats': ['MU', 'MU', 'CH']},
+	'z_my_galkuzul_w': {'internal': "my_galkuzul_w", 'ui': "Galkuzul Wesenbeschwörung", 'stats': ['MU', 'MU', 'CH']},
 	'z_gardianum': {'internal': "gardianum", 'ui': "Gardianum Zauberschild", 'stats': ['KL', 'IN', 'KO']},
 	'z_dz_gebieterdertiefe': {'internal': "Gebieter_der_Tiefe", 'ui': "Gebieter der Tiefe", 'stats': ['MU', 'CH', 'KO']},
 	'z_gedankenbilder': {'internal': "gedankenbilder", 'ui': "Gedankenbilder Elfenruf", 'stats': ['KL', 'IN', 'CH']},
@@ -19251,6 +20405,8 @@ const spellsData = {
 	'z_geisterbann': {'internal': "geisterbann", 'ui': "Geisterbann", 'stats': ['MU', 'MU', 'CH']},
 	'z_geisterruf': {'internal': "geisterruf", 'ui': "Geisterruf", 'stats': ['MU', 'MU', 'CH']},
 	'z_dz_geschossderniederhoellen': {'internal': "Geschoss_der_Niederhoellen", 'ui': "Geschoss der Niederhöllen", 'stats': ['CH', 'FF', 'KK']},
+	'z_my_ghorgumor_e': {'internal': "my_ghorgumor_e", 'ui': "Ghorgumor Essenzbeschwörung", 'stats': ['MU', 'MU', 'CH']},
+	'z_my_ghorgumor_w': {'internal': "my_ghorgumor_w", 'ui': "Ghorgumor Wesenbeschwörung", 'stats': ['MU', 'MU', 'CH']},
 	'z_glacoflumen': {'internal': "glacoflumen", 'ui': "Glacoflumen Fluss aus Eis", 'stats': ['IN', 'GE', 'KO']},
 	'z_gletscherwand': {'internal': "gletscherwand", 'ui': "Gletscherwand", 'stats': ['MU', 'KL', 'CH']},
 	'z_granitundmarmor': {'internal': "granit", 'ui': "Granit und Marmor", 'stats': ['MU', 'CH', 'KO']},
@@ -19259,6 +20415,8 @@ const spellsData = {
 	'z_grosseverwirrung': {'internal': "grosseverwirrung", 'ui': "Große Verwirrung", 'stats': ['KL', 'KL', 'CH']},
 	'z_halluzination': {'internal': "halluzination", 'ui': "Halluzination", 'stats': ['KL', 'IN', 'CH']},
 	'z_harmlosegestalt': {'internal': "harmlose", 'ui': "Harmlose Gestalt", 'stats': ['KL', 'CH', 'GE']},
+	'z_my_harmonie_e': {'internal': "my_harmonie_e", 'ui': "Harmonie Essenzbeschwörung", 'stats': ['KL', 'IN', 'CH']},
+	'z_my_harmonie_w': {'internal': "my_harmonie_w", 'ui': "Harmonie Wesenbeschwörung", 'stats': ['KL', 'IN', 'CH']},
 	'z_hartesschmelze': {'internal': "hartes", 'ui': "Hartes schmelze!", 'stats': ['MU', 'KL', 'KK']},
 	'z_haselbusch': {'internal': "haselbusch", 'ui': "Haselbusch und Ginsterkraut", 'stats': ['CH', 'FF', 'KO']},
 	'z_dz_hauchdertiefentochter': {'internal': "Hauch_der_Tiefen_Tochter", 'ui': "Hauch der Tiefen Tochter", 'stats': ['KL', 'CH', 'KK']},
@@ -19281,6 +20439,8 @@ const spellsData = {
 	'z_horriphobus': {'internal': "horriphobus", 'ui': "Horriphobus Schreckgestalt", 'stats': ['MU', 'IN', 'CH']},
 	'z_humofaxius': {'internal': "humofaxius", 'ui': "Humofaxius", 'stats': ['KL', 'FF', 'KO']},
 	'z_humosphaero': {'internal': "humosphaero", 'ui': "Humosphaero", 'stats': ['MU', 'IN', 'KO']},
+	'z_my_humus_e': {'internal': "my_humus_e", 'ui': "Humus Essenzbeschwörung", 'stats': ['MU', 'KL', 'CH']},
+	'z_my_humus_w': {'internal': "my_humus_w", 'ui': "Humus Wesenbeschwörung", 'stats': ['MU', 'KL', 'CH']},
 	'z_ignifaxius': {'internal': "ignifaxius", 'ui': "Ignifaxius Flammenstrahl", 'stats': ['KL', 'FF', 'KO']},
 	'z_dz_igniflumenflammenspur': {'internal': "Igniflumen_Flammenspur", 'ui': "Igniflumen Flammenspur", 'stats': ['MU', 'KL', 'KO']},
 	'z_ignifugo': {'internal': "ignifugo", 'ui': "Ignifugo Feuerbann", 'stats': ['MU', 'FF', 'KO']},
@@ -19298,9 +20458,13 @@ const spellsData = {
 	'z_invocatiomaior': {'internal': "invocatiomaior", 'ui': "Invocatio Maior", 'stats': ['MU', 'MU', 'CH']},
 	'z_invocatiominor': {'internal': "invocatiominor", 'ui': "Invocatio Minor", 'stats': ['MU', 'MU', 'CH']},
 	'z_iribaarshand': {'internal': "iribaars", 'ui': "Iribaars Hand", 'stats': ['MU', 'MU', 'IN']},
+	'z_my_iryabaar_e': {'internal': "my_iryabaar_e", 'ui': "Iryabaar Essenzbeschwörung", 'stats': ['MU', 'MU', 'CH']},
+	'z_my_iryabaar_w': {'internal': "my_iryabaar_w", 'ui': "Iryabaar Wesenbeschwörung", 'stats': ['MU', 'MU', 'CH']},
 	'z_juckreiz': {'internal': "juckreiz", 'ui': "Juckreiz, dämlicher!", 'stats': ['MU', 'IN', 'CH']},
 	'z_karnifilo': {'internal': "karnifilo", 'ui': "Karnifilo Raserei", 'stats': ['MU', 'IN', 'CH']},
 	'z_katzenaugen': {'internal': "katzenaugen", 'ui': "Katzenaugen", 'stats': ['KL', 'FF', 'KO']},
+	'z_my_khalyanar_e': {'internal': "my_khalyanar_e", 'ui': "Khalyanar Essenzbeschwörung", 'stats': ['MU', 'MU', 'CH']},
+	'z_my_khalyanar_w': {'internal': "my_khalyanar_w", 'ui': "Khalyanar Wesenbeschwörung", 'stats': ['MU', 'MU', 'CH']},
 	'z_klarumpurum': {'internal': "klarum", 'ui': "Klarum Purum", 'stats': ['KL', 'KL', 'CH']},
 	'z_klickeradomms': {'internal': "klickeradomms", 'ui': "Klickeradomms", 'stats': ['KL', 'FF', 'KK']},
 	'z_koboldgeschenk': {'internal': "koboldgeschenk", 'ui': "Koboldgeschenk", 'stats': ['IN', 'CH', 'FF']},
@@ -19309,8 +20473,11 @@ const spellsData = {
 	'z_kommkoboldkomm': {'internal': "komm", 'ui': "Komm Kobold komm", 'stats': ['IN', 'IN', 'CH']},
 	'z_krabbelnderschrecken': {'internal': "krabbelnder", 'ui': "Krabbelnder Schrecken", 'stats': ['MU', 'MU', 'CH']},
 	'z_kraehenruf': {'internal': "krahenruf", 'ui': "Krähenruf", 'stats': ['MU', 'CH', 'CH']},
+	'z_my_kraft_e': {'internal': "my_kraft_e", 'ui': "Kraft Essenzbeschwörung", 'stats': ['MU', 'KL', 'CH']},
 	'z_kraftdeserzes': {'internal': "kraft", 'ui': "Kraft des Erzes", 'stats': ['KL', 'KO', 'KK']},
 	'z_kraftdeshumus': {'internal': "kraft_humus", 'ui': "Kraft des Humus", 'stats': ['IN', 'CH', 'KO']},
+	'z_my_kreativitaet_e': {'internal': "my_kreativitaet_e", 'ui': "Kreativität Essenzbeschwörung", 'stats': ['KL', 'IN', 'CH']},
+	'z_my_kreativitaet_w': {'internal': "my_kreativitaet_w", 'ui': "Kreativität Wesenbeschwörung", 'stats': ['KL', 'IN', 'CH']},
 	'z_kroetensprung': {'internal': "krotensprung", 'ui': "Krötensprung", 'stats': ['IN', 'GE', 'KK']},
 	'z_kulminatio': {'internal': "kulminatio", 'ui': "Kulminatio Kugelblitz", 'stats': ['MU', 'IN', 'FF']},
 	'z_kusch': {'internal': "kusch", 'ui': "Kusch!", 'stats': ['MU', 'IN', 'CH']},
@@ -19329,6 +20496,8 @@ const spellsData = {
 	'z_levthansfeuer': {'internal': "levthans", 'ui': "Levthans Feuer", 'stats': ['IN', 'CH', 'CH']},
 	'z_limbusversiegeln': {'internal': "limbus", 'ui': "Limbus versiegeln", 'stats': ['KL', 'IN', 'KO']},
 	'z_lockruf': {'internal': "lockruf", 'ui': "Lockruf und Feenfüße", 'stats': ['IN', 'CH', 'FF']},
+	'z_my_luft_e': {'internal': "my_luft_e", 'ui': "Luft Essenzbeschwörung", 'stats': ['MU', 'KL', 'CH']},
+	'z_my_luft_w': {'internal': "my_luft_w", 'ui': "Luft Wesenbeschwörung", 'stats': ['MU', 'KL', 'CH']},
 	'z_lungedesleviatan': {'internal': "lunge", 'ui': "Lunge des Leviatan", 'stats': ['IN', 'CH', 'KO']},
 	'z_madasspiegel': {'internal': "madas", 'ui': "Madas Spiegel", 'stats': ['MU', 'KL', 'IN']},
 	'z_magischerraub': {'internal': "magischer", 'ui': "Magischer Raub", 'stats': ['MU', 'KL', 'KO']},
@@ -19343,10 +20512,14 @@ const spellsData = {
 	'z_metamagieneutralisieren': {'internal': "metamagie", 'ui': "Metamagie neutralisieren", 'stats': ['KL', 'KL', 'KO']},
 	'z_metamorphofelsenform': {'internal': "metamorpho_felsenform", 'ui': "Metamorpho Felsenform", 'stats': ['KL', 'FF', 'KK']},
 	'z_metamorphogletscherform': {'internal': "metamorpho", 'ui': "Metamorpho Gletscherform", 'stats': ['KL', 'FF', 'KK']},
+	'z_my_mishkarya_e': {'internal': "my_mishkarya_e", 'ui': "Mishkarya Essenzbeschwörung", 'stats': ['MU', 'MU', 'CH']},
+	'z_my_mishkarya_w': {'internal': "my_mishkarya_w", 'ui': "Mishkarya Wesenbeschwörung", 'stats': ['MU', 'MU', 'CH']},
 	'z_motoricus': {'internal': "motoricus", 'ui': "Motoricus Geisterhand", 'stats': ['KL', 'FF', 'KK']},
 	'z_movimento': {'internal': "movimento", 'ui': "Movimento Dauerlauf", 'stats': ['IN', 'GE', 'KO']},
 	'z_murksundpatz': {'internal': "murks", 'ui': "Murks und Patz", 'stats': ['IN', 'IN', 'FF']},
 	'z_nackedei': {'internal': "nackedei", 'ui': "Nackedei", 'stats': ['KL', 'IN', 'FF']},
+	'z_my_naggarach_e': {'internal': "my_naggarach_e", 'ui': "Naggarach Essenzbeschwörung", 'stats': ['MU', 'MU', 'CH']},
+	'z_my_naggarach_w': {'internal': "my_naggarach_w", 'ui': "Naggarach Wesenbeschwörung", 'stats': ['MU', 'MU', 'CH']},
 	'z_nebelleib': {'internal': "nebelleib", 'ui': "Nebelleib", 'stats': ['MU', 'IN', 'KO']},
 	'z_nebelwand': {'internal': "nebelwand", 'ui': "Nebelwand und Morgendunst", 'stats': ['KL', 'FF', 'KO']},
 	'z_nekropathia': {'internal': "nekropathia", 'ui': "Nekropathia Seelenreise", 'stats': ['MU', 'KL', 'CH']},
@@ -19429,15 +20602,23 @@ const spellsData = {
 	'z_tauschrausch': {'internal': "tauschrausch", 'ui': "Tauschrausch", 'stats': ['IN', 'FF', 'KO']},
 	'z_tempusstasis': {'internal': "tempus", 'ui': "Tempus Stasis", 'stats': ['MU', 'KL', 'KK']},
 	'z_dz_thargunitothbann': {'internal': "Thargunitothbann", 'ui': "Thargunitothbann", 'stats': ['MU', 'CH', 'KO']},
+	'z_my_thesephai_e': {'internal': "my_thesephai_e", 'ui': "Thesephai Essenzbeschwörung", 'stats': ['MU', 'MU', 'CH']},
+	'z_my_thesephai_w': {'internal': "my_thesephai_w", 'ui': "Thesephai Wesenbeschwörung", 'stats': ['MU', 'MU', 'CH']},
 	'z_tierebesprechen': {'internal': "tiere", 'ui': "Tiere besprechen", 'stats': ['MU', 'IN', 'CH']},
 	'z_tiergedanken': {'internal': "tiergedanken", 'ui': "Tiergedanken", 'stats': ['MU', 'IN', 'CH']},
+	'z_my_tiergeister_e': {'internal': "my_tiergeister_e", 'ui': "Tiergeister Essenzbeschwörung", 'stats': ['MU', 'KL', 'IN']},
+	'z_my_tiergeister_w': {'internal': "my_tiergeister_w", 'ui': "Tiergeister Wesenbeschwörung", 'stats': ['MU', 'KL', 'IN']},
 	'z_dz_tierruf': {'internal': "tierruf", 'ui': "Tierruf", 'stats': ['MU', 'CH', 'CH']},
 	'z_tlalucsodem': {'internal': "tlalucs", 'ui': "Tlalucs Odem Pestgestank", 'stats': ['MU', 'IN', 'GE']},
+	'z_my_totenwesen_e': {'internal': "my_totenwesen_e", 'ui': "Totenwesen Essenzbeschwörung", 'stats': ['MU', 'MU', 'CH']},
+	'z_my_totenwesen_w': {'internal': "my_totenwesen_w", 'ui': "Totenwesen Wesenbeschwörung", 'stats': ['MU', 'MU', 'CH']},
 	'z_toteshandle': {'internal': "totes", 'ui': "Totes handle!", 'stats': ['MU', 'CH', 'KO']},
 	'z_transformatio': {'internal': "transformatio", 'ui': "Transformatio Formgestalt", 'stats': ['KL', 'FF', 'KK']},
 	'z_transmutare': {'internal': "transmutare", 'ui': "Transmutare Körperform", 'stats': ['CH', 'GE', 'KO']},
 	'z_transversalis': {'internal': "transversalis", 'ui': "Transversalis Teleport", 'stats': ['KL', 'IN', 'KO']},
 	'z_traumgestalt': {'internal': "traumgestalt", 'ui': "Traumgestalt", 'stats': ['IN', 'CH', 'CH']},
+	'z_my_tyakaar_e': {'internal': "my_tyakaar_e", 'ui': "Tyakaar Essenzbeschwörung", 'stats': ['MU', 'MU', 'CH']},
+	'z_my_tyakaar_w': {'internal': "my_tyakaar_w", 'ui': "Tyakaar Wesenbeschwörung", 'stats': ['MU', 'MU', 'CH']},
 	'z_umbraporta': {'internal': "umbraporta", 'ui': "Umbraporta Schattentür", 'stats': ['MU', 'IN', 'GE']},
 	'z_unberuehrt': {'internal': "unberuhrt", 'ui': "Unberührt von Satinav", 'stats': ['KL', 'FF', 'KO']},
 	'z_unitatio': {'internal': "unitatio", 'ui': "Unitatio Geistesbund", 'stats': ['IN', 'CH', 'KO']},
@@ -19452,10 +20633,14 @@ const spellsData = {
 	'z_visibili': {'internal': "visibili", 'ui': "Visibili Vanitar", 'stats': ['KL', 'IN', 'GE']},
 	'z_vocolimbo': {'internal': "vocolimbo", 'ui': "Vocolimbo hohler Klang", 'stats': ['KL', 'CH', 'FF']},
 	'z_vogelzwitschern': {'internal': "vogelzwitschern", 'ui': "Vogelzwitschern Glockenspiel", 'stats': ['MU', 'IN', 'GE']},
+	'z_my_wahnsinn_e': {'internal': "my_wahnsinn_e", 'ui': "Wahnsinn Essenzbeschwörung", 'stats': ['KL', 'IN', 'CH']},
+	'z_my_wahnsinn_w': {'internal': "my_wahnsinn_w", 'ui': "Wahnsinn Wesenbeschwörung", 'stats': ['KL', 'IN', 'CH']},
 	'z_wandausdornen': {'internal': "wandausdornen", 'ui': "Wand aus Dornen", 'stats': ['MU', 'KL', 'CH']},
 	'z_wandausflammen': {'internal': "wand_aus_flammen", 'ui': "Wand aus Flammen", 'stats': ['MU', 'KL', 'CH']},
 	'z_warmesblut': {'internal': "warmes", 'ui': "Warmes Blut", 'stats': ['MU', 'IN', 'IN']},
 	'z_warmesgefriere': {'internal': "warmes_gefriere", 'ui': "Warmes gefriere", 'stats': ['MU', 'KL', 'KK']},
+	'z_my_wasser_w': {'internal': "my_wasser_w", 'ui': "Wasser Wesenbeschwörung", 'stats': ['MU', 'KL', 'CH']},
+	'z_my_wasser_e': {'internal': "my_wasser_e", 'ui': "Wasser Essenzbeschwörung", 'stats': ['MU', 'KL', 'CH']},
 	'z_wasseratem': {'internal': "wasseratem", 'ui': "Wasseratem", 'stats': ['MU', 'KL', 'KO']},
 	'z_wasserwall': {'internal': "wasserwall", 'ui': "Wasserwall", 'stats': ['MU', 'KL', 'CH']},
 	'z_weicheserstarre': {'internal': "weiches", 'ui': "Weiches erstarre!", 'stats': ['MU', 'KL', 'KK']},
@@ -19472,15 +20657,20 @@ const spellsData = {
 	'z_windstille': {'internal': "windstille", 'ui': "Windstille", 'stats': ['KL', 'CH', 'KK']},
 	'z_wipfellauf': {'internal': "wipfellauf", 'ui': "Wipfellauf", 'stats': ['MU', 'IN', 'GE']},
 	'z_xenographus': {'internal': "xenographus", 'ui': "Xenographus Schriftenkunde", 'stats': ['KL', 'KL', 'IN']},
+	'z_my_xolovar_e': {'internal': "my_xolovar_e", 'ui': "Xolovar Essenzbeschwörung", 'stats': ['MU', 'MU', 'CH']},
+	'z_my_xolovar_w': {'internal': "my_xolovar_w", 'ui': "Xolovar Wesenbeschwörung", 'stats': ['MU', 'MU', 'CH']},
 	'z_zagibu': {'internal': "zagibu", 'ui': "Zagibu Ubigaz", 'stats': ['IN', 'CH', 'FF']},
 	'z_zappenduster': {'internal': "zappenduster", 'ui': "Zappenduster", 'stats': ['IN', 'IN', 'FF']},
+	'z_my_zauberei_e': {'internal': "my_zauberei_e", 'ui': "Zauberei Essenzbeschwörung", 'stats': ['KL', 'IN', 'CH']},
+	'z_my_zauberei_w': {'internal': "my_zauberei_w", 'ui': "Zauberei Wesenbeschwörung", 'stats': ['KL', 'IN', 'CH']},
 	'z_zauberklinge': {'internal': "zauberklinge", 'ui': "Zauberklinge Geisterspeer", 'stats': ['KL', 'FF', 'KO']},
 	'z_zaubernahrung': {'internal': "zaubernahrung", 'ui': "Zaubernahrung Hungerbann", 'stats': ['MU', 'MU', 'KO']},
 	'z_zauberwesen': {'internal': "zauberwesen", 'ui': "Zauberwesen der Natur", 'stats': ['MU', 'IN', 'CH']},
 	'z_zauberzwang': {'internal': "zauberzwang", 'ui': "Zauberzwang", 'stats': ['MU', 'CH', 'CH']},
 	'z_zornderelemente': {'internal': "zorn", 'ui': "Zorn der Elemente", 'stats': ['MU', 'CH', 'KO']},
 	'z_zungelaehmen': {'internal': "zunge", 'ui': "Zunge lähmen", 'stats': ['MU', 'CH', 'FF']},
-	'z_zwingtanz': {'internal': "zwingtanz", 'ui': "Zwingtanz", 'stats': ['MU', 'KL', 'CH']}
+	'z_zwingtanz': {'internal': "zwingtanz", 'ui': "Zwingtanz", 'stats': ['MU', 'KL', 'CH']},
+	'z_my_zeit_e': {'internal': "zeit", 'ui': "Zeit Essenzbeschwörung", 'stats': ['MU', 'KL', 'IN']}
 };
 /*
 	Constants for effective encumbrance for talent/spell checks
