@@ -542,7 +542,24 @@ const talents = [
 	't_sp_leonal',
 	't_sp_pardiral',
 	't_sp_tighral',
-	't_sp_lyncal'
+	't_sp_lyncal',
+	't_sp_sumurrisch',
+	't_sp_altnarkramarisch',
+	't_sp_alttesumurrisch',
+	't_sp_narkramarisch',
+	't_sp_mahapratisch',
+	't_sp_kerrishitisch',
+	't_sp_tesumurrisch',
+	't_sp_vinshinisch',
+	't_sp_boagorambanbarguinisch',
+	't_sp_lishshioderwolfalbisch',
+	't_sp_dagathimisch',
+	't_sp_krakonisch',
+	't_sp_mholurisch',
+	't_sp_iaril',
+	't_sp_loualilisch',
+	't_sp_altneristal',
+	't_sp_neristal'
 ];
 
 const talents_ebe = [
@@ -1178,7 +1195,24 @@ const talentsData = {
 	't_sp_leonal': {'internal': "leonal", 'ui': "Leonal/Khorrzu"},
 	't_sp_pardiral': {'internal': "pardiral", 'ui': "Pardiral/Bhagrach"},
 	't_sp_tighral': {'internal': "tighral", 'ui': "Tighral/Tharr'Orr"},
-	't_sp_lyncal': {'internal': "lyncal", 'ui': "Lyncal/Fhi'ai"}
+	't_sp_lyncal': {'internal': "lyncal", 'ui': "Lyncal/Fhi'ai"},
+	't_sp_sumurrisch': {'internal': "sumurrisch", 'ui': "Sumurrisch"},
+	't_sp_altnarkramarisch': {'internal': "altnarkramarisch", 'ui': "Alt-Narkramarisch"},
+	't_sp_alttesumurrisch': {'internal': "alttesumurrisch", 'ui': "Alt-Tesumurrisch"},
+	't_sp_narkramarisch': {'internal': "narkramarisch", 'ui': "Narkramarisch"},
+	't_sp_mahapratisch': {'internal': "mahapratisch", 'ui': "Mahapratisch"},
+	't_sp_kerrishitisch': {'internal': "kerrishitisch", 'ui': "Kerrishitisch"},
+	't_sp_tesumurrisch': {'internal': "tesumurrisch", 'ui': "Tesumurrisch"},
+	't_sp_vinshinisch': {'internal': "vinshinisch", 'ui': "Vinshinisch"},
+	't_sp_boagorambanbarguinisch': {'internal': "boagorambanbarguinisch", 'ui': "Boa'goram Banbarguinisch"},
+	't_sp_lishshioderwolfalbisch': {'internal': "lishshioderwolfalbisch", 'ui': "Lish'shioder Wolfalbisch"},
+	't_sp_dagathimisch': {'internal': "dagathimisch", 'ui': "Dagathimisch"},
+	't_sp_krakonisch': {'internal': "krakonisch", 'ui': "Krakonisch"},
+	't_sp_mholurisch': {'internal': "mholurisch", 'ui': "Mholurisch"},
+	't_sp_iaril': {'internal': "iaril", 'ui': "Iaril"},
+	't_sp_loualilisch': {'internal': "loualilisch", 'ui': "Loualilisch"},
+	't_sp_altneristal': {'internal': "altneristal", 'ui': "Alt-Neristal"},
+	't_sp_neristal': {'internal': "neristal", 'ui': "Neristal"}
 };
 const spellsData = {
 	'z_abvenenum': {'internal': "abvenenum", 'ui': "Abvenenum Reine Speise", 'stats': ['KL', 'KL', 'FF']},
