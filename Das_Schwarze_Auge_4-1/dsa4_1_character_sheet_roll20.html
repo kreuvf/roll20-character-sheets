@@ -1308,6 +1308,56 @@
 					<button name="FliegenSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Talente} {{name=Fliegen (@{spez_fliegen})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{TaW_fliegen} + 2]]}} {{stat1=[[@{Eigenschaft1fliegen}]]}} {{stat2=[[@{Eigenschaft2fliegen}]]}} {{stat3=[[@{Eigenschaft3fliegen}]]}} {{Talent=[[ { [[{0d1 + @{TaW_fliegen} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{TaW_fliegen} + 2), 0d1}kh1]] - @{Eigenschaft1fliegen}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{TaW_fliegen} + 2), 0d1}kh1]] - @{Eigenschaft2fliegen}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{TaW_fliegen} + 2), 0d1}kh1]] - @{Eigenschaft3fliegen}, 0d1}kh1, 0d1 + @{TaW_fliegen} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-my-freies-fliegen default-hide" type="checkbox" name="attr_talent_my_freies_fliegen" value="1">
+				<div class="talent">
+					<button type="action" name="act_t_ko_my_freies_fliegen-action" class="default-hide"></button>
+					<input type="hidden" name="attr_t_ko_my_freies_fliegen_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_t_ko_my_freies_fliegen" value="@{t_ko_my_freies_fliegen_action}"> <span>Freies Fliegen</span></button>
+					</div>
+					<select name="attr_eigenschaft1my_freies_fliegen" class="talent-eigenschaft">
+						<option>---</option>
+						<option value="@{MU}" class="talent-default-eigenschaft" title="Standardeigenschaft für diese Teilprobe" selected="selected">MU</option>
+						<option value="@{KL}">KL</option>
+						<option value="@{IN}">IN</option>
+						<option value="@{CH}">CH</option>
+						<option value="@{FF}">FF</option>
+						<option value="@{GE}">GE</option>
+						<option value="@{KO}">KO</option>
+						<option value="@{KK}">KK</option>
+					</select>
+					<select name="attr_eigenschaft2my_freies_fliegen" class="talent-eigenschaft">
+						<option>---</option>
+						<option value="@{MU}">MU</option>
+						<option value="@{KL}">KL</option>
+						<option value="@{IN}">IN</option>
+						<option value="@{CH}">CH</option>
+						<option value="@{FF}">FF</option>
+						<option value="@{GE}" class="talent-default-eigenschaft" title="Standardeigenschaft für diese Teilprobe" selected="selected">GE</option>
+						<option value="@{KO}">KO</option>
+						<option value="@{KK}">KK</option>
+					</select>
+					<select name="attr_eigenschaft3my_freies_fliegen" class="talent-eigenschaft">
+						<option>---</option>
+						<option value="@{MU}">MU</option>
+						<option value="@{KL}">KL</option>
+						<option value="@{IN}">IN</option>
+						<option value="@{CH}">CH</option>
+						<option value="@{FF}">FF</option>
+						<option value="@{GE}">GE</option>
+						<option value="@{KO}">KO</option>
+						<option value="@{KK}" class="talent-default-eigenschaft" title="Standardeigenschaft für diese Teilprobe" selected="selected">KK</option>
+					</select>
+					<button type="action" name="act_t_ko_my_freies_fliegen-ebe-action" class="default-hide"></button>
+					<input type="hidden" name="attr_t_ko_my_freies_fliegen-ebe_action" value="">
+					<div class="talent-cell talent-ebe">
+						<button type="roll" name="roll_t_ko_my_freies_fliegen-ebe" value="@{t_ko_my_freies_fliegen-ebe_action}"> <span>BEx2</span></button>
+					</div>
+					<input type="text" class="talent-spez" name="attr_Spez_my_freies_fliegen">
+					<input type="number" class="talent-taw" name="attr_TaW_my_freies_fliegen" min="-4" value="0">
+					<button name="FreiesFliegenSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Talente} {{name=Freies Fliegen (@{spez_my_freies_fliegen})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{TaW_my_freies_fliegen} + 2]]}} {{stat1=[[@{eigenschaft1my_freies_fliegen}]]}} {{stat2=[[@{eigenschaft2my_freies_fliegen}]]}} {{stat3=[[@{eigenschaft3my_freies_fliegen}]]}} {{Talent=[[ { [[{0d1 + @{TaW_my_freies_fliegen} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{TaW_my_freies_fliegen} + 2), 0d1}kh1]] - @{eigenschaft1my_freies_fliegen}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{TaW_my_freies_fliegen} + 2), 0d1}kh1]] - @{eigenschaft2my_freies_fliegen}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{TaW_my_freies_fliegen} + 2), 0d1}kh1]] - @{eigenschaft3my_freies_fliegen}, 0d1}kh1, 0d1 + @{TaW_my_freies_fliegen} + 2}dh1]]}}">Spez</button>
+					<br>
+				</div>
 				<input class="talent-gaukeleien default-hide" type="checkbox" name="attr_talent_gaukeleien" value="1">
 				<div class="talent">
 					<button type="action" name="act_t_ko_gaukeleien-action" class="default-hide"></button>
@@ -2059,6 +2109,9 @@
 								<td valign="top">
 									<label><input type="checkbox" name="attr_talent_akrobatik" value="1">Akrobatik</label>
 									<label><input type="checkbox" name="attr_talent_fliegen" value="1">Fliegen</label>
+									<!-- Gefällt mir noch nicht so richtig so, aber ich bin zu sehr raus aus css um da gerade auf eine schönere Lösung zu kommem -->
+									<input type="checkbox" class="zeige-myranor default-hide" name="attr_Myranor"> 
+									<div class="hideable-myranor"><label><input type="checkbox" name="attr_talent_my_freies_fliegen" value="1">Freies Fliegen</label></div>
 									<label><input type="checkbox" name="attr_talent_gaukeleien" value="1">Gaukeleien</label>
 									<label><input type="checkbox" name="attr_talent_reiten" value="1">Reiten</label>
 									<label><input type="checkbox" name="attr_talent_skifahren" value="1">Skifahren</label>
@@ -6495,6 +6548,51 @@
 					<button name="FleischerSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Talente} {{name=Fleischer (@{spez_fleischer})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{TaW_fleischer} + 2]]}} {{stat1=[[@{Eigenschaft1fleischer}]]}} {{stat2=[[@{Eigenschaft2fleischer}]]}} {{stat3=[[@{Eigenschaft3fleischer}]]}} {{Talent=[[ { [[{0d1 + @{TaW_fleischer} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{TaW_fleischer} + 2), 0d1}kh1]] - @{Eigenschaft1fleischer}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{TaW_fleischer} + 2), 0d1}kh1]] - @{Eigenschaft2fleischer}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{TaW_fleischer} + 2), 0d1}kh1]] - @{Eigenschaft3fleischer}, 0d1}kh1, 0d1 + @{TaW_fleischer} + 2}dh1]]}}">Spez</button>
 					<br>
 				</div>
+				<input class="talent-my-fluggeraete-steuern default-hide" type="checkbox" name="attr_talent_my_fluggeraete_steuern" value="1">
+				<div class="talent">
+					<button type="action" name="act_t_h_my_fluggeraete_steuern-action" class="default-hide"></button>
+					<input type="hidden" name="attr_t_h_my_fluggeraete_steuern_action" value="">
+					<div class="talent-cell talent-name">
+						<button type="roll" name="roll_t_h_my_fluggeraete_steuern" value="@{t_h_my_fluggeraete_steuern_action}"> <span>Fluggeräte steuern</span></button>
+					</div>
+					<select name="attr_Eigenschaft1my_fluggeraete_steuern" class="talent-eigenschaft">
+						<option>---</option>
+						<option value="@{MU}" class="talent-default-eigenschaft" title="Standardeigenschaft für diese Teilprobe" selected="selected">MU</option>
+						<option value="@{KL}">KL</option>
+						<option value="@{IN}">IN</option>
+						<option value="@{CH}">CH</option>
+						<option value="@{FF}">FF</option>
+						<option value="@{GE}">GE</option>
+						<option value="@{KO}">KO</option>
+						<option value="@{KK}">KK</option>
+					</select>
+					<select name="attr_Eigenschaft2my_fluggeraete_steuern" class="talent-eigenschaft">
+						<option>---</option>
+						<option value="@{MU}">MU</option>
+						<option value="@{KL}">KL</option>
+						<option value="@{IN}" class="talent-default-eigenschaft" title="Standardeigenschaft für diese Teilprobe" selected="selected">IN</option>
+						<option value="@{CH}">CH</option>
+						<option value="@{FF}">FF</option>
+						<option value="@{GE}">GE</option>
+						<option value="@{KO}">KO</option>
+						<option value="@{KK}">KK</option>
+					</select>
+					<select name="attr_Eigenschaft3my_fluggeraete_steuern" class="talent-eigenschaft">
+						<option>---</option>
+						<option value="@{MU}">MU</option>
+						<option value="@{KL}">KL</option>
+						<option value="@{IN}">IN</option>
+						<option value="@{CH}">CH</option>
+						<option value="@{FF}" class="talent-default-eigenschaft" title="Standardeigenschaft für diese Teilprobe" selected="selected">FF</option>
+						<option value="@{GE}">GE</option>
+						<option value="@{KO}">KO</option>
+						<option value="@{KK}">KK</option>
+					</select>
+					<input type="text" class="talent-spez" name="attr_Spez_my_fluggeraete_steuern">
+					<input type="number" class="talent-taw" name="attr_TaW_my_fluggeraete_steuern" min="-4" value="0">
+					<button name="my_fluggeraete_steuernSpez" type="roll" value="@{gm_roll_opt} &{template:DSA-Talente} {{name=Fluggeräte steuern (@{spez_my_fluggeraete_steuern})}} {{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}} {{taw=[[@{TaW_my_fluggeraete_steuern} + 2]]}} {{stat1=[[@{Eigenschaft1my_fluggeraete_steuern}]]}} {{stat2=[[@{Eigenschaft2my_fluggeraete_steuern}]]}} {{stat3=[[@{Eigenschaft3my_fluggeraete_steuern}]]}} {{Talent=[[ { [[{0d1 + @{TaW_my_fluggeraete_steuern} + 2 - (?{Erleichterung (−) oder Erschwernis (+)|0}), 0d1}kh1]] - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{TaW_my_fluggeraete_steuern} + 2), 0d1}kh1]] - @{Eigenschaft1my_fluggeraete_steuern}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{TaW_my_fluggeraete_steuern} + 2), 0d1}kh1]] - @{Eigenschaft2my_fluggeraete_steuern}, 0d1}kh1 - {1d20cs1cf20 + [[{0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}) - (@{TaW_my_fluggeraete_steuern} + 2), 0d1}kh1]] - @{Eigenschaft3my_fluggeraete_steuern}, 0d1}kh1, 0d1 + @{TaW_my_fluggeraete_steuern} + 2}dh1]]}}">Spez</button>
+					<br>
+				</div>
 				<input class="talent-gerber default-hide" type="checkbox" name="attr_talent_gerber" value="1">
 				<div class="talent">
 					<button type="action" name="act_t_h_gerber-action" class="default-hide"></button>
@@ -8047,6 +8145,9 @@
 										<label><input type="checkbox" name="attr_talent_feinmechanik" value="1">Feinmechanik</label>
 										<label><input type="checkbox" name="attr_talent_feuersteinbearbeitung" value="1">Feuersteinbearbeitung</label>
 										<label><input type="checkbox" name="attr_talent_fleischer" value="1">Fleischer</label>
+										<!-- Gefällt mir noch nicht so richtig so, aber ich bin zu sehr raus aus css um da gerade auf eine schönere Lösung zu kommem -->
+										<input type="checkbox" class="zeige-myranor default-hide" name="attr_Myranor"> 
+										<div class="hideable-myranor"><label><input type="checkbox" name="attr_talent_my_fluggeraete_steuern" value="1">Fluggeräte Steuern</label></div>
 										<label><input type="checkbox" name="attr_talent_gerber" value="1">Gerber/Kürschner</label>
 									</td>
 									<td valign="top">
@@ -20489,6 +20590,7 @@ const talents = [
 	't_ko_gaukeleien',
 	't_ko_klettern',
 	't_ko_koerperbeherrschung',
+	't_ko_my_freies_fliegen',
 	't_ko_reiten',
 	't_ko_schleichen',
 	't_ko_schwimmen',
@@ -20691,6 +20793,7 @@ const talents = [
 	't_h_feinmechanik',
 	't_h_feuersteinbearbeitung',
 	't_h_fleischer',
+	't_h_my_fluggeraete_steuern',
 	't_h_gerber',
 	't_h_glaskunst',
 	't_h_grobschmied',
@@ -20734,6 +20837,7 @@ const talents_ebe = [
 	't_ko_gaukeleien',
 	't_ko_klettern',
 	't_ko_koerperbeherrschung',
+	't_ko_my_freies_fliegen',
 	't_ko_reiten',
 	't_ko_schleichen',
 	't_ko_schwimmen',
@@ -21229,6 +21333,7 @@ const talentsData = {
 	't_ko_gaukeleien': {'internal': "gaukeleien", 'ui': "Gaukeleien"},
 	't_ko_klettern': {'internal': "klettern", 'ui': "Klettern"},
 	't_ko_koerperbeherrschung': {'internal': "korperbeherrschung", 'ui': "Körperbeherrschung"},
+	't_ko_my_freies_fliegen': {'internal': "my_freies_fliegen", 'ui': "Freies Fliegen"},
 	't_ko_reiten': {'internal': "reiten", 'ui': "Reiten"},
 	't_ko_schleichen': {'internal': "schleichen", 'ui': "Schleichen"},
 	't_ko_schwimmen': {'internal': "schwimmen", 'ui': "Schwimmen"},
@@ -21431,6 +21536,7 @@ const talentsData = {
 	't_h_feinmechanik': {'internal': "feinmechanik", 'ui': "Feinmechanik"},
 	't_h_feuersteinbearbeitung': {'internal': "feuersteinbearbeitung", 'ui': "Feuersteinbearbeitung"},
 	't_h_fleischer': {'internal': "fleischer", 'ui': "Fleischer"},
+	't_h_my_fluggeraete_steuern': {'internal': "my_fluggeraete_steuern", 'ui': "Fluggeräte Steuern"},
 	't_h_gerber': {'internal': "gerber", 'ui': "Gerber"},
 	't_h_glaskunst': {'internal': "glaskunst", 'ui': "Glaskunst"},
 	't_h_grobschmied': {'internal': "grobschmied", 'ui': "Grobschmied"},
@@ -21877,6 +21983,7 @@ const effectiveEncumbrance = {
 	"t_ko_gaukeleien":          { "value":  2, "type": "factor" },
 	"t_ko_klettern":            { "value":  2, "type": "factor" },
 	"t_ko_koerperbeherrschung": { "value":  2, "type": "factor" },
+	"t_ko_my_freies_fliegen":	{ "value":	2, "type": "factor" },
 	"t_ko_reiten":              { "value": -2, "type": "summand" },
 	"t_ko_schleichen":          { "value":  1, "type": "factor" },
 	"t_ko_schwimmen":           { "value":  2, "type": "factor" },
