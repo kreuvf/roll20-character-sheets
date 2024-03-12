@@ -13,6 +13,7 @@ var versionsWithMigrations = [
 		20220821,
 		20230618,
 		20240414
+		20240421
 ];
 
 /*
@@ -828,6 +829,35 @@ function migrateTo20230618(migrationChain) {
 			});
 		});
 	});
+
+	/*
+	Migration steps: rename attribute subtag1 to z_repraesentation and map its value*/
+	function migrateTo20240421(migrationChain) {
+		var caller = "migrateTo20240314";
+		debugLog(caller, "Invoked.");
+		let valueMap = {
+			"---": "",
+			"gildenmagisch": "Mag",
+			"elfisch": "Elf",
+			"druidisch": "Dru",
+			"satuarisch": "Sat",
+			"geodisch": "Geo",
+			"schelmisch": "Sch",
+			"scharlatanisch": "Srl",
+			"borbaradianisch": "Bor",
+			"kristallomantisch": "Ach"
+		}
+		safeGetAttrs(["subtag1"], function (v) {
+			let attrsToChange = {
+				"z_repraesentation": valueMap[v[subtag1]]
+			}
+			safeSetAttrs(attrsToChange, {}, function () {
+				callNextMigration(migrationChain);
+			});
+		});
+		
+	}	
+
 }
 
 /*
