@@ -1,25 +1,72 @@
 /* magic begin */
-on(spells.map(spell => "clicked:" + spell + "-action").join(" "), async (info) => {
+function modifySpellAttributesByRepresentation(spellRepAttr, charData, spellAttrs) {
+	/* deal with representation special rules:
+		if representation is elven and KL > IN, replace first KL with IN 
+		if rep is achaz and two rolls are for KL or two are for IN, replace one of them with max(KL, IN)
+		if rep is kophtan, do something
+	*/
+	const func = "Attribute modification by spell representation";
+	let spellRep = (charData[spellRepAttr] === 0 || charData[spellRepAttr] === "")? charData["z_erstrepraesentation"] : charData[spellRepAttr];
+	debugLog(func, spellRep, charData, spellAttrs);
+	let modified = false;
+	switch (spellRep) {
+		case "Elf":
+			debugLog(func, "Adapting for elven rep");
+			if (charData['KL'] > charData['IN']) {
+				break;
+			}
+			for (let i = 0; i < 3; i++) {
+				if (spellAttrs[i] === "KL" && (spellAttrs[(i+1) % 3] !== "IN" || spellAttrs[(i + 2) % 3] !== "IN")) {
+					spellAttrs[i] = "IN";
+					modified = true;
+					break;
+				}
+			}
+			break;
+		case "Ach":
+			debugLog(func, "Adapting for achaz rep");
+			let doubleAttr = "";
+			if (spellAttrs[0] === "KL" || spellAttrs[0] === "IN") {
+				if	(spellAttrs[1] === spellAttrs[0] || spellAttrs[2] === spellAttrs[0]) {
+					doubleAttr = spellAttrs[0];
+				}
+			} else {
+				if ((spellAttrs[1] === "KL" || spellAttrs[1] === "IN") && spellAttrs[1] === spellAttrs[2]) {
+					doubleAttr = spellAttrs[1];
+				}
+			}
+			let otherAttr = doubleAttr === "KL" ? "IN" : "KL"
+			if (doubleAttr !== "" && charData[doubleAttr] < charData[otherAttr]) {
+				for (let i = 0; i < 3; i++) {
+					if (spellAttrs[i] === doubleAttr) {
+						spellAttrs[i] = otherAttr;
+						modified = true;
+						break;
+					}
+					
+				}
+			}
+			break;
+		case "Kop":
+			debugLog(func, "Adapting for kophtan rep");
+			//TODO
+			break;
+		default:
+			break;
+	}
+	return modified;
+}
+
+on(spells.map(spell => "clicked:" + spell + "-action").join(" "), (info) => {
 	var func = "Action Listener for Spell Roll Buttons";
 	var trigger = info["triggerName"].replace(/clicked:([^-]+)-action/, '$1');
 	var nameInternal = spellsData[trigger]["internal"];
 	var nameUI = spellsData[trigger]["ui"];
 	var stats = spellsData[trigger]["stats"];
+	var spellRepAttr = trigger + "_rep";
 	debugLog(func, trigger, spellsData[trigger]);
-	safeGetAttrs(["KL", "IN", "z_repraesentation", "v_festematrix", "n_spruchhemmung"], async function (v) {
-		/* deal with elven representation:
-			if representation is elven and KL > IN, replace first KL with IN 
-		*/
-		if (v["subtag1"] === "Elf" && v["KL"] < v["IN"]) {
-			if (stats[0] === "KL" && (stats[1] !== "IN" || stats[2] !== "IN")) {
-				stats[0] = "IN";
-			} else if (stats[1] === "KL") {
-				stats[1] = "IN";
-			} else if (stats[2] === "KL") {
-				stats[2] = "IN";
-			}
-		}
-		
+	safeGetAttrs(["z_erstrepraesentation", spellRepAttr, "v_festematrix", "n_spruchhemmung", "KL", "IN", "CH"], function (v) {
+		let repModified = modifySpellAttributesByRepresentation(spellRepAttr, v, stats);
 		// Build Roll Macro
 		var rollMacro = "";
 
@@ -37,7 +84,8 @@ on(spells.map(spell => "clicked:" + spell + "-action").join(" "), async (info) =
 			"{{roll=[[3d20cs<@{cs_zauber}cf>@{cf_zauber}]]}} " +
 			"{{result=[[0]]}} " +
 			"{{criticality=[[0]]}} " +
-			"{{critThresholds=[[[[@{cs_zauber}]]d1cs0cf2 + [[@{cf_zauber}]]d1cs0cf2]]}} ";
+			"{{critThresholds=[[[[@{cs_zauber}]]d1cs0cf2 + [[@{cf_zauber}]]d1cs0cf2]]}} " + 
+			"{{repmod=" + (repModified ? "Die verwendeten Attribute wurden durch die Repräsentation modifiziert" : "") + "}} ";
 		debugLog(func, rollMacro);
 
 		// Execute Roll
@@ -89,31 +137,37 @@ on(spells.map(spell => "clicked:" + spell + "-action").join(" "), async (info) =
 				let festeMatrix = v["v_festematrix"] === "0" ? false : true;
 				let spruchhemmung = v["n_spruchhemmung"] === "0" ? false : true;
 
-				for (roll of rolls) {
-					if (roll <= success) {
+				for (roll of rolls)
+				{
+					if (roll <= success)
+					{
 						successes += 1;
 					} else if (roll >= failure) {
 						failures += 1;
 					}
-					if (successes >= 2) {
+					if (successes >= 2)
+					{
 						criticality = successes;
 					} else if (failures >= 2) {
 						criticality = -failures;
 					}
 				}
 				// feste Matrix
-				if (festeMatrix && criticality === -2) {
+				if (festeMatrix && criticality === -2)
+				{
 					criticality = -1;
 					festeMatrixSave = true;
 
-					for (roll of rolls) {
+					for (roll of rolls)
+					{
 						if (
 							(roll > success) &&
 							(roll < failure) &&
 							(
 								roll === 18 || roll === 19
 							)
-						) {
+						)
+						{
 							criticality -= 1;
 							festeMatrixSave = false;
 						}
@@ -142,19 +196,23 @@ on(spells.map(spell => "clicked:" + spell + "-action").join(" "), async (info) =
 			var TaPstar = effTaW;
 
 			// Negativer TaW: |effTaW| zu Teilwürfen addieren
-			if (criticality >= 2) {
+			if (criticality >= 2)
+			{
 				TaPstar = TaW;
 				result = 1;
 			} else {
-				if (effTaW < 0) {
-					for (roll in rolls) {
+				if (effTaW < 0)
+				{
+					for (roll in rolls)
+					{
 						effRolls[roll] = rolls[roll] + Math.abs(effTaW);
 					}
 					TaPstar = 0;
 				}
 
 				// TaP-Verbrauch für jeden Wurf
-				for (roll in effRolls) {
+				for (roll in effRolls)
+				{
 					TaPstar -= Math.max(0, effRolls[roll] - stats[roll]);
 				}
 
@@ -162,11 +220,14 @@ on(spells.map(spell => "clicked:" + spell + "-action").join(" "), async (info) =
 				TaPstar = Math.min(TaW, TaPstar);
 
 				// Ergebnis an Doppel/Dreifach-20 anpassen
-				if (Math.abs(criticality) <= 1) {
+				if (Math.abs(criticality) <= 1)
+				{
 					result = TaPstar < 0 ? 0 : 1;
-					if (festeMatrixSave && result === 0) {
+					if (festeMatrixSave && result === 0)
+					{
 						result = -1;
-					} else if (festeMatrixSave && result === 1) {
+					} else if (festeMatrixSave && result === 1)
+					{
 						result = 2;
 					}
 				} else if (criticality <= -2) {
