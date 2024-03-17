@@ -12,7 +12,7 @@ var versionsWithMigrations = [
 		20220604,
 		20220821,
 		20230618,
-		20240414
+		20240414,
 		20240421
 ];
 
@@ -906,7 +906,7 @@ function migrateTo20240414(migrationChain) {
 }
 
 /*
-	Migration steps: rename attribute subtag1 to z_repraesentation and map its value
+	Migration steps: rename attribute subtag1 to z_erstrepraesentation and map its value
 */
 function migrateTo20240421(migrationChain) {
 	var caller = "migrateTo20240421";
@@ -925,7 +925,7 @@ function migrateTo20240421(migrationChain) {
 	}
 	safeGetAttrs(["subtag1"], function (v) {
 		let attrsToChange = {
-			"z_erstrepraesentation": valueMap[v[subtag1]]
+			"z_erstrepraesentation": valueMap[v["subtag1"]]
 		}
 		safeSetAttrs(attrsToChange, {}, function () {
 			callNextMigration(migrationChain);
