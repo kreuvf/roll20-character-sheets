@@ -1763,7 +1763,7 @@ upper left, upper right, lower right, lower left */
 
 /* Temporary fix until proper darkmode CSS is implemented */
 .sheet-darkmode .characterviewer label,
-html.dark th {
+.sheet-rolltemplate-darkmode table th {
     color: var(--color-foreground) !important;
 }
 
