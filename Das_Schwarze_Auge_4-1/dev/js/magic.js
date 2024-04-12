@@ -1,14 +1,19 @@
 /* magic begin */
-function modifySpellAttributesByRepresentation(spellRepAttr, charData, spellAttrs) {
+function modifySpellAttributesByRepresentation(spellRepStat, charData, spellStats) {
 	/* deal with representation special rules:
 		if representation is elven and KL < IN, replace first KL with IN, unless that would make all rolls IN 
 		if rep is achaz and two rolls are for KL or two are for IN, replace one of them with max(KL, IN)
-		if rep is kophtan, and KL < CH, replace first KL with CH, unless that would make all rolls IN
+		if rep is kophtan, and KL < CH, replace first KL with CH, unless that would make all rolls CH
 	*/
 	const func = "Attribute modification by spell representation";
-	let spellRep = (charData[spellRepAttr] === 0 || charData[spellRepAttr] === "")? charData["z_erstrepraesentation"] : charData[spellRepAttr];
-	debugLog(func, spellRep, charData, spellAttrs);
+	let spellRep = "";
 	let modified = false;
+	if (charData[spellRepStat] === 0 || charData[spellRepStat] === "") {
+		spellRep = charData["z_erstrepraesentation"];
+	} else {
+		spellRep = charData[spellRepStat];
+	}
+	debugLog(func, spellRep, charData, spellStats);
 	switch (spellRep) {
 		case "Elf":
 			debugLog(func, "Adapting for elven rep");
@@ -16,8 +21,8 @@ function modifySpellAttributesByRepresentation(spellRepAttr, charData, spellAttr
 				break;
 			}
 			for (let i = 0; i < 3; i++) {
-				if (spellAttrs[i] === "KL" && (spellAttrs[(i+1) % 3] !== "IN" || spellAttrs[(i + 2) % 3] !== "IN")) {
-					spellAttrs[i] = "IN";
+				if (spellStats[i] === "KL" && (spellStats[(i+1) % 3] !== "IN" || spellStats[(i + 2) % 3] !== "IN")) {
+					spellStats[i] = "IN";
 					modified = true;
 					break;
 				}
@@ -25,18 +30,36 @@ function modifySpellAttributesByRepresentation(spellRepAttr, charData, spellAttr
 			break;
 		case "Ach":
 			debugLog(func, "Adapting for achaz rep");
-			let doubleAttr = "";
-			if ((spellAttrs[0] === "KL" || spellAttrs[0] === "IN") && (spellAttrs[1] === spellAttrs[0] || spellAttrs[2] === spellAttrs[0])) {
-					doubleAttr = spellAttrs[0];
+			// Stat occurring at least twice
+			let multiStat = "";
+			// Stat occuring once or zero times, the stat that shall be checked for replacing one instance of the multiStat
+			let otherStat = "";
+
+			const relevantStats = [ "KL", "IN" ];
+			let spellStatFreq = { "KL": 0, "IN": 0 };
+			// Analyse spell's stats looking for our relevant ones
+			for (let spellStat of spellStats) {
+				if (relevantStats.includes(spellStat)) {
+					spellStatFreq[spellStat] += 1;
+				}
 			}
-			else if (doubleAttr === "" && (spellAttrs[1] === "KL" || spellAttrs[1] === "IN") && spellAttrs[1] === spellAttrs[2]) {
-					doubleAttr = spellAttrs[1];
+
+			// Determine whether spell has potentially beneficial stat situation
+			for (let stat of relevantStats){
+				if (spellStatFreq[stat] >= 2) {
+					multiStat = stat;
+				} else {
+					otherStat = stat;
+				}
 			}
-			let otherAttr = doubleAttr === "KL" ? "IN" : "KL";
-			if (doubleAttr !== "" && charData[doubleAttr] < charData[otherAttr]) {
-				for (let i = 0; i < 3; i++) {
-					if (spellAttrs[i] === doubleAttr) {
-						spellAttrs[i] = otherAttr;
+
+			// No stat occurring at least twice? No replacement possible, so break
+			if (multiStat === "") break;
+
+			if (charData[multiStat] > charData[otherStat]) {
+				for (let i in spellStats) {
+					if (spellStats[i] === multiStat) {
+						spellStats[i] = otherStat;
 						modified = true;
 						break;
 					}
@@ -49,8 +72,8 @@ function modifySpellAttributesByRepresentation(spellRepAttr, charData, spellAttr
 				break;
 			}
 			for (let i = 0; i < 3; i++) {
-				if (spellAttrs[i] === "KL" && (spellAttrs[(i+1) % 3] !== "CH" || spellAttrs[(i + 2) % 3] !== "CH")) {
-					spellAttrs[i] = "CH";
+				if (spellStats[i] === "KL" && (spellStats[(i+1) % 3] !== "CH" || spellStats[(i + 2) % 3] !== "CH")) {
+					spellStats[i] = "CH";
 					modified = true;
 					break;
 				}
@@ -67,6 +90,7 @@ on(spells.map(spell => "clicked:" + spell + "-action").join(" "), (info) => {
 	var trigger = info["triggerName"].replace(/clicked:([^-]+)-action/, '$1');
 	var nameInternal = spellsData[trigger]["internal"];
 	var nameUI = spellsData[trigger]["ui"];
+	//Copy array, or we get a reference and modify the database
 	var stats = [...spellsData[trigger]["stats"]];
 	var spellRepAttr = trigger + "_rep";
 	debugLog(func, trigger, spellsData[trigger]);
@@ -188,7 +212,8 @@ on(spells.map(spell => "clicked:" + spell + "-action").join(" "), (info) => {
 						(rolls[1] === rolls[2]) ||
 						(rolls[2] === rolls[0])
 					)
-				) {
+				)
+				{
 					criticality = -4;
 				}
 			}
@@ -221,8 +246,8 @@ on(spells.map(spell => "clicked:" + spell + "-action").join(" "), (info) => {
 					TaPstar -= Math.max(0, effRolls[roll] - stats[roll]);
 				}
 
-				// Max. TaP* = TaW
-				TaPstar = Math.min(TaW, TaPstar);
+				// Max. TaP* = TaW, mindestens aber 0
+				TaPstar = Math.min(Math.max(TaW, 0), TaPstar);
 
 				// Ergebnis an Doppel/Dreifach-20 anpassen
 				if (Math.abs(criticality) <= 1)
