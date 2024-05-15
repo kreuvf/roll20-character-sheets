@@ -24082,7 +24082,7 @@ on(spells.map(spell => "clicked:" + spell + "-action").join(" "), (info) => {
 	var nameUI = spellsData[trigger]["ui"];
 	//Copy array, or we get a reference and modify the database
 	var stats = [...spellsData[trigger]["stats"]];
-	var spellRep = "z_" + nameInternal + "_representation";
+	var spellRep = trigger + "_representation";
 	debugLog(func, trigger, spellsData[trigger]);
 
 	var attrsToGet = [
