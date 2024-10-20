@@ -1254,4 +1254,150 @@ on('clicked:reg_sleep-action', async (info) => {
 });
 
 
+// Generating Regeneration Roll (Deep Breath)
+on(
+	[
+		"character_name",
+		"gm_roll_opt",
+		"au", "erschoepfung", "ueberanstrengung",
+		"verstecke_erschoepfung", "verstecke_ueberanstrengung",
+	].map(attr => "change:" + attr).join(" "),
+	function(eventInfo) {
+	safeGetAttrs(
+		[
+			"character_name",
+			"gm_roll_opt",
+			"AU", "erschoepfung", "ueberanstrengung",
+			"verstecke_erschoepfung", "verstecke_ueberanstrengung",
+		], function(values) {
+		const caller = "Action Listener for Generation of Regeneration Roll (Deep Breath)";
+		debugLog(caller, "eventInfo", eventInfo, "values", values);
+		const baseRoll = [
+			values["gm_roll_opt"],
+			"&{template:reg-deepbreath}",
+			`{{charactername=${values["character_name"]}}}`,
+			`{{au=[[${values["AU"]}]]}}`,
+			`{{aubase=[[@{KO}]]}}`,
+			'{{auneu=[[0d1]]}}',
+		];
+
+		const exhaustionRoll = [
+			`{{erschoepfung=[[${values["erschoepfung"]}]]}}`,
+			'{{erschoepfungneu=[[0d1]]}}',
+		];
+
+		const overexertionRoll = [
+			`{{ueberanstrengung=[[${values["ueberanstrengung"]}]]}}`,
+			'{{ueberanstrengungneu=[[0d1]]}}',
+			'{{ueberanstrengungstatus=[[0d1]]}}',
+		];
+
+		// Build roll
+		var roll = [];
+		roll = roll.concat(baseRoll);
+
+		if (values["verstecke_erschoepfung"] === "0")
+		{
+			roll = roll.concat(exhaustionRoll);
+		}
+
+		if (values["verstecke_ueberanstrengung"] === "0")
+		{
+			roll = roll.concat(overexertionRoll);
+		}
+
+		safeSetAttrs({"reg_deepbreath_roll": roll.join(" ")});
+	});
+});
+
+on('clicked:reg_deepbreath-action', async (info) => {
+	const caller = "Action Listener for Regeneration Button (Deep Breath)";
+	let results = await startRoll("@{reg_deepbreath_roll}");
+	debugLog(caller, "head", "info:", info, "results:", results);
+	let rollID = results.rollId;
+	results = results.results;
+	let computed = {};
+
+	safeGetAttrs([
+			'AU', 'AU_max',
+			'erschoepfung', 'erschoepfung_max',
+			'ueberanstrengung', 'ueberanstrengung_max',
+			'KO'
+		], function(values) {
+		let attrsToChange = {};
+
+		// AU Regeneration (Stamina)
+		let AURegTotal = 0;
+		let AUneu = parseInt(values["AU"]);
+		AURegTotal += parseInt(values["KO"]);
+
+		AUneu += AURegTotal;
+		AUneu = Math.min(AUneu, values["AU_max"]);
+		if (parseInt(values["AU"]) !== AUneu)
+		{
+			attrsToChange["AU"] = AUneu;
+		}
+		computed["auneu"] = AUneu;
+
+		// Exhaustion/Overexertion from deep breath
+		// Values of overexertion status
+		// 0: no message
+		// 1: overexertion hits limit -> character breaks down
+		// 2: overexertion was at its limit -> character should not have been able to act
+		let exhaustionNeu = 0;
+		let overexertionNeu = 0;
+		const exhaustion = parseInt(values["erschoepfung"]);
+		const exhaustionLimit = parseInt(values["erschoepfung_max"]);
+		const overexertion = parseInt(values["ueberanstrengung"]);
+		const overexertionLimit = parseInt(values["ueberanstrengung_max"]);
+
+		if (exhaustion < exhaustionLimit)
+		{
+			exhaustionNeu = exhaustion + 1;
+			attrsToChange["erschoepfung"] = exhaustionNeu;
+			computed["erschoepfungneu"] = exhaustionNeu;
+			computed["ueberanstrengungneu"] = overexertion;
+		} else {
+			computed["erschoepfungneu"] = exhaustion;
+			if (overexertion < overexertionLimit)
+			{
+				overexertionNeu = overexertion + 1;
+				attrsToChange["ueberanstrengung"] = overexertionNeu;
+				computed["ueberanstrengungneu"] = overexertionNeu;
+				if (overexertionNeu < overexertionLimit)
+				{
+					computed["ueberanstrengungstatus"] = 0;
+				} else {
+					computed["ueberanstrengungstatus"] = 1;
+				}
+			} else {
+				computed["ueberanstrengungstatus"] = 2;
+				computed["ueberanstrengungneu"] = overexertion;
+			}
+		}
+
+		// Prettify certain output
+		{
+			let useResults = [
+				"aubase",
+			];
+			for (let part of useResults)
+			{
+				if (Object.hasOwn(results, part))
+				{
+					computed[part] = prettifyMod(parseInt(results[part].result));
+				}
+			}
+		}
+
+		debugLog(caller, "tail", "rollID", rollID, "values", values, "AURegTotal", AURegTotal, "attrsToChange", attrsToChange, "computed", computed);
+		safeSetAttrs(attrsToChange);
+
+		finishRoll(
+			rollID,
+			computed
+		);
+	});
+});
+
 /* regeneration end */

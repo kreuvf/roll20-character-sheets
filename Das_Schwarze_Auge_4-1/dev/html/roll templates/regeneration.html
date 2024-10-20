@@ -177,4 +177,50 @@
 	</div>
 </div>
 </rolltemplate>
+
+<rolltemplate class="sheet-rolltemplate-reg-deepbreath">
+<div class="sheet-rolltemplate-templates-general">
+	<div class="results">
+		<table>
+			<tr>
+				<th colspan="2">Regeneration (Atem holen)</th>
+			</tr>
+			<tr>
+				<td colspan="2" class="highlight">&#x1f45f; Ausdauer: {{au}}&nbsp;<span class="abbr" title="Ausdauerpunkte">AuP</span> &#x279e; {{computed::auneu}}&nbsp;<span class="abbr" title="Ausdauerpunkte">AuP</span></td>
+			</tr>
+			<tr class="detail-level-1">
+				<td>Regeneration</td>
+				<td class="regeneration-result">{{computed::aubase}}&nbsp;<span class="abbr" title="Ausdauerpunkte">AuP</span></td>
+			</tr>
+			{{#erschoepfung}}
+			<tr>
+				<td colspan="2" class="highlight">&#x1f62e;&#x200d;&#x1f4a8; Erschöpfung: {{erschoepfung}} &#x279e; {{computed::erschoepfungneu}}</td>
+			</tr>
+			{{/erschoepfung}}
+			{{#ueberanstrengung}}
+			<tr>
+				<td colspan="2" class="highlight">&#x1f975; Überanstrengung: {{ueberanstrengung}} &#x279e; {{computed::ueberanstrengungneu}}</td>
+			</tr>
+			{{/ueberanstrengung}}
+			{{#rollTotal() computed::ueberanstrengungstatus 1}}
+			<tr>
+				<td colspan="2" class="templates-warning">Überanstrengungsgrenze erreicht. Charakter bricht zusammen.</td>
+			</tr>
+			{{/rollTotal() computed::ueberanstrengungstatus 1}}
+			{{#rollTotal() computed::ueberanstrengungstatus 2}}
+			<tr>
+				<td colspan="2" class="templates-warning">Überanstrengungsgrenze war bereits vor dem Atemholen erreicht. Der Charakter war daher bereits vor der Probe zusammengebrochen und &bdquo;Atem holen&ldquo; hätte regeltechnisch nicht eingesetzt werden dürfen.</td>
+			</tr>
+			{{/rollTotal() computed::ueberanstrengungstatus 2}}
+			{{^erschoepfung}}
+			{{#ueberanstrengung}}
+			<tr>
+				<td colspan="2" class="templates-warning">Hinweis: Erschöpfung wird versteckt, Überanstrengung aber angezeigt. Erschöpfung und Überanstrengung wird dennoch regelkonform aufgebaut, aber hier nicht angezeigt.</td>
+			</tr>
+			{{/ueberanstrengung}}
+			{{/erschoepfung}}
+		</table>
+	</div>
+</div>
+</rolltemplate>
 <!-- regeneration roll templates end -->
