@@ -20,34 +20,95 @@
 import re
 
 # Setup
+## List of the files normally generated through running "make"
 generated = [
 	'dsa4_1_character_sheet_roll20.html',
 	'dsa4_1_character_sheet_roll20.css'
 ]
 
+## List of the files that make up the sheet's HTML file (order important)
 filesHTML = [
 	'dev/html/sheet/intro.html',
 	'dev/html/sheet/header.html',
-	'dev/html/sheet/section_allgemein.html',
-	'dev/html/sheet/section_grundwerte.html',
-	'dev/html/sheet/section_fertigkeiten.html',
-	'dev/html/sheet/section_inventar.html',
-	'dev/html/sheet/section_talente.html',
-	'dev/html/sheet/section_magie.html',
-	'dev/html/sheet/section_liturgien.html',
-	'dev/html/sheet/section_kampfwerte.html',
-	'dev/html/sheet/section_regeneration.html',
-	'dev/html/sheet/section_notizen.html',
-	'dev/html/sheet/section_config.html',
-	'dev/html/sheet/section_info.html',
+	'dev/html/sheet/sections/general.html',
+	'dev/html/sheet/sections/stats.html',
+	'dev/html/sheet/sections/advantages_disadvantages_special_skills.html',
+	'dev/html/sheet/sections/inventory/intro.html',
+	'dev/html/sheet/sections/inventory/header.html',
+	'dev/html/sheet/sections/inventory/main.html',
+	'dev/html/sheet/sections/inventory/purse.html',
+	'dev/html/sheet/sections/inventory/outro.html',
+	'dev/html/sheet/sections/talents/intro.html',
+	'dev/html/sheet/sections/talents/header.html',
+	'dev/html/sheet/sections/talents/combat_techniques.html',
+	'dev/html/sheet/sections/talents/physical.html',
+	'dev/html/sheet/sections/talents/social.html',
+	'dev/html/sheet/sections/talents/nature.html',
+	'dev/html/sheet/sections/talents/knowledge.html',
+	'dev/html/sheet/sections/talents/languages.html',
+	'dev/html/sheet/sections/talents/crafts.html',
+	'dev/html/sheet/sections/talents/gifts.html',
+	'dev/html/sheet/sections/talents/meta.html',
+	'dev/html/sheet/sections/talents/outro.html',
+	'dev/html/sheet/sections/magic/intro.html',
+	'dev/html/sheet/sections/magic/header.html',
+	'dev/html/sheet/sections/magic/aventuria/spells.html',
+	'dev/html/sheet/sections/magic/myranor/conjuration.html',
+	'dev/html/sheet/sections/magic/aventuria/rituals.html',
+	'dev/html/sheet/sections/magic/advantages_disadvantages_special_skills.html',
+	'dev/html/sheet/sections/magic/outro.html',
+	'dev/html/sheet/sections/liturgies.html',
+	'dev/html/sheet/sections/combat/intro.html',
+	'dev/html/sheet/sections/combat/header.html',
+	'dev/html/sheet/sections/combat/equipment.html',
+	'dev/html/sheet/sections/combat/hand_to_hand.html',
+	'dev/html/sheet/sections/combat/ranged.html',
+	'dev/html/sheet/sections/combat/special_skills.html',
+	'dev/html/sheet/sections/combat/outro.html',
+	'dev/html/sheet/sections/regeneration/intro.html',
+	'dev/html/sheet/sections/regeneration/header.html',
+	'dev/html/sheet/sections/regeneration/relax.html',
+	'dev/html/sheet/sections/regeneration/rest.html',
+	'dev/html/sheet/sections/regeneration/sleep.html',
+	'dev/html/sheet/sections/regeneration/astral_meditation.html',
+	'dev/html/sheet/sections/regeneration/karmic_meditation.html',
+	'dev/html/sheet/sections/regeneration/outro.html',
+	'dev/html/sheet/sections/notes/intro.html',
+	'dev/html/sheet/sections/notes/header.html',
+	'dev/html/sheet/sections/notes/main.html',
+	'dev/html/sheet/sections/notes/entities.html',
+	'dev/html/sheet/sections/notes/locations.html',
+	'dev/html/sheet/sections/notes/outro.html',
+	'dev/html/sheet/sections/config.html',
+	'dev/html/sheet/sections/info.html',
 	'dev/html/sheet/footer.html',
 	'dev/html/sheet/outro.html',
-	'dev/html/roll templates/intro.html',
-	'dev/html/roll templates/crp.html',
-	'dev/html/roll templates/regeneration.html',
-	'dev/html/roll templates/legacy.html',
-	'dev/html/roll templates/tests.html',
-	'dev/html/roll templates/outro.html',
+	'dev/html/roll_templates/intro.html',
+	'dev/html/roll_templates/crp/intro.html',
+	'dev/html/roll_templates/crp/talents.html',
+	'dev/html/roll_templates/crp/spells.html',
+	'dev/html/roll_templates/crp/liturgies.html',
+	'dev/html/roll_templates/crp/hand_to_hand_combat.html',
+	'dev/html/roll_templates/crp/outro.html',
+	'dev/html/roll_templates/regeneration/intro.html',
+	'dev/html/roll_templates/regeneration/deepbreath.html',
+	'dev/html/roll_templates/regeneration/relax.html',
+	'dev/html/roll_templates/regeneration/rest.html',
+	'dev/html/roll_templates/regeneration/sleep.html',
+	'dev/html/roll_templates/regeneration/astralmeditation.html',
+	'dev/html/roll_templates/regeneration/karmicmeditation.html',
+	'dev/html/roll_templates/regeneration/outro.html',
+	'dev/html/roll_templates/legacy/intro.html',
+	'dev/html/roll_templates/legacy/talents.html',
+	'dev/html/roll_templates/legacy/spells.html',
+	'dev/html/roll_templates/legacy/liturgies.html',
+	'dev/html/roll_templates/legacy/stats.html',
+	'dev/html/roll_templates/legacy/hand_to_hand_combat.html',
+	'dev/html/roll_templates/legacy/ranged_combat.html',
+	'dev/html/roll_templates/legacy/combat_shared.html',
+	'dev/html/roll_templates/legacy/outro.html',
+	'dev/html/roll_templates/tests.html',
+	'dev/html/roll_templates/outro.html',
 	'dev/js/intro.js',
 	'dev/js/constants.js',
 	'dev/js/utilities_general.js',
@@ -73,33 +134,12 @@ filesHTML = [
 	'dev/js/outro.js'
 ]
 
+## List of the files that make up the sheet's CSS file (order important)
 filesCSS = [
 	'dev/css/style.css'
 ]
 
-fileSignaturesHTML = {
-	'dev/html/sheet/intro.html': [ '<!-- sheet intro start -->', '<!-- sheet intro end -->' ],
-	'dev/html/sheet/header.html': [ '<!-- sheet header start -->', '<!-- sheet header end -->' ],
-	'dev/html/sheet/section_allgemein.html': [ '<!-- sheet section allgemein start -->', '<!-- sheet section allgemein end -->' ],
-	'dev/html/sheet/section_grundwerte.html': [ '<!-- sheet section grundwerte start -->', '<!-- sheet section grundwerte end -->' ],
-	'dev/html/sheet/section_fertigkeiten.html': [ '<!-- sheet section fertigkeiten start -->', '<!-- sheet section fertigkeiten end -->' ],
-	'dev/html/sheet/section_inventar.html': [ '<!-- sheet section inventar start -->', '<!-- sheet section inventar end -->' ],
-	'dev/html/sheet/section_talente.html': [ '<!-- sheet section talente start -->', '<!-- sheet section talente end -->' ],
-	'dev/html/sheet/section_magie.html': [ '<!-- sheet section magie start -->', '<!-- sheet section magie end -->' ],
-	'dev/html/sheet/section_liturgien.html': [ '<!-- sheet section liturgien start -->', '<!-- sheet section liturgien end -->' ],
-	'dev/html/sheet/section_kampfwerte.html': [ '<!-- sheet section kampfwerte start -->', '<!-- sheet section kampfwerte end -->' ],
-	'dev/html/sheet/section_regeneration.html': [ '<!-- sheet section regeneration start -->', '<!-- sheet section regeneration end -->' ],
-	'dev/html/sheet/section_notizen.html': [ '<!-- sheet section notizen start -->', '<!-- sheet section notizen end -->' ],
-	'dev/html/sheet/section_config.html': [ '<!-- sheet section config start -->', '<!-- sheet section config end -->' ],
-	'dev/html/sheet/section_info.html': [ '<!-- sheet section info start -->', '<!-- sheet section info end -->' ],
-	'dev/html/sheet/footer.html': [ '<!-- sheet footer start -->', '<!-- sheet footer end -->' ],
-	'dev/html/sheet/outro.html': [ '<!-- sheet outro start -->', '<!-- sheet outro end -->' ],
-	'dev/html/roll templates/intro.html': [ '<!-- roll templates intro start -->', '<!-- roll templates intro end -->' ],
-	'dev/html/roll templates/crp.html': [ '<!-- crp roll templates start -->', '<!-- crp roll templates end -->' ],
-	'dev/html/roll templates/regeneration.html': [ '<!-- regeneration roll templates start -->', '<!-- regeneration roll templates end -->' ],
-	'dev/html/roll templates/legacy.html': [ '<!-- legacy roll templates start -->', '<!-- legacy roll templates end -->' ],
-	'dev/html/roll templates/tests.html': [ '<!-- test roll templates start -->', '<!-- test roll templates end -->' ],
-	'dev/html/roll templates/outro.html': [ '<!-- roll templates outro start -->', '<!-- roll templates outro end -->' ],
+fileSignaturesHTMLRest = {
 	'dev/js/intro.js': [ '<!-- js intro start -->', '/* js intro end */' ],
 	'dev/js/constants.js': [ '/* constants begin */', '/* constants end */' ],
 	'dev/js/utilities_general.js': [ '/* utilities general begin */', '/* utilities general end */' ],
@@ -127,6 +167,52 @@ fileSignaturesHTML = {
 fileSignaturesCSS = {
 	'dev/css/style.css': [ '/* start CSS */', '/* end CSS */' ]
 }
+
+# Generate HTML File Signatures
+## WIP: Currently only for sheet and roll_templates HTML, no JS
+fileSignaturesHTML = {}
+for file in filesHTML:
+	topLevelPattern = re.compile(r"^(?P<prefix>dev/html)/(?P<type>sheet|roll_templates)/(?P<rest>.*)$")
+	topLevelMatches = re.search(topLevelPattern, file)
+	if topLevelMatches:
+		snippetType = topLevelMatches.group('type')
+		rest = topLevelMatches.group('rest')
+		restPattern = re.compile(r"((?P<level1>[^/]+)/)?((?P<level2>[^/]+)/)?((?P<level3>[^/]+)/)?(?P<file>(?P<name>[^/]+)\.html)")
+		restMatches = re.search(restPattern, rest)
+		if restMatches:
+			signatures = []
+			maxLevel = 0
+			name = restMatches.group('name')
+			if restMatches.groupdict()['level1']:
+				maxLevel += 1
+				level1 = restMatches.group('level1')
+				# Singular sections only exist in singular form
+				if level1 == 'sections':
+					level1 = 'section'
+			if restMatches.groupdict()['level2']:
+				maxLevel += 1
+				level2 = restMatches.group('level2')
+			if restMatches.groupdict()['level3']:
+				maxLevel += 1
+				level3 = restMatches.group('level3')
+			match maxLevel:
+				case 0:
+					signature = '<!-- {type} {name} {{}} -->'.format(type = snippetType, name = name)
+				case 1:
+					signature = '<!-- {type} {l1} {name} {{}} -->'.format(type = snippetType, name = name, l1 = level1)
+				case 2:
+					signature = '<!-- {type} {l1} {l2} {name} {{}} -->'.format(type = snippetType, name = name, l1 = level1, l2 = level2)
+				case 3:
+					signature = '<!-- {type} {l1} {l2} {l3} {name} {{}} -->'.format(type = snippetType, name = name, l1 = level1, l2 = level2, l3 = level3)
+				case _:
+					print('maxLevel has suspicious value: {}'.format(maxLevel))
+			signatures.append(signature.format('start'))
+			signatures.append(signature.format('end'))
+			print(signatures)
+			fileSignaturesHTML[file] = signatures
+
+fileSignaturesHTML |= fileSignaturesHTMLRest
+
 
 # Finding Lines
 with open("dsa4_1_character_sheet_roll20.html", mode = "r", encoding = "utf8") as html:
@@ -156,7 +242,7 @@ for file in filesCSS:
 			linesCSS[file].append(cssLines.index(entry + '\n'))
 		except:
 			print(entry, 'could not be found')
-
+exit()
 # Writing files
 for file in filesHTML:
 	with open(file, mode = "w") as outfile:
