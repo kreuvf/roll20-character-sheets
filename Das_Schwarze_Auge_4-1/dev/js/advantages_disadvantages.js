@@ -1,9 +1,14 @@
 /* advantages_disadvantages start */
-on("change:nachteil_nachtblind",
+/* Nightblind */
+const attrsNightblind = [
+	'nachteil_nachtblind',
+];
+Object.freeze(attrsNightblind);
+
+on(attrsNightblind.map(attr => "change:" + attr).join(" ").toLowerCase(),
 	function() {
 		safeGetAttrs(
-			['nachteil_nachtblind', 'vorteil_daemmerungssicht', 'vorteil_nachtsicht'],
-			function(v) {
+			attrsNightblind, function(v) {
 				if(v.nachteil_nachtblind != "0")
 				{
 					safeSetAttrs({
