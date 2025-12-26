@@ -37,35 +37,38 @@ on(attrsEnhancedVision.map(attr => "change:" + attr).join(" ").toLowerCase(),
 		});
 });
 
-on(
-"change:safe-sheet-open " +
-"change:n_tollpatsch " +
-"change:n_wildemagie", function(eventInfo) {
-	var caller = "Action Listener (Crit Level Updater)";
-	var trigger = eventInfo["triggerName"];
-	var newValue = eventInfo["newValue"];
-	const attrsToGet = [
-		"n_tollpatsch",
-		"n_wildemagie"
-	];
-	safeGetAttrs(attrsToGet, function(v) {
-		var results = calcCritLevels({'Tollpatsch': v['n_tollpatsch'], 'wilde Magie': v['n_wildemagie']});
-		var attrsToChange = {
-			'cs_talent': results['talent']['success'],
-			'cf_talent': results['talent']['failure'],
-			'cs_kampf_at': results['kampf_at']['success'],
-			'cf_kampf_at': results['kampf_at']['failure'],
-			'cs_kampf_pa': results['kampf_pa']['success'],
-			'cf_kampf_pa': results['kampf_pa']['failure'],
-			'cs_kampf_fk': results['kampf_fk']['success'],
-			'cf_kampf_fk': results['kampf_fk']['failure'],
-			'cs_zauber': results['zauber']['success'],
-			'cf_zauber': results['zauber']['failure'],
-			'cs_ritual': results['ritual']['success'],
-			'cf_ritual': results['ritual']['failure']
-		}
-		safeSetAttrs(attrsToChange);
-	});
+/* Crit-level affecting advantages/disadvantages */
+const attrsCritLevel = [
+	'n_tollpatsch',
+	'n_wildemagie',
+];
+Object.freeze(attrsCritLevel);
+
+on( [ 'safe-sheet-open', ...attrsCritLevel ].map(attr => "change:" + attr).join(" ").toLowerCase(),
+	function(eventInfo) {
+		const caller = "Action Listener (Crit Level Updater, Advantages/Disadvantages)";
+		const trigger = eventInfo["triggerName"];
+		const newValue = eventInfo["newValue"];
+
+		safeGetAttrs(
+			attrsCritLevel, function(v) {
+				const results = calcCritLevels({'Tollpatsch': v['n_tollpatsch'], 'wilde Magie': v['n_wildemagie']});
+				let attrsToChange = {
+					'cs_talent': results['talent']['success'],
+					'cf_talent': results['talent']['failure'],
+					'cs_kampf_at': results['kampf_at']['success'],
+					'cf_kampf_at': results['kampf_at']['failure'],
+					'cs_kampf_pa': results['kampf_pa']['success'],
+					'cf_kampf_pa': results['kampf_pa']['failure'],
+					'cs_kampf_fk': results['kampf_fk']['success'],
+					'cf_kampf_fk': results['kampf_fk']['failure'],
+					'cs_zauber': results['zauber']['success'],
+					'cf_zauber': results['zauber']['failure'],
+					'cs_ritual': results['ritual']['success'],
+					'cf_ritual': results['ritual']['failure']
+				}
+				safeSetAttrs(attrsToChange);
+		});
 });
 
 on(
