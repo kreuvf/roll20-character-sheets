@@ -19,11 +19,17 @@ on(attrsNightblind.map(attr => "change:" + attr).join(" ").toLowerCase(),
 		});
 });
 
-on("change:vorteil_daemmerungssicht change:vorteil_nachtsicht",
+/* Enhanced vision */
+const attrsEnhancedVision = [
+	'vorteil_daemmerungssicht',
+	'vorteil_nachtsicht',
+];
+Object.freeze(attrsEnhancedVision);
+
+on(attrsEnhancedVision.map(attr => "change:" + attr).join(" ").toLowerCase(),
 	function() {
 		safeGetAttrs(
-			['nachteil_nachtblind', 'vorteil_daemmerungssicht', 'vorteil_nachtsicht'],
-			function(v) {
+			attrsEnhancedVision, function(v) {
 				if(v.vorteil_daemmerungssicht != "0" || v.vorteil_nachtsicht != "0")
 				{
 					safeSetAttrs({nachteil_nachtblind: "0"});
