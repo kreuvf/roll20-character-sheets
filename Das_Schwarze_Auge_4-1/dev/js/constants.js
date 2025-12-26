@@ -46,7 +46,7 @@ const combatTechniques = {
 	Default Values for Known Attributes
 
 Using safe get/setAttrs the default value 0 is assumed, if nothing is in this object.
-Currently, does not handle repeating sections.
+Currently, does not handle all repeating sections.
 */
 const defaultValues = {
 	// Uninitialized Attributes
