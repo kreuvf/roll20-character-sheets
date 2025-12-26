@@ -178,7 +178,7 @@ function safeGetAttrs( attrsToGet, callback ) {
 /*
 	Safe setAttrs()
 
-This function ultimately calls setAttrs(), but beforehand checks whether all attributes are are not NaN or undefined. Bad attributes are filled with the stored default value or 0.
+This function ultimately calls setAttrs(), but beforehand checks whether all attributes are not NaN or undefined. Bad attributes are filled with the stored default value or 0.
 */
 function safeSetAttrs( attrsToSet, options = "", callback = function() {}) {
 	var caller = "safeSetAttrs";
