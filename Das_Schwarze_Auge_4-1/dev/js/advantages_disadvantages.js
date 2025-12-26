@@ -71,66 +71,74 @@ on( [ 'safe-sheet-open', ...attrsCritLevel ].map(attr => "change:" + attr).join(
 		});
 });
 
-on(
-"change:safe-sheet-open " +
-"change:v_festematrix " +
-"change:n_spruchhemmung " +
-"change:n_wildemagie", function(eventInfo) {
-	var caller = "Action Listener (Firm Matrix/Spell Inhibition/Clumsy Fellow/Wild Magic)";
-	const attrsToGet = [
-		"v_festematrix",
-		"n_spruchhemmung",
-		"n_wildemagie"
-	];
+/* Magical advantages/disadvantages of the Firm Matrix block (some are mutually exclusive) */
+const attrsFirmMatrixBlock = [
+	'v_festematrix',
+	'n_spruchhemmung',
+	'n_wildemagie',
+];
+Object.freeze(attrsFirmMatrixBlock);
 
-	safeGetAttrs(attrsToGet, function(v) {
-		var trigger = eventInfo["sourceAttribute"];
-		var newValue = eventInfo["newValue"];
-		var festeMatrix = v["v_festematrix"];
-		var spruchhemmung = v["n_spruchhemmung"];
-		var wildeMagie = v["n_wildemagie"];
+on( [ 'safe-sheet-open', ...attrsFirmMatrixBlock ].map(attr => "change:" + attr).join(" ").toLowerCase(),
+	function(eventInfo) {
+		const caller = "Action Listener (Firm Matrix block)";
 
-		var attrsToChange = {};
-		// Firm Matrix cannot be taken with either Spell Inhibition or Wild Magic
-		if (trigger === "v_festematrix" && newValue === "1")
-		{
-			attrsToChange["n_spruchhemmung"] = "0";
-			attrsToChange["n_wildemagie"] = "0";
-		}
-		if (
-			(trigger === "n_spruchhemmung" || trigger === "n_wildemagie")
-			&&
-			newValue === "1"
-		)
-		{
-			attrsToChange["v_festematrix"] = "0";
-		}
+		safeGetAttrs(
+			attrsFirmMatrixBlock, function(v) {
+				// Boilerplate
+				const trigger = eventInfo["sourceAttribute"];
+				const newValue = eventInfo["newValue"];
+				const firmMatrix = v["v_festematrix"];
+				const spellInhibition = v["n_spruchhemmung"];
+				const wildMagic = v["n_wildemagie"];
 
-		// If this is triggered by sheet opening and we find an impossible situation, rectify it.
-		if (trigger === "safe-sheet-open" && festeMatrix === "1")
-		{
-			if (
-				(spruchhemmung === "1" && wildeMagie === "0") ||
-				(spruchhemmung === "0" && wildeMagie === "1")
-			)
-			{
-				attrsToChange["n_spruchhemmung"] = "0";
-				attrsToChange["n_wildemagie"] = "0";
-			} else if (spruchhemmung === "1" && wildeMagie === "1")
-			{
-				attrsToChange["v_festematrix"] = "0";
-			}
-		}
+				let attrsToChange = {};
 
-		if (
-			!(
-				Object.keys(attrsToChange).length === 0 &&
-				Object.getPrototypeOf(attrsToChange) === Object.prototype
-			)
-		)
-		{
-			safeSetAttrs(attrsToChange);
-		}
-	});
+				// Firm Matrix cannot be taken with either Spell Inhibition or Wild Magic
+				if (trigger === "v_festematrix" && newValue === "1")
+				{
+					attrsToChange["n_spruchhemmung"] = "0";
+					attrsToChange["n_wildemagie"] = "0";
+				}
+				if (
+					(trigger === "n_spruchhemmung" || trigger === "n_wildemagie")
+					&&
+					newValue === "1"
+				)
+				{
+					attrsToChange["v_festematrix"] = "0";
+				}
+
+				// If this is triggered by sheet opening and we find an impossible situation, rectify it.
+				// This is a heuristic with the following assumptions:
+				// * If only either Spell Inhibition or Wild Magic is found Firm Matrix overrules this.
+				// * If both Spell Inhibition and Wild Magic are found Firm Matrix gets overruled.
+				if (trigger === "safe-sheet-open" && firmMatrix === "1")
+				{
+					if (
+						(spellInhibition === "1" && wildMagic === "0") ||
+						(spellInhibition === "0" && wildMagic === "1")
+					)
+					{
+						attrsToChange["n_spruchhemmung"] = "0";
+						attrsToChange["n_wildemagie"] = "0";
+					} else if (spellInhibition === "1" && wildMagic === "1")
+					{
+						attrsToChange["v_festematrix"] = "0";
+					}
+				}
+
+				// Apply changes only if there are any
+				if (
+					!(
+						Object.keys(attrsToChange).length === 0
+						&&
+						Object.getPrototypeOf(attrsToChange) === Object.prototype
+					)
+				)
+				{
+					safeSetAttrs(attrsToChange);
+				}
+		});
 });
 /* advantages_disadvantages end */
