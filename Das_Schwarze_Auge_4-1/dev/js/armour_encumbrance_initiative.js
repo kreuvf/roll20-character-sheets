@@ -25,33 +25,93 @@ on(attrsEncumbranceArmour.map(attr => "change:" + attr).join(" ").toLowerCase(),
 		safeGetAttrs(
 			attrsEncumbranceArmour,
 			function(values) {
-				let attrsToChange = calculateRuestungBE(values, eventInfo);
+				let attrsToChange = calculateArmourEncumbranceFX(values, eventInfo);
 				safeSetAttrs(attrsToChange);
 		});
 });
 
-// Berechnet die BE der aktiven Rüstungsteile
-// benötigt "RS_gBE1", "RSAktiv1", "RS_gBE2", "RSAktiv2", "RS_gBE3", "RSAktiv3", "RS_gBE4", "RSAktiv4", "sf_rustungsgewohnungI", "rustungsgewohnungI_rustungen", "sf_rustungsgewohnungII", "sf_rustungsgewohnungIII"
-// wenn bei dem übergebenen Event die aktive Rüstungsgewöhnung 1 geändert wurde, wird auch das übergeben
-// Enthält auch die Berechnung der auf die Initiative wirksamen BE aus Rüstung (BE_RG_INI)
-function calculateRuestungBE(values, eventInfo) {
-	var caller = "calculateRuestungBE";
-		var attrsToChange = {};
+/* Armour effects
+* Calculates encumbrance (BE) from active armour pieces (BE_RG)
+* Calculates initiative modifier from encumbrance from active armour pieces (BE_RG_INI)
+* Takes Armour Adaptation (RG) into account
+* Always outputs values for BE_RG and BE_RG_INI, optionally also for Armour Adaptation special skill attributes
 
-	// Determine old/previous degree of armour adaptation
-	var RG = { '1': values["sf_rustungsgewohnungI"], '2': values["sf_rustungsgewohnungII"], '3': values["sf_rustungsgewohnungIII"] };
+Required attributes: see attrsEncumbranceArmour (global const) and attrsEventInfo (local const)
 
-	if (RG['3'] === "1") {
+*/
+function calculateArmourEncumbranceFX(values, eventInfo) {
+	const caller = "calculateArmourEncumbranceFX";
+
+	// Boilerplate
+	let attrsToChange = {
+		"BE_RG": 0,
+		"BE_RG_INI": 0,
+	};
+
+	// Sanity checks
+	const attrsEventInfo = [
+		'sourceType',
+		'sourceAttribute',
+		'newValue',
+	];
+	const valuesSanity = checkRequiredProperties(attrsEncumbranceArmour, values);
+	const eventInfoSanity = checkRequiredProperties(attrsEventInfo, eventInfo);
+	const errors = valuesSanity["errors"] + eventInfoSanity["errors"];
+
+	if (valuesSanity["errors"] > 0)
+	{
+		debugLog(caller, "Error: 'values' missing required properties:", valuesSanity["missing"].join(", "));
+	}
+
+	if (eventInfoSanity["errors"] > 0)
+	{
+		debugLog(caller, "Error: 'eventInfo' missing required properties:", eventInfoSanity["missing"].join(", "));
+	}
+
+	if (errors > 0)
+	{
+		return attrsToChange;
+	}
+
+	// Structure armour data
+	const RGStates = { '1': values["sf_rustungsgewohnungI"], '2': values["sf_rustungsgewohnungII"], '3': values["sf_rustungsgewohnungIII"] }
+	const armourSlots = [
+		{
+			'active': values["RSAktiv1"],
+			'name': values["RSName1"],
+			'encumbrance': values["RS_gBE1"],
+		},
+		{
+			'active': values["RSAktiv2"],
+			'name': values["RSName2"],
+			'encumbrance': values["RS_gBE2"],
+		},
+		{
+			'active': values["RSAktiv3"],
+			'name': values["RSName3"],
+			'encumbrance': values["RS_gBE3"],
+		},
+		{
+			'active': values["RSAktiv4"],
+			'name': values["RSName4"],
+			'encumbrance': values["RS_gBE4"],
+		}
+	];
+
+	// Determine old/previous level of Armour Adaptation
+	let RG = 0;
+
+	if (RGStates['3'] === "1") {
 		RG = 3;
-	} else if (RG['2'] === "1") {
+	} else if (RGStates['2'] === "1") {
 		RG = 2;
-	} else if (RG['1'] === "1") {
+	} else if (RGStates['1'] === "1") {
 		RG = 1;
 	} else {
 		RG = 0;
 	}
 
-	// Handle changes to degree of armour adaptation
+	// Handle changes to level of Armour Adaptation
 	if (eventInfo.sourceType === "player") {
 		if (eventInfo.sourceAttribute === "sf_rustungsgewohnungi" && eventInfo.newValue === "1") {
 			RG = 1;
@@ -67,6 +127,7 @@ function calculateRuestungBE(values, eventInfo) {
 			RG = 0;
 		}
 	}
+
 	// Populate attrsToChange so we don't forget later on
 	switch(RG) {
 		case 0:
@@ -92,97 +153,124 @@ function calculateRuestungBE(values, eventInfo) {
 	}
 
 	// Encumbrance Reduction Through Armour Adaptation
-	var RGBonus = 0;
+	let RGBonus = 0;
 
-	// Armour Adaptation I is complicated
-	// The special skill can be acquired for different pieces of armour.
-	// The user has a textarea to fill with the names of the armours.
-	// If we find the same armour as mentioned in that field, apply the bonus.
+	/// Starting from the highest level of Armour Adaptation to make the code more readable
+	if (RG === 3) {
+		RGBonus = 2;
+	} else if (RG === 2) {
+		RGBonus = 1;
+	} else if (RG === 1) {
+		// Armour Adaptation I is complicated
+		// The special skill can be acquired for different pieces of armour.
+		// The user has a textarea to fill with the names of the armours.
+		// If we find the same armour as mentioned in that field, apply the bonus.
 
-	// Algorithm for the comparison of armour names with the armours given in Armour Adaptation I:
-	// Armour name: Remove all characters except a-zA-Z (including German Umlaute and Eszett äöüÄÖÜß), lowercase the string
-	// Armour Adaptation I names: Remove all "|", replace all commas, semicolons and linebreaks (\r and \n ...) with |, remove all characters except a-zA-Z| (including German Umlaute and Eszett äöüÄÖÜß), lowercase the string, split the string at |
-	// See whether any of the active armour pieces matches with Armour Adaptation I armours ...
+		// Algorithm for the comparison of armour names with the armours given in Armour Adaptation I:
+		// Armour name: Remove all characters except a-zA-Z (these ranges are meant to include German Umlaute and Eszett äöüÄÖÜß), lowercase the string
+		// Armour Adaptation I names: Remove all "|", replace all commas, semicolons and linebreaks (\r and \n ...) with |, remove all characters except a-zA-Z| (these ranges are meant to include German Umlaute and Eszett äöüÄÖÜß), lowercase the string, split the string at |
+		// See whether any of the active armour pieces matches with Armour Adaptation I armours ...
 
-	if (RG === 1) {
 		// Get armour names
-		var armours = [];
+		const armourInvalidCharacters = /[^a-zA-ZäöüÄÖÜß]/g;
+		let activeArmourNames = [];
 
-		for (let name of [
-			[ values["RSName1"], values["RSAktiv1"] ],
-			[ values["RSName2"], values["RSAktiv2"] ],
-			[ values["RSName3"], values["RSAktiv3"] ],
-			[ values["RSName4"], values["RSAktiv4"] ] ]) {
-			// We do not want to throw warnings for inactive armour pieces later on, so only add active ones
-			if (typeof(name[0]) !== 'undefined' && typeof(name[1]) !== 'undefined' && name[1] === "1") {
-				armours.push(name[0]);
+		/// Filter for active armours
+		for (let slot of armourSlots) {
+			if (slot["active"] === "1")
+			{
+				activeArmourNames.push(slot["name"]);
 			}
 		}
-		for (let name in armours) {
-			armours[name] = armours[name]
-				.replace(/[^a-zA-ZäöüÄÖÜß|]/g, "")
+
+		/// Filter for valid characters, lowercase everything
+		for (let name in activeArmourNames) {
+			activeArmourNames[name] = activeArmourNames[name]
+				.replace(armourInvalidCharacters, "")
 				.toLowerCase();
 		}
-		oldLen = armours.length;
-		armours = armours.filter(Boolean);
-		if (oldLen > armours.length) debugLog(caller, "Warnung: Mindestens ein Rüstungsname ist ungültig, da kein Zeichen aus dem folgenden Zeichenvorrat stammt: a-z, A-Z, ä, ö, ü, Ä, Ö, Ü, ß.");
 
-		// Get names of armour with armour adaptation
-		var RGarmours = values["rustungsgewohnungI_rustungen"]
-		if (typeof(RGarmours) === 'undefined' || RGarmours === "") debugLog(caller, "Warnung: Keine Rüstungsnamen für Rüstungsgewöhnung I definiert.");
+		/// Filter invalid names and warn about them
+		{
+			let unfilteredNamesCount = activeArmourNames.length;
+			activeArmourNames = activeArmourNames.filter(Boolean);
+			if (unfilteredNamesCount > activeArmourNames.length)
+			{
+				debugLog(caller, "Warnung: Mindestens ein Rüstungsname ist ungültig, da kein Zeichen aus dem folgenden Zeichenvorrat stammt: a-z, A-Z, ä, ö, ü, Ä, Ö, Ü, ß.");
+			}
+		}
+
+		// Get names listed under Armour Adaptation I
+		const armourAdaptationInvalidCharacters = /[^a-zA-ZäöüÄÖÜß|]/gm;
+		const armourAdaptationFieldSeparators = /[,;\r\n]/gm;
+		let RGarmours = values["rustungsgewohnungI_rustungen"];
+
+		/// Filter for empty string
+		if (RGarmours === "")
+		{
+			debugLog(caller, "Warnung: Keine Rüstungsnamen für Rüstungsgewöhnung I definiert.");
+		}
+
+		/// Remove pipe characters, replace separators with pipe characters, filter for valid characters, lowercase everything, split all names removing empty strings
 		RGarmours = RGarmours
 			.replace(/\|/g, "")
-			.replace(/[,;\r\n]/gm, "|")
-			.replace(/[^a-zA-ZäöüÄÖÜß|]/gm, "")
+			.replace(armourAdaptationFieldSeparators, "|")
+			.replace(armourAdaptationInvalidCharacters, "")
 			.toLowerCase()
 			.split("|")
 			.filter(Boolean);
-		if (RGarmours.length === 0) debugLog(caller, "Warnung: Kein gültiger Rüstungsnamen für Rüstungsgewöhnung I gefunden, da kein Zeichen aus dem folgenden Zeichenvorrat stammt: a-z, A-Z, ä, ö, ü, Ä, Ö, Ü, ß.");
 
-		// Find the first match and stop
-		for (let armour of armours) {
-			if (RGarmours.indexOf(armour) > -1) {
+		/// Check for "only invalid armour names"
+		if (RGarmours.length === 0)
+		{
+			debugLog(caller, "Warnung: Kein gültiger Rüstungsname für Rüstungsgewöhnung I gefunden, da kein Zeichen aus dem folgenden Zeichenvorrat stammt: a-z, A-Z, ä, ö, ü, Ä, Ö, Ü, ß.");
+		}
+
+		// Compare active armours with armours with Armour Adaptation I
+		for (let armour of activeArmourNames) {
+			if (RGarmours.includes(armour)) {
 				RGBonus = 1;
 				debugLog(caller, "Rüstungsgewöhnung I: \"" + armour + "\" erhält den Bonus.");
 				break;
 			}
 		}
 
-		if(RGBonus === 0) debugLog(caller, "Hinweis: Entweder ist keine Rüstung aktiv, für die eine Rüstungsgewöhnung I vorhanden ist, oder der Rüstungsname ist falsch geschrieben.");
-	} else if (RG === 2) {
-		RGBonus = 1;
-	} else if (RG === 3) {
-		RGBonus = 2;
+		if (RGBonus === 0)
+		{
+			debugLog(caller, "Hinweis: Entweder ist keine Rüstung aktiv, für die eine Rüstungsgewöhnung I vorhanden ist, oder die Rüstungsnamen im Inventar und unter Rüstungsgewöhnung I sind nicht gleich.");
+		}
 	}
 
 	// Encumbrance calculation
-		var totalBe = 0;
-		for (let i = 1; i <= 4; i++) {
-				if (values["RSAktiv" + i] === "1") {
-						totalBe += parseFloat(values["RS_gBE" + i]);
-				}
+	let encumbrance = 0;
+	for (let slot of armourSlots)
+	{
+		if (slot["active"] === "1")
+		{
+			encumbrance += parseFloat(slot["encumbrance"]);
 		}
+	}
+	encumbrance = DSAround(roundDecimals(encumbrance, 1));
 
-	totalBe -= RGBonus;
-		if (totalBe < 0) {
-				totalBe = 0;
-		}
-
-		totalBe = DSAround(roundDecimals(totalBe, 1));
-
-		attrsToChange["BE_RG"] = totalBe;
+	/// Encumbrance reduction due to Armour Adaptation
+	encumbrance -= RGBonus;
+	if (encumbrance < 0)
+	{
+		encumbrance = 0;
+	}
+	attrsToChange["BE_RG"] = encumbrance;
 
 	// Initiative reduction due to armour
-	var BEINI = 0;
+	let BEINI = encumbrance;
 
-	BEINI = totalBe;
-
-	if (RG === 3) {
+	/// Consider Armour Adaptation 3's special effect
+	if (RG === 3)
+	{
 		BEINI = DSAround(BEINI / 2);
 	}
 	attrsToChange["BE_RG_INI"] = BEINI;
 
-		return attrsToChange;
+	return attrsToChange;
 }
 
 // Berechne BE-Basis aus dem gesamten Rüstungs BE und der BE durch Last
