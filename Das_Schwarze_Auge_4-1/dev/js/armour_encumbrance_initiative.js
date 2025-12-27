@@ -1,14 +1,31 @@
 /* armour_encumbrance_initiative start */
-on(
-"change:rsname1 change:rs_gbe1 change:rsaktiv1 " +
-"change:rsname2 change:rs_gbe2 change:rsaktiv2 " +
-"change:rsname3 change:rs_gbe3 change:rsaktiv3 " +
-"change:rsname4 change:rs_gbe4 change:rsaktiv4 " +
-"change:sf_rustungsgewohnungi change:rustungsgewohnungi_rustungen " +
-"change:sf_rustungsgewohnungii " +
-"change:sf_rustungsgewohnungiii", function(eventInfo) {
-		safeGetAttrs([ "RSName1", "RS_gBE1", "RSAktiv1", "RSName2", "RS_gBE2", "RSAktiv2", "RS_gBE3", "RSAktiv3", "RSName3", "RS_gBE4", "RSAktiv4", "RSName4", "sf_rustungsgewohnungI", "rustungsgewohnungI_rustungen", "sf_rustungsgewohnungII", "sf_rustungsgewohnungIII"], function(values) {
-				var attrsToChange = calculateRuestungBE(values, eventInfo);
+/* Encumbrance from armour */
+const attrsEncumbranceArmour = [
+	'RSName1',
+	'RS_gBE1',
+	'RSAktiv1',
+	'RSName2',
+	'RS_gBE2',
+	'RSAktiv2',
+	'RS_gBE3',
+	'RSAktiv3',
+	'RSName3',
+	'RS_gBE4',
+	'RSAktiv4',
+	'RSName4',
+	'sf_rustungsgewohnungI',
+	'rustungsgewohnungI_rustungen',
+	'sf_rustungsgewohnungII',
+	'sf_rustungsgewohnungIII',
+];
+Object.freeze(attrsEncumbranceArmour);
+
+on(attrsEncumbranceArmour.map(attr => "change:" + attr).join(" ").toLowerCase(),
+	function(eventInfo) {
+		safeGetAttrs(
+			attrsEncumbranceArmour,
+			function(values) {
+				let attrsToChange = calculateRuestungBE(values, eventInfo);
 				safeSetAttrs(attrsToChange);
 		});
 });
