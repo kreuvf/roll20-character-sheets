@@ -302,7 +302,7 @@ function migrateTo20200809(migrationChain) {
 		// take calculated values into "v" so that they are available to following computation steps
 		Object.assign(v, attrsToChange);
 
-		const calculatedRuestungBE = calculateRuestungBE(v, {});
+		const calculatedRuestungBE = calculateArmourEncumbranceFX(v, {"sourceType": "migration"});
 		// apply calculated values to attrsToChange
 		Object.assign(attrsToChange, calculatedRuestungBE);
 
@@ -536,7 +536,7 @@ function migrateTo20210718 (migrationChain) {
 		attrsToChange["BE_RG"] = parseInt(values["Ges_BE"]);
 		attrsToChange["BE_Last"] = parseInt(values["BE_Last"]);
 		attrsToChange["BE"] = parseInt(values["Ges_BE"]) + parseInt(values["BE_Last"]);
-		attrsToChange["BE_RG_INI"] = calculateRuestungBE(values, {"sourceType": "migration"})["BE_RG_INI"];
+		attrsToChange["BE_RG_INI"] = calculateArmourEncumbranceFX(values, {"sourceType": "migration"})["BE_RG_INI"];
 
 		debugLog(caller, "Gathering new values complete:", attrsToChange);
 		safeSetAttrs(attrsToChange, {}, function() {
