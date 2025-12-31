@@ -273,26 +273,28 @@ function calculateArmourEncumbranceFX(values, eventInfo) {
 	return attrsToChange;
 }
 
-// Berechne BE-Basis aus dem gesamten Rüstungs BE und der BE durch Last
-on("change:be_rg change:be_last", function(eventInfo) {
-		safeGetAttrs(["BE_RG", "BE_Last"], function(values) {
-				var beTaw = calculateBEBasis(values);
-				safeSetAttrs({ "BE": beTaw });
+/* Encumbrance from armour and weight */
+const attrsEncumbranceSources = [
+	'BE_RG',
+	'BE_Last',
+];
+Object.freeze(attrsEncumbranceSources);
+
+on(attrsEncumbranceSources.map(attr => "change:" + attr).join(" ").toLowerCase(),
+	function(eventInfo) {
+		safeGetAttrs(
+			attrsEncumbranceSources,
+			function(values) {
+				let encumbranceTotal = 0;
+
+				encumbranceTotal += values["BE_RG"];
+				encumbranceTotal += parseInt(values["BE_Last"]) | 0;
+
+				let attrsToChange = { "BE": encumbranceTotal };
+
+				safeSetAttrs(attrsToChange);
 		});
 });
-
-// Berechnet beTaW Wert
-// Benötigt GesBE und BE_Last
-function calculateBEBasis(values) {
-		var beTaw = 0;
-		if (values["BE_RG"]) {
-				beTaw += parseInt(values["BE_RG"]);
-		}
-		if (values["BE_Last"]) {
-				beTaw += parseInt(values["BE_Last"]);
-		}
-		return beTaw;
-}
 
 // Berechne Waffenspezifische BE
 on(
