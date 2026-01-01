@@ -330,72 +330,6 @@ on(attrsEffectiveEncumbranceWeapons.map(attr => "change:" + attr).join(" ").toLo
 });
 
 /*
-Effective encumbrance effects per combat technique
-This function takes into account the effective encumbrance (eBE) and returns the corresponding modifiers for the AT/PA values.
-
-Every weapon can be used with at least one combat technique. Most combat techniques have an encumbrance threshold.
-The encumbrance above this threshold is called the effective encumbrance (eBE).
-Each point of effective encumbrance increases first the parry, then the attack penalty.
-
-Input: string with combatTechnique (as defined in global const), encumbrance (BE)
-Output: Object with attack/parry modifiers "be_at" and "be_pa"
-
-*/
-function calculateCombatTechniqueEncumbranceModifiers(combatTechnique, BE) {
-	const caller = "calculateCombatTechniqueEncumbranceModifiers";
-
-	// Boilerplate
-	let eBE = 0;
-	let modifiersEncumbrance = {
-		"be_at": 0,
-		"be_pa": 0,
-	};
-	combatTechnique = String(combatTechnique);
-
-	// Input sanitation
-	/// combatTechnique
-	/// This should never happen, but in case the code gets edited in the wrong place ...
-	if ( !Object.hasOwn(combatTechniques, combatTechnique) )
-	{
-		debugLog(caller, `Warnung: Kampftechnik "${combatTechnique}" unbekannt. Berechnung der AT/PA-Modifikatoren aus BE nicht möglich. Standardwert "0" benutzt.`);
-		return modifiersEncumbrance;
-	}
-
-	/// BE
-	/// This should never happen.
-	if (
-		isNaN(parseInt(BE))
-	)
-	{
-		debugLog(caller, `Warnung: Bei der BE "${String(BE)}" handelt es sich nicht um eine Ganzzahl. Berechnung der AT/PA-Modifikatoren aus BE nicht möglich. Standardwert 0 benutzt.`);
-		return modifiersEncumbrance;
-	}
-
-	// Calculate eBE
-	/// Set eBE to 0 if it's undefined or if it's greater than BE
-	/// The undefined check is important, because some weapons have no eBE value
-	eBE = combatTechniques[combatTechnique]["ebe"];
-	eBE = eBE === undefined ? 0 : Math.max(0, BE + eBE);
-
-	/// Melee AT/PA weapons
-	if (
-		combatTechniques[combatTechnique]["type"] === "melee"
-		&&
-		combatTechniques[combatTechnique]["at-only"] === false
-	)
-	{
-		// Since the parry penalty is higher for odd effective encumbrances, using floor/ceil automatically gives the correct values.
-		modifiersEncumbrance["be_at"] = -Math.floor(eBE / 2);
-		modifiersEncumbrance["be_pa"] = -Math.ceil(eBE / 2);
-	} else {
-		// Melee AT-only and ranged weapons: AT is reduced.
-		modifiersEncumbrance["be_at"] = -eBE;
-	}
-
-	return modifiersEncumbrance;
-}
-
-/*
 Effective encumbrance effects for the active weapon
 This function takes into account the effective encumbrance (eBE) and returns the corresponding modifiers for the AT/PA values based on the active weapon.
 
@@ -464,7 +398,7 @@ function calculateWeaponEncumbranceModifiers(values) {
 
 	// Input sanitation for active weapon only
 	/// In this case, if the input is sane we also grab some data from it we need later on.
-	let combatTechniques = {};
+	let techniques = {};
 	const actionTypes = [
 		"AT",
 		"PA"
@@ -474,13 +408,13 @@ function calculateWeaponEncumbranceModifiers(values) {
 	for (action of actionTypes)
 	{
 		const attr = "be_" + action.toLowerCase();
-		combatTechniques[action] = weapon["actionTypes"][action].match(patternCombatTechnique);
-		if (Object.hasOwn(combatTechniques[action], "groups"))
+		techniques[action] = weapon["actionTypes"][action].match(patternCombatTechnique);
+		if (Object.hasOwn(techniques[action], "groups"))
 		{
-			combatTechniques[action] = combatTechniques[action].groups["combatTechnique"].toLowerCase();
+			techniques[action] = techniques[action].groups["combatTechnique"].toLowerCase();
 		} else {
 			debugLog(caller, `${action}-Kampftechnik der aktiven Waffe nicht gesetzt oder unbekannt: ${weapon["actionTypes"][action]}. ${action}-Modifikator aus effektiver Behinderung auf Standardwert gesetzt (${getDefaultValue(attr)}).`);
-			combatTechniques[action] = undefined;
+			techniques[action] = undefined;
 		}
 	}
 
@@ -490,10 +424,76 @@ function calculateWeaponEncumbranceModifiers(values) {
 	for (action of actionTypes)
 	{
 		const attr = "be_" + action.toLowerCase();
-		if (combatTechniques[action] !== undefined)
+		if (techniques[action] !== undefined)
 		{
-			modifiersEncumbrance[attr] = calculateCombatTechniqueEncumbranceModifiers(combatTechniques[action], encumbrance)[attr];
+			modifiersEncumbrance[attr] = calculateCombatTechniqueEncumbranceModifiers(techniques[action], encumbrance, action);
 		}
+	}
+
+	/*
+	Effective encumbrance effects per combat technique
+	This function takes into account the effective encumbrance (eBE) and returns the corresponding modifiers for the AT/PA values.
+
+	Every weapon can be used with at least one combat technique. Most combat techniques have an encumbrance threshold.
+	The encumbrance above this threshold is called the effective encumbrance (eBE).
+	Each point of effective encumbrance increases first the parry, then the attack penalty.
+
+	Input: string with combatTechnique (as defined in global const), encumbrance (BE)
+	Output: Object with attack/parry modifiers "be_at" and "be_pa"
+
+	*/
+	function calculateCombatTechniqueEncumbranceModifiers(combatTechnique, BE) {
+		const caller = "calculateCombatTechniqueEncumbranceModifiers";
+
+		// Boilerplate
+		let eBE = 0;
+		let modifiersEncumbrance = {
+			"be_at": 0,
+			"be_pa": 0,
+		};
+		combatTechnique = String(combatTechnique);
+
+		// Input sanitation
+		/// combatTechnique
+		/// This should never happen, but in case the code gets edited in the wrong place ...
+		if ( !Object.hasOwn(combatTechniques, combatTechnique) )
+		{
+			debugLog(caller, `Warnung: Kampftechnik "${combatTechnique}" unbekannt. Berechnung der AT/PA-Modifikatoren aus BE nicht möglich. Standardwert "0" benutzt.`);
+			return modifiersEncumbrance;
+		}
+
+		/// BE
+		/// This should never happen.
+		if (
+			isNaN(parseInt(BE))
+		)
+		{
+			debugLog(caller, `Warnung: Bei der BE "${String(BE)}" handelt es sich nicht um eine Ganzzahl. Berechnung der AT/PA-Modifikatoren aus BE nicht möglich. Standardwert 0 benutzt.`);
+			return modifiersEncumbrance;
+		}
+
+		// Calculate eBE
+		/// Set eBE to 0 if it's undefined or if it's greater than BE
+		/// The undefined check is important, because some weapons have no eBE value
+		eBE = combatTechniques[combatTechnique]["ebe"];
+		eBE = eBE === undefined ? 0 : Math.max(0, BE + eBE);
+
+		/// Melee AT/PA weapons
+		if (
+			combatTechniques[combatTechnique]["type"] === "melee"
+			&&
+			combatTechniques[combatTechnique]["at-only"] === false
+		)
+		{
+			// Since the parry penalty is higher for odd effective encumbrances, using floor/ceil automatically gives the correct values.
+			modifiersEncumbrance["be_at"] = -Math.floor(eBE / 2);
+			modifiersEncumbrance["be_pa"] = -Math.ceil(eBE / 2);
+		} else {
+			// Melee AT-only and ranged weapons: AT is reduced.
+			modifiersEncumbrance["be_at"] = -eBE;
+		}
+
+		return modifiersEncumbrance;
 	}
 
 	return modifiersEncumbrance;
