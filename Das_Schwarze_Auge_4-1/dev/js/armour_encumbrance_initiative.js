@@ -321,7 +321,7 @@ on(attrsEffectiveEncumbranceWeapons.map(attr => "change:" + attr).join(" ").toLo
 			function(values) {
 				let attrsToChange = {};
 
-				const results = calculateWeaponBE(values);
+				const results = calculateWeaponEncumbranceModifiers(values);
 				attrsToChange["be_at_mod"] = results["be_at"];
 				attrsToChange["be_pa_mod"] = results["be_pa"];
 
@@ -394,48 +394,108 @@ function calculateCombatTechniqueEncumbranceModifiers(combatTechnique, BE) {
 
 	return modifiersEncumbrance;
 }
-/* 
-		Methode die die waffenspezifische BE berechnet und nach AT und PA getrennt zurückgibt. 
-		Benötigt
-		NKW_Aktiv 1-4
-		NKW_AT_typ 1-4
-		NKW_PA_typ 1-4
-		BE
+
+/*
+Effective encumbrance effects for the active weapon
+This function takes into account the effective encumbrance (eBE) and returns the corresponding modifiers for the AT/PA values based on the active weapon.
+
+Most of the calculation is done within another function, see the comments there.
+
+Input: Object with attribute values for "close combat weapon active" (NKW_Aktiv), "close combat weapon attack combat technique" (NKW_AT_typ), "close combat weapon parry combat technique" (NKW_PA_typ), encumbrance (BE)
+Output: Object with attack/parry modifiers "be_at" and "be_pa"
+
 */
-function calculateWeaponBE(values) {
-		var weapon = 0;
-		var BEModifiers = { "be_at": 0, "be_pa": 0 };
+function calculateWeaponEncumbranceModifiers(values) {
+	const caller = "calculateWeaponEncumbranceModifiers";
 
-		if (values["NKW_Aktiv1"] === "1") {
-				weapon = 1;
-		} else if (values["NKW_Aktiv2"] === "1") {
-				weapon = 2;
-		} else if (values["NKW_Aktiv3"] === "1") {
-				weapon = 3;
-		} else if (values["NKW_Aktiv4"] === "1") {
-				weapon = 4;
+	// Boilerplate
+	let weapon = 0;
+	let modifiersEncumbrance = {
+		"be_at": getDefaultValue("be_at"),
+		"be_pa": getDefaultValue("be_pa"),
+	};
+	const encumbrance = values["BE"];
+	const combatWeapons = [
+		{
+			"active": values["NKW_Aktiv1"],
+			"actionTypes": {
+				"AT": values["NKW_AT_typ1"],
+				"PA": values["NKW_PA_typ1"],
+			},
+		},
+		{
+			"active": values["NKW_Aktiv2"],
+			"actionTypes": {
+				"AT": values["NKW_AT_typ2"],
+				"PA": values["NKW_PA_typ2"],
+			},
+		},
+		{
+			"active": values["NKW_Aktiv3"],
+			"actionTypes": {
+				"AT": values["NKW_AT_typ3"],
+				"PA": values["NKW_PA_typ3"],
+			},
+		},
+		{
+			"active": values["NKW_Aktiv4"],
+			"actionTypes": {
+				"AT": values["NKW_AT_typ4"],
+				"PA": values["NKW_PA_typ4"],
+			},
+		},
+	];
+
+	// Check for active weapon
+	for (slot of combatWeapons)
+	{
+		if (slot["active"] === "1")
+		{
+			weapon = slot;
+			break;
+		}
+	}
+
+	if (weapon === 0)
+	{
+		debugLog(caller, `Keine aktive Waffe gefunden. AT/PA-Modifikatoren aus effektiver Behinderung auf Standardwerte gesetzt (${getDefaultValue("be_at")}/${getDefaultValue("be_pa")}).`);
+		return modifiersEncumbrance;
+	}
+
+	// Input sanitation for active weapon only
+	/// In this case, if the input is sane we also grab some data from it we need later on.
+	let combatTechniques = {};
+	const actionTypes = [
+		"AT",
+		"PA"
+	];
+	const patternCombatTechnique = /^@\{(?:AT|PA)_(?<combatTechnique>[^}]+)\}/;
+
+	for (action of actionTypes)
+	{
+		const attr = "be_" + action.toLowerCase();
+		combatTechniques[action] = weapon["actionTypes"][action].match(patternCombatTechnique);
+		if (Object.hasOwn(combatTechniques[action], "groups"))
+		{
+			combatTechniques[action] = combatTechniques[action].groups["combatTechnique"].toLowerCase();
 		} else {
-				return BEModifiers;
+			debugLog(caller, `${action}-Kampftechnik der aktiven Waffe nicht gesetzt oder unbekannt: ${weapon["actionTypes"][action]}. ${action}-Modifikator aus effektiver Behinderung auf Standardwert gesetzt (${getDefaultValue(attr)}).`);
+			combatTechniques[action] = undefined;
 		}
-		var baseBE = values["BE"];
-		var atTyp = values["NKW_AT_typ" + weapon];
-		var paTyp = values["NKW_PA_typ" + weapon];
-		var combatTechnique = {};
+	}
 
-		if (atTyp && atTyp !== "0" && atTyp !== 0) {
-				combatTechnique[ "AT" ] = atTyp.match("@\{AT_([^}]+)\}")[1].toLowerCase();
-		} 
-		if (paTyp && paTyp !== "0" && paTyp !== 0) {
-				combatTechnique[ "PA" ] = paTyp.match("@\{PA_([^}]+)\}")[1].toLowerCase();
+	// Get effective encumbrance values of the combat techniques used for AT/PA
+	/// It is possible to wield two weapons with different combat techniques.
+	/// This directly leads to the AT value being from another combat technique than the PA value.
+	for (action of actionTypes)
+	{
+		const attr = "be_" + action.toLowerCase();
+		if (combatTechniques[action] !== undefined)
+		{
+			modifiersEncumbrance[attr] = calculateCombatTechniqueEncumbranceModifiers(combatTechniques[action], encumbrance)[attr];
 		}
+	}
 
-		if (combatTechnique[ "AT" ] === combatTechnique[ "PA" ]) {
-				BEModifiers = calculateCombatTechniqueEncumbranceModifiers(combatTechnique["AT"], baseBE);
-		} else {
-				BEModifiers[ "be_at" ] = calculateCombatTechniqueEncumbranceModifiers(combatTechnique["AT"], baseBE)["be_at"];
-				BEModifiers[ "be_pa" ] = calculateCombatTechniqueEncumbranceModifiers(combatTechnique["PA"], baseBE)["be_pa"];
-		}
-
-		return BEModifiers;
+	return modifiersEncumbrance;
 }
 /* armour_encumbrance_initiative end */
