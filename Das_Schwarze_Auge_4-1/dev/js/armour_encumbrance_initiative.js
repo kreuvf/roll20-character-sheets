@@ -439,10 +439,10 @@ function calculateWeaponEncumbranceModifiers(values) {
 	Each point of effective encumbrance increases first the parry, then the attack penalty.
 
 	Input: string with combatTechnique (as defined in global const), encumbrance (BE)
-	Output: Object with attack/parry modifiers "be_at" and "be_pa"
+	Output: Object with attack/parry modifiers "be_at" and "be_pa" (default) or value for either "be_at" or "be_pa"
 
 	*/
-	function calculateCombatTechniqueEncumbranceModifiers(combatTechnique, BE) {
+	function calculateCombatTechniqueEncumbranceModifiers(combatTechnique, BE, types = "both") {
 		const caller = "calculateCombatTechniqueEncumbranceModifiers";
 
 		// Boilerplate
@@ -472,6 +472,20 @@ function calculateWeaponEncumbranceModifiers(values) {
 			return modifiersEncumbrance;
 		}
 
+		/// Types
+		//// Must be either of "AT", "PA" or "both" (default)
+		{
+			const legalTypes = [
+				"AT",
+				"PA",
+				"both",
+			];
+			if (!legalTypes.includes(types))
+			{
+				debugLog(caller, `Angabe der zu berechnenden Aktionstypen ungültig (${types}), Standard verwendet.`);
+				types = "both";
+			}
+		}
 		// Calculate eBE
 		/// Set eBE to 0 if it's undefined or if it's greater than BE
 		/// The undefined check is important, because some weapons have no eBE value
@@ -491,6 +505,14 @@ function calculateWeaponEncumbranceModifiers(values) {
 		} else {
 			// Melee AT-only and ranged weapons: AT is reduced.
 			modifiersEncumbrance["be_at"] = -eBE;
+		}
+
+		// Prepare output according to "types"
+		if (types === "AT")
+		{
+			modifiersEncumbrance = modifiersEncumbrance["be_at"];
+		} else if (types === "PA") {
+			modifiersEncumbrance = modifiersEncumbrance["be_pa"];
 		}
 
 		return modifiersEncumbrance;
