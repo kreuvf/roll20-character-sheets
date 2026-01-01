@@ -813,7 +813,7 @@ function migrateTo20230618(migrationChain) {
 							const atValue =
 								AT + atMod
 								+ innerValues["AT_mod_wounds"]
-								- parseInt(innerValues["be_at_mod"]);
+								+ parseInt(innerValues["be_at_mod"]);
 							attrsToChange["parryweapon_at"] = atValue;
 						}
 					}
@@ -1238,7 +1238,7 @@ function migrateTo20241002(migrationChain) {
 			{
 				const value = values[attr];
 				const hintAttr = attr + "_hint";
-				if (value > 0)
+				if (value < 0)
 				{
 					attrsToInit[hintAttr] = 1;
 				} else {
