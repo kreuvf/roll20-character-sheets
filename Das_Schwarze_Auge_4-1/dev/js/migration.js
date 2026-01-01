@@ -317,7 +317,7 @@ function migrateTo20200809(migrationChain) {
 		attrsToChange["BE_TaW"] = beTaw;
 		v["BE_TaW"] = beTaw;
 
-		const weaponBE = calculateWeaponBE(v);
+		const weaponBE = calculateWeaponEncumbranceModifiers(v);
 		attrsToChange["be_at_mod"] = weaponBE.be_at;
 		attrsToChange["be_pa_mod"] = weaponBE.be_pa;
 
