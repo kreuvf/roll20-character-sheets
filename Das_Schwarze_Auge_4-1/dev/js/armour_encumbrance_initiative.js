@@ -330,44 +330,69 @@ on(attrsEffectiveEncumbranceWeapons.map(attr => "change:" + attr).join(" ").toLo
 });
 
 /*
-Input: string with combatTechnique (as defined in const), BE ("Behinderung"/encumbrance)
-Output: Object with properties "be_at" and "be_pa"
-
+Effective encumbrance effects per combat technique
 This function takes into account the effective encumbrance (eBE) and returns the corresponding modifiers for the AT/PA values.
+
+Every weapon can be used with at least one combat technique. Most combat techniques have an encumbrance threshold.
+The encumbrance above this threshold is called the effective encumbrance (eBE).
+Each point of effective encumbrance increases first the parry, then the attack penalty.
+
+Input: string with combatTechnique (as defined in global const), encumbrance (BE)
+Output: Object with attack/parry modifiers "be_at" and "be_pa"
+
 */
-function calculateWeaponBEModifiers(combatTechnique, BE) {
-	var caller = "calculateWeaponBEModifiers";
-	var eBE = 0;
-	var BEModifiers = { "be_at": 0, "be_pa": 0 };
+function calculateCombatTechniqueEncumbranceModifiers(combatTechnique, BE) {
+	const caller = "calculateCombatTechniqueEncumbranceModifiers";
+
+	// Boilerplate
+	let eBE = 0;
+	let modifiersEncumbrance = {
+		"be_at": 0,
+		"be_pa": 0,
+	};
 	combatTechnique = String(combatTechnique);
 
-	// This should never happen, but in case the code gets edited in the wrong place ...
-	if ( !Object.hasOwn(combatTechniques, combatTechnique) ) {
-		debugLog(caller, "Warnung: Kampftechnik \"" + combatTechnique + "\" unbekannt. Berechnung der AT/PA-Modifikatoren aus BE nicht möglich. Standardwert \"0\" benutzt.");
-		return BEModifiers;
+	// Input sanitation
+	/// combatTechnique
+	/// This should never happen, but in case the code gets edited in the wrong place ...
+	if ( !Object.hasOwn(combatTechniques, combatTechnique) )
+	{
+		debugLog(caller, `Warnung: Kampftechnik "${combatTechnique}" unbekannt. Berechnung der AT/PA-Modifikatoren aus BE nicht möglich. Standardwert "0" benutzt.`);
+		return modifiersEncumbrance;
 	}
 
-	// Checking BE ...
-	if ( isNaN(parseInt(BE)) ) {
-		debugLog(caller, "Warnung: Bei der BE \"" + String(BE) + "\" handelt es sich nicht um eine Ganzzahl. Berechnung der AT/PA-Modifikatoren aus BE nicht möglich. Standardwert \"0\" benutzt.");
-		return BEModifiers;
+	/// BE
+	/// This should never happen.
+	if (
+		isNaN(parseInt(BE))
+	)
+	{
+		debugLog(caller, `Warnung: Bei der BE "${String(BE)}" handelt es sich nicht um eine Ganzzahl. Berechnung der AT/PA-Modifikatoren aus BE nicht möglich. Standardwert 0 benutzt.`);
+		return modifiersEncumbrance;
 	}
 
 	// Calculate eBE
-	// Set eBE to 0 if it's undefined or if it's greater than BE
-	eBE = combatTechniques[combatTechnique][ "ebe" ];
+	/// Set eBE to 0 if it's undefined or if it's greater than BE
+	/// The undefined check is important, because some weapons have no eBE value
+	eBE = combatTechniques[combatTechnique]["ebe"];
 	eBE = eBE === undefined ? 0 : Math.max(0, BE + eBE);
 
-	// Melee AT/PA weapons: The remainder of odd eBEs goes to PA.
-	// Melee AT-only and ranged weapons: AT is reduced.
-	if (combatTechniques[combatTechnique][ "type" ] === "melee" && combatTechniques[combatTechnique][ "at-only" ] === false) {
-		BEModifiers[ "be_at" ] = Math.floor(eBE / 2);
-		BEModifiers[ "be_pa" ] = Math.ceil(eBE / 2);
+	/// Melee AT/PA weapons
+	if (
+		combatTechniques[combatTechnique]["type"] === "melee"
+		&&
+		combatTechniques[combatTechnique]["at-only"] === false
+	)
+	{
+		// Since the parry penalty is higher for odd effective encumbrances, using floor/ceil automatically gives the correct values.
+		modifiersEncumbrance["be_at"] = -Math.floor(eBE / 2);
+		modifiersEncumbrance["be_pa"] = -Math.ceil(eBE / 2);
 	} else {
-		BEModifiers[ "be_at" ] = eBE;
+		// Melee AT-only and ranged weapons: AT is reduced.
+		modifiersEncumbrance["be_at"] = -eBE;
 	}
 
-	return BEModifiers;
+	return modifiersEncumbrance;
 }
 /* 
 		Methode die die waffenspezifische BE berechnet und nach AT und PA getrennt zurückgibt. 
@@ -405,10 +430,10 @@ function calculateWeaponBE(values) {
 		}
 
 		if (combatTechnique[ "AT" ] === combatTechnique[ "PA" ]) {
-				BEModifiers = calculateWeaponBEModifiers(combatTechnique["AT"], baseBE);
+				BEModifiers = calculateCombatTechniqueEncumbranceModifiers(combatTechnique["AT"], baseBE);
 		} else {
-				BEModifiers[ "be_at" ] = calculateWeaponBEModifiers(combatTechnique["AT"], baseBE)["be_at"];
-				BEModifiers[ "be_pa" ] = calculateWeaponBEModifiers(combatTechnique["PA"], baseBE)["be_pa"];
+				BEModifiers[ "be_at" ] = calculateCombatTechniqueEncumbranceModifiers(combatTechnique["AT"], baseBE)["be_at"];
+				BEModifiers[ "be_pa" ] = calculateCombatTechniqueEncumbranceModifiers(combatTechnique["PA"], baseBE)["be_pa"];
 		}
 
 		return BEModifiers;
