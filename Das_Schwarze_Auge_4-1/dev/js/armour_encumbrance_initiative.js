@@ -296,17 +296,36 @@ on(attrsEncumbranceSources.map(attr => "change:" + attr).join(" ").toLowerCase()
 		});
 });
 
-// Berechne Waffenspezifische BE
-on(
-"change:be " +
-"change:nkw_aktiv1 change:nkw_at_typ1 change:nkw_pa_typ1 " +
-"change:nkw_aktiv2 change:nkw_at_typ2 change:nkw_pa_typ2 " +
-"change:nkw_aktiv3 change:nkw_at_typ3 change:nkw_pa_typ3 " +
-"change:nkw_aktiv4 change:nkw_at_typ4 change:nkw_pa_typ4", function(eventInfo) {
-		safeGetAttrs([ "BE", "NKW_Aktiv1", "NKW_AT_typ1", "NKW_PA_typ1", "NKW_Aktiv2", "NKW_AT_typ2", "NKW_PA_typ2", "NKW_Aktiv3", "NKW_AT_typ3", "NKW_PA_typ3", "NKW_Aktiv4", "NKW_AT_typ4", "NKW_PA_typ4" ], function(values) {
-				var weaponBE = calculateWeaponBE(values);
+/* Effective encumbrance effects per weapon (type) */
+const attrsEffectiveEncumbranceWeapons = [
+	'BE',
+	'NKW_Aktiv1',
+	'NKW_AT_typ1',
+	'NKW_PA_typ1',
+	'NKW_Aktiv2',
+	'NKW_AT_typ2',
+	'NKW_PA_typ2',
+	'NKW_Aktiv3',
+	'NKW_AT_typ3',
+	'NKW_PA_typ3',
+	'NKW_Aktiv4',
+	'NKW_AT_typ4',
+	'NKW_PA_typ4',
+];
+Object.freeze(attrsEffectiveEncumbranceWeapons);
 
-				safeSetAttrs({ be_at_mod: weaponBE.be_at, be_pa_mod: weaponBE.be_pa });
+on(attrsEffectiveEncumbranceWeapons.map(attr => "change:" + attr).join(" ").toLowerCase(),
+	function(eventInfo) {
+		safeGetAttrs(
+			attrsEffectiveEncumbranceWeapons,
+			function(values) {
+				let attrsToChange = {};
+
+				const results = calculateWeaponBE(values);
+				attrsToChange["be_at_mod"] = results["be_at"];
+				attrsToChange["be_pa_mod"] = results["be_pa"];
+
+				safeSetAttrs(attrsToChange);
 		});
 });
 
