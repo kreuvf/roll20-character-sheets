@@ -18,6 +18,7 @@ const versionsWithMigrations = [
 		20241002,
 		20250122,
 		20250413,
+		20269999,
 ];
 
 /*
@@ -1418,6 +1419,172 @@ function migrateTo20250413(migrationChain) {
 				attrsToChange[attr] = value;
 			}
 		}
+
+		debugLog(caller, "attrsToChange", attrsToChange);
+		safeSetAttrs(attrsToChange, {}, function () {
+			callNextMigration(migrationChain);
+		});
+	});
+}
+
+/*
+
+* Calculate WS_mod_advantages_disadvantages
+* Correct old value of activated "Eisern" from "2" to "1"
+* Initialize newly added attributes for Evade checks
+* Initialize newly added attributes for jumps
+* Initialize newly added attribute for Movement (GS) bonus from athletics (sprinting) checks
+* Initialize newly added attribute for Encumbrance (BE) mod from advantages/disadvantages
+* Initialize newly added attribute for March Movement (GS March), only relevant for characters with Dwarven Stature
+* Initialize newly added attributes for Lame mods of physical talents requiring leg use
+
+*/
+function migrateTo20269999(migrationChain) {
+	// Boilerplate
+	const caller = "migrateTo20269999";
+	debugLog(caller, "started");
+
+	// Preparation
+	/// Existing attributes in need of checking for value types
+	const attrsToGet = [
+		"Eisern",
+		"GS",
+		...attrsEvadeModAcrobatics,
+		...attrsMovementAffecting,
+		...attrsJumps,
+	];
+
+	// Attribute operations
+	safeGetAttrs(attrsToGet, function(v) {
+		// Boilerplate Acrobatics
+		const acrobaticsBonusStep = 3;
+		const acrobaticsBonusOffset = 12;
+		let attrsToChange = {
+			"WS_mod_advantages_disadvantages": 0,
+			"BE_GS_mod_hint": 0,
+			"k_ausweichen_mod_akrobatik": 0,
+			"k_ausweichen_mod_vorteile_nachteile": 0,
+			"jump_mod_advantages_disadvantages": 0,
+			"jump_long_runup_distance": 3.20,
+			"jump_long_stand_distance": 1.60,
+			"jump_high_runup_distance": 0.80,
+			"jump_high_stand_distance": 0.40,
+		};
+
+		// Checking and updating of old value
+		if (v["Eisern"] !== "0")
+		{
+			attrsToChange["Eisern"] = "1";
+		}
+
+		// Simplified calculation due to "Eisern" being the only attribute affecting this mod
+		if (v["Eisern"] !== "0")
+		{
+			attrsToChange["WS_mod_advantages_disadvantages"] = 2;
+		}
+
+		// Acrobatics evade bonus
+		let acrobaticsBonus = parseInt(v["TaW_akrobatik"]);
+		acrobaticsBonus = Math.max(acrobaticsBonus - acrobaticsBonusOffset, 0);
+		acrobaticsBonus = Math.trunc(acrobaticsBonus / acrobaticsBonusStep);
+		// Negative value to get correct behaviour
+		attrsToChange["k_ausweichen_mod_akrobatik"] = -acrobaticsBonus;
+
+		// Boilerplate for jumps
+		/// Conversion factors for length units used: 1 Spann = 20 cm, 1 Schritt = 1 m
+		const facSchrittPerSpann = 0.2;
+		const minDistance = 0;
+		const newJumpAttrs = [
+			"jump_long_runup_distance",
+			"jump_long_stand_distance",
+			"jump_high_runup_distance",
+			"jump_high_stand_distance",
+		];
+
+		// Base value used in all calculations
+		let jumpsBase = v["GE"] + v["KK"] - v["BE"] + v["jump_mod_advantages_disadvantages"];
+		/// Conversion to Schritt
+		jumpsBase = jumpsBase * facSchrittPerSpann;
+
+		// Calculation of the single jump distances
+		newJumpAttrs["jump_long_runup_distance"] = jumpsBase;
+		newJumpAttrs["jump_long_stand_distance"] = jumpsBase / 2;
+		newJumpAttrs["jump_high_runup_distance"] = jumpsBase / 4;
+		newJumpAttrs["jump_high_stand_distance"] = jumpsBase / 8;
+
+		/// DSA rounding to two decimal figures (cm precision is enough)
+		for (attr of newJumpAttrs)
+		{
+			attrsToChange[attr] = DSAround(100 * newJumpAttrs[attr]) / 100;
+			attrsToChange[attr] = Math.max(minDistance, attrsToChange[attr]);
+		}
+
+		// Sanity checking
+		for (attr of newJumpAttrs)
+		{
+			if (!DSAsane(attrsToChange[attr], "non-negative number"))
+			{
+				delete attrsToChange[attr];
+				debugLog(caller, `${attr} ließ sich nicht berechnen. Erhaltene Attribute: ${JSON.stringify(v)}.`);
+			}
+		}
+
+		// Movement (GS) bonus from athletics (sprinting) checks
+		const athleticsGSBonusDefault = 1;
+		attrsToChange["t_ko_athletik_gsbonus"] = athleticsGSBonusDefault;
+
+		// Counter Attack modifier
+		const counterAttackModDefault = 0;
+		attrsToChange["k_gegenhalten_mod_advantages_disadvantages"] = counterAttackModDefault;
+
+		// Knock Down modifier
+		const knockDownModDefault = 0;
+		attrsToChange["k_umreissen_mod_advantages_disadvantages"] = knockDownModDefault;
+
+		// Charge modifier dialog
+		const chargeModDialogDefault = "";
+		attrsToChange["k_ausfall_mod_dialog_dwarven_stature"] = chargeModDialogDefault;
+
+		// Encumbrance modifier from advantages/disadvantages
+		const encumbranceModAdvantagesDisadvantagesDefault = 0;
+		attrsToChange["BE_mod_advantages_disadvantages"] = encumbranceModAdvantagesDisadvantagesDefault;
+
+		// March Movement ("Marsch-GS" or "Reisegeschwindigkeit"; only relevant for characters with Dwarven Stature ("Zwergenwuchs"))
+		const GSMarch = v["GS"];
+		attrsToChange["GS_march"] = GSMarch;
+
+		// Lame mod for physical talents requiring leg use
+		const lameModAttrs =
+		[
+			't_ko_akrobatik_mod_lame',
+			't_ko_athletik_mod_lame',
+			't_ko_fliegen_mod_lame',
+			't_ko_freiesfliegen_mod_lame',
+			't_ko_gaukeleien_mod_lame',
+			't_ko_immanspiel_mod_lame',
+			't_ko_klettern_mod_lame',
+			't_ko_koerperbeherrschung_mod_lame',
+			't_ko_reiten_mod_lame',
+			't_ko_schleichen_mod_lame',
+			't_ko_schwimmen_mod_lame',
+			't_ko_selbstbeherrschung_mod_lame',
+			't_ko_sichverstecken_mod_lame',
+			't_ko_singen_mod_lame',
+			't_ko_sinnenschaerfe_mod_lame',
+			't_ko_skifahren_mod_lame',
+			't_ko_stimmenimitieren_mod_lame',
+			't_ko_tanzen_mod_lame',
+			't_ko_taschendiebstahl_mod_lame',
+			't_ko_zechen_mod_lame',
+		];
+		for (let attr in lameModAttrs)
+		{
+			attrsToChange[attr] = getDefaultValue(attr);
+		}
+
+		// Initialization of game type
+		/// Dangerous, therefore has to go to the end of the migration chain
+		migrationChain.push("initializeGameType");
 
 		debugLog(caller, "attrsToChange", attrsToChange);
 		safeSetAttrs(attrsToChange, {}, function () {
