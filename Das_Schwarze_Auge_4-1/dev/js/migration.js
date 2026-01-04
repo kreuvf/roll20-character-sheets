@@ -18,6 +18,7 @@ const versionsWithMigrations = [
 		20241002,
 		20250122,
 		20250413,
+		20269999,
 ];
 
 /*
@@ -1417,6 +1418,47 @@ function migrateTo20250413(migrationChain) {
 				}
 				attrsToChange[attr] = value;
 			}
+		}
+
+		debugLog(caller, "attrsToChange", attrsToChange);
+		safeSetAttrs(attrsToChange, {}, function () {
+			callNextMigration(migrationChain);
+		});
+	});
+}
+
+/*
+
+* Calculate WS_mod_advantages_disadvantages
+* Correct old value of activated "Eisern" from "2" to "1"
+
+*/
+function migrateTo20269999(migrationChain) {
+	// Boilerplate
+	const caller = "migrateTo20269999";
+	debugLog(caller, "started");
+
+	// Preparation
+	/// Existing attributes in need of checking for value types
+	const attrsToGet = [
+		"Eisern",
+	];
+
+	// Attribute operations
+	safeGetAttrs(attrsToGet, function(values) {
+		// Boilerplate
+		let attrsToChange = { "WS_mod_advantages_disadvantages": 0 };
+
+		// Checking and updating of old value
+		if (values["Eisern"] !== "0")
+		{
+			attrsToChange["Eisern"] = "1";
+		}
+
+		// Simplified calculation due to "Eisern" being the only attribute affecting this mod
+		if (values["Eisern"] !== "0")
+		{
+			attrsToChange["WS_mod_advantages_disadvantages"] = 2;
 		}
 
 		debugLog(caller, "attrsToChange", attrsToChange);
