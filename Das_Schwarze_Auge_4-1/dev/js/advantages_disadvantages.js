@@ -264,6 +264,7 @@ on(attrsMovementAffecting.map(attr => "change:" + attr).join(" ").toLowerCase(),
 				// Calculate GE and GS mods based on new attribute states
 				let agilityMod = 0;
 				let movementMod = 0;
+				let swiftEncumbranceHint = false;
 
 				const updatedAttrs = Object.assign(v, attrsToChange);
 
@@ -272,19 +273,25 @@ on(attrsMovementAffecting.map(attr => "change:" + attr).join(" ").toLowerCase(),
 					if (updatedAttrs[attr] === "1")
 					{
 						// Consider encumbrance for Swift I/II
-						if (
-							attr in swiftEncumbranceThresholds
-							&&
-							encumbrance >= swiftEncumbranceThresholds[attr]
-						)
+						if (attr in swiftEncumbranceThresholds)
 						{
-							continue;
+							if (encumbrance >= swiftEncumbranceThresholds[attr])
+							{
+								swiftEncumbranceHint = true;
+								continue;
+							}
 						}
 						agilityMod += agilityEffects[attr];
 						movementMod += movementEffects[attr];
 					}
 				}
 
+				if (swiftEncumbranceHint)
+				{
+					attrsToChange["BE_GS_mod_hint"] = 1;
+				} else {
+					attrsToChange["BE_GS_mod_hint"] = 0;
+				}
 				attrsToChange["GE_mod_advantages_disadvantages"] = agilityMod;
 				attrsToChange["GS_mod_advantages_disadvantages"] = movementMod;
 
