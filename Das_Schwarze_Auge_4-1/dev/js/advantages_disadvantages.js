@@ -403,6 +403,107 @@ on(attrsMovementAffecting.map(attr => "change:" + attr).join(" ").toLowerCase(),
 				}
 				attrsToChange["t_ko_athletik_gsbonus"] = athleticsGSBonus;
 
+				// Handle "Lame" effects on physical talents
+				/// Physical talents with leg use get modified by "Lame"
+				/// Depending on the talent and its possible uses, Isu assigned those talents to one of three groups:
+				//// Always: Acrobatics, athletics, football playing ("Immanspiel"), climbing, sneaking, swimming, skiing, dancing
+				//// Ask: Gaukeleien (translation unknown), body control, riding, hiding, pickpocketing
+				//// Never: Flying, free flying, self control, singing, perception, voice imitation, carousing
+				/// The idea is to implement this in a quite comfortable way asking only when it is (assumed to be) necessary.
+				const lameMod =
+				{
+					"always":
+						{
+							"mod": "3",
+							"attrs":
+							[
+								't_ko_akrobatik',
+								't_ko_athletik',
+								't_ko_immanspiel',
+								't_ko_klettern',
+								't_ko_schleichen',
+								't_ko_schwimmen',
+								't_ko_skifahren',
+								't_ko_tanzen',
+							],
+						},
+					"ask":
+						{
+							"mod": "(?{Lahm: Benötigt diese Probe Beinarbeit?|Ja,3|Nein,0})",
+							"attrs":
+							[
+								't_ko_gaukeleien',
+								't_ko_koerperbeherrschung',
+								't_ko_reiten',
+								't_ko_sichverstecken',
+								't_ko_taschendiebstahl',
+							],
+						},
+					"never":
+						{
+							"mod": "",
+							"attrs":
+							[
+								't_ko_fliegen',
+								't_ko_freiesfliegen',
+								't_ko_selbstbeherrschung',
+								't_ko_singen',
+								't_ko_sinnenschaerfe',
+								't_ko_stimmenimitieren',
+								't_ko_zechen',
+							],
+						},
+				};
+				const lameModTypes =
+				[
+					'always',
+					'ask',
+					'never',
+				];
+				const lameModAttrs =
+				[
+					't_ko_akrobatik',
+					't_ko_athletik',
+					't_ko_fliegen',
+					't_ko_freiesfliegen',
+					't_ko_gaukeleien',
+					't_ko_immanspiel',
+					't_ko_klettern',
+					't_ko_koerperbeherrschung',
+					't_ko_reiten',
+					't_ko_schleichen',
+					't_ko_schwimmen',
+					't_ko_selbstbeherrschung',
+					't_ko_sichverstecken',
+					't_ko_singen',
+					't_ko_sinnenschaerfe',
+					't_ko_skifahren',
+					't_ko_stimmenimitieren',
+					't_ko_tanzen',
+					't_ko_taschendiebstahl',
+					't_ko_zechen',
+				];
+				const lameModAttrsExtension = "_mod_advantages_disadvantages";
+
+				for (let attr of lameModAttrs)
+				{
+					for (let type of lameModTypes)
+					{
+						if (Object.hasOwn(lameMod[type]["attrs"], attr))
+						{
+							const lameModNone = "";
+							let modAttr = attr + lameModAttrsExtension;
+
+							if (v["nachteil_lahm"] === "1")
+							{
+								attrsToChange[modAttr] = lameMod[type]["mod"];
+							} else {
+								attrsToChange[modAttr] = lameModNone;
+							}
+						}
+					}
+				}
+
 				// Calculate Counter Attack ("Gegenhalten") modifier
 				let counterAttackMod = 0;
 
