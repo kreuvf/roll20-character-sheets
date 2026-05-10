@@ -8,9 +8,9 @@
 	* nameInternal: string, the internal name of the talent.
 	* nameUI: string, the UI name of the talent.
 	* statAttrs: An array of at least three attributes (called "Eigenschaftn + nameInternal", e. g. "Eigenschaft1akrobatik") carrying strings with stats attributes ("@{MU}" etc.).
-	* optional: object, pre-filled with default values to be overwritten when called for special cases. Special cases handled: macro to use for the calculation of the effective encumbrance ("eBE").
+	* optional: object, pre-filled with default values to be overwritten when called for special cases. Special cases handled: macro to use for the calculation of the effective encumbrance ("eBE"), state of the disadvantage "lame".
 */
-function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, optional = { "ebeMacro": "" } ) {
+function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, optional = { "ebeMacro": "", "lame": "0" } ) {
 	const caller = "generateTalentRollMacro";
 	const prefix = "@{gm_roll_opt}";
 	const suffix = "";
@@ -81,9 +81,10 @@ function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, opti
 
 	//// optional
 	///// Check for expected/minimal properties
-	const optionalMinimumProperties = [ "ebeMacro" ];
+	const optionalMinimumProperties = [ "ebeMacro", "lame" ];
 	const optionalPropertiesDefaults = {
 		"ebeMacro": "",
+		"lame": "0",
 	};
 
 	for (let property of optionalMinimumProperties)
@@ -158,6 +159,23 @@ function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, opti
 			new RollProperty("athletics", "1"),
 			new RollProperty("athleticsbonus", "[[@{t_ko_athletik_gsbonus}]]"),
 		);
+	}
+
+	//// Rolls related to Lame
+	if (args["optional"]["lame"] === "1")
+	{
+		// Suppress if not physical talent
+		const physicalTalentStart = "t_ko_";
+		if (nameInternalNew.startsWith(physicalTalentStart))
+		{
+			const lameModAttr = `${nameInternalNew}_mod_lame`;
+			talentSpecificRolls
+			.push(
+				new RollProperty("lamemod", `[[${lameModAttr}]]`),
+			);
+		} else {
+			debugLog(caller, `'Lame' enabled, but talent gotten not physical (${nameInternalNew}).`);
+		}
 	}
 
 	/// Modifier rolls depending on effective encumbrance (eBE)
