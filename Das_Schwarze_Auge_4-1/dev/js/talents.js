@@ -1,7 +1,92 @@
 /* talents start */
+/*
+	generateTalentRollMacro
+	Generate a string containing a roll macro for talent checks.
 
+	Parameters:
+	* template: string, the roll template to use.
+	* nameInternal: string, the internal name of the talent.
+	* nameUI: string, the UI name of the talent.
+	* statAttrs: An array of at least three attributes (called "Eigenschaftn + nameInternal", e. g. "Eigenschaft1akrobatik") carrying strings with stats attributes ("@{MU}" etc.).
+	* ebeMacro: string, the macro to use for the calculation of the effective encumbrance ("eBE").
+*/
 function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, ebeMacro = "") {
-	const func = "generateTalentRollMacro";
+	const caller = "generateTalentRollMacro";
+
+	// Boilerplate
+	const args = {
+		template,
+		nameInternal,
+		nameUI,
+		statAttrs,
+		ebeMacro,
+	};
+	const rollMacro = [];
+	const emptyRollMacro = "";
+
+	// Input sanitation
+	const inputTypes = {
+		"template": "string",
+		"nameInternal": "string",
+		"nameUI": "string",
+		"statAttrs": "object",
+		"ebeMacro": "string",
+	};
+
+	/// Data types
+	for (arg in args)
+	{
+		if (typeof(args[arg]) !== inputTypes[arg])
+		{
+			debugLog(caller, `Error: ${arg} is not of type '${inputTypes[arg]}'. Exiting ...`);
+			return emptyMacro;
+		}
+	}
+
+	/// Additional checks
+	//// nameInternal
+	if (talents.includes(args["nameInternal"]) === false)
+	{
+		debugLog(caller, "Error: nameInternal not found in talents. Exiting ...");
+		return emptyRollMacro;
+	}
+
+	//// statAttrs
+	if (!Array.isArray(args["statAttrs"]))
+	{
+		debugLog(caller, "Error: statAttrs not an array. Exiting ...");
+		return emptyRollMacro;
+	}
+
+	///// Only check for data type string
+	const statAttrsLengthMin = 3;
+	const statAttrType = "string";
+
+	if (args["statAttrs"].length < statAttrsLengthMin)
+	{
+		debugLog(caller, `Error: statAttrs does not contain at least ${statAttrsLengthMin} items. Exiting ...`);
+		return emptyRollMacro;
+	}
+
+	for (statAttr of args["statAttrs"])
+	{
+		if (typeof(statAttr) !== statAttrType)
+		{
+			debugLog(caller, "Error: At least one item of statAttrs is not of type 'string'. Exiting ...");
+			return emptyRollMacro;
+		}
+	}
+
+
+	// Generation of the roll macro
+	/// Boilerplate
+	const rollMacro = class
+	{
+		prefix = "";
+		template = "";
+		body = "";
+		suffix = "";
+	};
 
 	var ebeRoll = "";
 	var modRoll = "";
@@ -19,6 +104,18 @@ function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, ebeM
 		].join(" "),
 		"}}"
 	].join("");
+
+	let talentSpecificRoll = [];
+	switch(nameInternal)
+	{
+		case 'athletik':
+			talentSpecificRoll.push(
+				"{{athletics=1}}",
+				"{{athleticsbonus=[[@{t_ko_athletik_gsbonus}]]}}",
+			);
+			break;
+	}
+	talentSpecificRoll = talentSpecificRoll.join(" ");
 
 	if (ebeMacro === "")
 	{
@@ -41,18 +138,6 @@ function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, ebeM
 		].join("");
 	}
 
-	let talentSpecificRoll = [];
-	switch(nameInternal)
-	{
-		case 'athletik':
-			talentSpecificRoll.push(
-				"{{athletics=1}}",
-				"{{athleticsbonus=[[@{t_ko_athletik_gsbonus}]]}}",
-			);
-			break;
-	}
-	talentSpecificRoll = talentSpecificRoll.join(" ");
-
 	const rollMacro = [
 		"@{gm_roll_opt}",
 		"&{template:" + template + "}",
@@ -68,7 +153,7 @@ function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, ebeM
 		talentSpecificRoll,
 	].join(" ");
 
-	debugLog(func, "rollMacro", rollMacro);
+	debugLog(caller, "rollMacro", rollMacro);
 	return rollMacro;
 }
 
@@ -293,11 +378,11 @@ on("change:mu change:kl change:in change:ch change:ff change:ge change:ko change
 });
 
 on(talents.map(talent => "clicked:" + talent + "-action").join(" "), async (info) => {
-	var func = "Action Listener for Talent Roll Buttons";
+	const caller = "Action Listener for Talent Roll Buttons";
 	var trigger = info["triggerName"].replace(/clicked:([^-]+)-action/, '$1');
 	var nameInternal = talentsData[trigger]["internal"];
 	var nameUI = talentsData[trigger]["ui"];
-	debugLog(func, trigger, talentsData[trigger]);
+	debugLog(caller, trigger, talentsData[trigger]);
 	let attributes = [];
 	// All languages (sp) and scripts (sc) use the same attributes, so no layer of indirection via talent name required/possible.
 	if (trigger.replace(/t_([^_]+)_.*/, '$1') === "sp")
@@ -310,11 +395,11 @@ on(talents.map(talent => "clicked:" + talent + "-action").join(" "), async (info
 
 	}
 	let rollMacro = generateTalentRollMacro("talent", nameInternal, nameUI, attributes);
-	debugLog(func, rollMacro);
+	debugLog(caller, rollMacro);
 
 	// Execute Roll
 	results = await startRoll(rollMacro);
-	debugLog(func, "test: info:", info, "results:", results);
+	debugLog(caller, "test: info:", info, "results:", results);
 
 	// Process Roll
 	let rollID = results.rollId;
@@ -371,11 +456,11 @@ on(talents.map(talent => "clicked:" + talent + "-action").join(" "), async (info
 });
 
 on(talents_ebe.map(talent => "clicked:" + talent + "-ebe-action").join(" "), async (info) => {
-	var func = "Action Listener for Talent Roll Buttons With Encumbrance";
+	const caller = "Action Listener for Talent Roll Buttons With Encumbrance";
 	var trigger = info["triggerName"].replace(/clicked:([^-]+)-ebe-action/, '$1');
 	var nameInternal = talentsData[trigger]["internal"];
 	var nameUI = talentsData[trigger]["ui"];
-	debugLog(func, trigger, talentsData[trigger]);
+	debugLog(caller, trigger, talentsData[trigger]);
 
 	let attributes = ["Eigenschaft1" + nameInternal, "Eigenschaft2" + nameInternal, "Eigenschaft3" + nameInternal];
 
@@ -389,11 +474,11 @@ on(talents_ebe.map(talent => "clicked:" + talent + "-ebe-action").join(" "), asy
 	}
 	let rollMacro = generateTalentRollMacro("talent-ebe", nameInternal, nameUI, attributes, ebeMacro);
 
-	debugLog(func, rollMacro);
+	debugLog(caller, rollMacro);
 
 	// Execute Roll
 	results = await startRoll(rollMacro);
-	debugLog(func, "test: info:", info, "results:", results);
+	debugLog(caller, "test: info:", info, "results:", results);
 
 
 	// Process Roll
