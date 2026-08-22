@@ -122,7 +122,29 @@ const defaultValues = {
 	"cf_zauber": 20,
 
 	// Talents
+	/// Movement-related
 	"t_ko_athletik_gsbonus": 1,
+	/// Lame-related
+	"t_ko_akrobatik_mod_lame": "always",
+	"t_ko_athletik_mod_lame": "always",
+	"t_ko_fliegen_mod_lame": "never",
+	"t_ko_freiesfliegen_mod_lame": "never",
+	"t_ko_gaukeleien_mod_lame": "ask",
+	"t_ko_immanspiel_mod_lame": "always",
+	"t_ko_klettern_mod_lame": "always",
+	"t_ko_koerperbeherrschung_mod_lame": "ask",
+	"t_ko_reiten_mod_lame": "ask",
+	"t_ko_schleichen_mod_lame": "always",
+	"t_ko_schwimmen_mod_lame": "always",
+	"t_ko_selbstbeherrschung_mod_lame": "never",
+	"t_ko_sichverstecken_mod_lame": "ask",
+	"t_ko_singen_mod_lame": "never",
+	"t_ko_sinnenschaerfe_mod_lame": "never",
+	"t_ko_skifahren_mod_lame": "always",
+	"t_ko_stimmenimitieren_mod_lame": "never",
+	"t_ko_tanzen_mod_lame": "always",
+	"t_ko_taschendiebstahl_mod_lame": "ask",
+	"t_ko_zechen_mod_lame": "never",
 
 	// Combat
 	/// Melee AT Values
