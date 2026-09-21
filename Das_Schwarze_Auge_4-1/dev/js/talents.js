@@ -12,6 +12,9 @@
 */
 function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, ebeMacro = "") {
 	const caller = "generateTalentRollMacro";
+	const prefix = "@{gm_roll_opt}";
+	const suffix = "";
+	const nameInternalNew = talentsDateOldToNew[nameInternal];
 
 	// Boilerplate
 	const args = {
@@ -21,7 +24,6 @@ function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, ebeM
 		statAttrs,
 		ebeMacro,
 	};
-	const rollMacro = [];
 	const emptyRollMacro = "";
 
 	// Input sanitation
@@ -77,84 +79,104 @@ function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, ebeM
 		}
 	}
 
-
 	// Generation of the roll macro
 	/// Boilerplate
-	const rollMacro = class
-	{
-		prefix = "";
-		template = "";
-		body = "";
-		suffix = "";
-	};
+	//// Name property
+	const nameProperty = new RollProperty(
+		"name",
+		nameUI
+	);
 
-	var ebeRoll = "";
-	var modRoll = "";
+	//// Talent value property
+	const talentValueProperty = new RollProperty(
+		"wert",
+		`[[@{TaW_${nameInternal}}d1cs0cf2]]`
+	);
 
-	const statsRoll = [
-		"{{stats=",
+	//// stats roll
+	const statsRoll = new RollProperty(
+		"stats",
 		[
 			"[[",
-			[
-				"[Eigenschaft 1:] [[@{" + statAttrs[0] + "}]]d1cs0cf2",
-				"[Eigenschaft 2:] [[@{" + statAttrs[1] + "}]]d1cs0cf2",
-				"[Eigenschaft 3:] [[@{" + statAttrs[2] + "}]]d1cs0cf2",
-			].join(" + "),
+				[
+					`[Eigenschaft 1:] [[@{" + ${statAttrs[0]} + "}]]d1cs0cf2`,
+					`[Eigenschaft 2:] [[@{" + ${statAttrs[1]} + "}]]d1cs0cf2`,
+					`[Eigenschaft 3:] [[@{" + ${statAttrs[2]} + "}]]d1cs0cf2`,
+				].join(" + "),
 			"]]"
-		].join(" "),
-		"}}"
-	].join("");
+		].join(" ")
+	);
 
-	let talentSpecificRoll = [];
-	switch(nameInternal)
+	//// 3d20 roll
+	const diceRoll = new RollProperty(
+		"roll",
+		"[[3d20cs<@{cs_talent}cf>@{cf_talent}]]"
+	);
+
+	//// Result roll (for CRP), is just enough of a roll to be usable with CRP
+	const resultRoll = new RollProperty(
+		"result",
+		"[[0]]"
+	);
+
+	//// Criticality roll (for CRP), is just enough of a roll to be usable with CRP
+	const resultRoll = new RollProperty(
+		"criticality",
+		"[[0]]"
+	);
+
+	//// Critical success/fail roll (for CRP), makes cs_talent and cf_talent available to CRP
+	const critThresholdsRoll = new RollProperty(
+		"critThresholds",
+		"[[[[@{cs_talent}]]d1cs0cf2 + [[@{cf_talent}]]d1cs0cf2]]"
+	);
+
+	/// Rolls specific to certain talents
+	let talentSpecificRolls = [];
+
+	//// Rolls related to Movement (GS)
+	if (nameInternal === "athletik")
 	{
-		case 'athletik':
-			talentSpecificRoll.push(
-				"{{athletics=1}}",
-				"{{athleticsbonus=[[@{t_ko_athletik_gsbonus}]]}}",
-			);
-			break;
+		talentSpecificRolls
+		.push(
+			new RollProperty("athletics", "1"),
+			new RollProperty("athleticsbonus", "[[@{t_ko_athletik_gsbonus}]]"),
+		);
 	}
-	talentSpecificRoll = talentSpecificRoll.join(" ");
 
 	if (ebeMacro === "")
 	{
-		ebeRoll = ebeMacro;
-		modRoll = "{{mod=[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]}}";
+		modRolls
+		.push(
+			new RollProperty("mod", "[[?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2]]"),
+		);
 	} else {
-		ebeRoll = [
-			"{{ebe=",
-			"[[{0d1 + ",
-			ebeMacro,
-			", 0d1}kh1]]",
-			"}}"
-		].join("");
-		modRoll = [
-			"{{mod=",
-			"[[ 0d1 + ?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2 + [[{0d1 + ",
-			ebeMacro,
-			", 0d1}kh1]]d1cs0cf2 ]]",
-			"}}"
-		].join("");
+		modRolls
+		.push(
+			new RollProperty("ebe", `[[{0d1 + ${ebeMacro}, 0d1}kh1]]`),
+			new RollProperty("mod", `[[ 0d1 + ?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2 + [[{0d1 + ${ebeMacro}, 0d1}kh1]]d1cs0cf2 ]]`),
+		);
 	}
 
-	const rollMacro = [
-		"@{gm_roll_opt}",
-		"&{template:" + template + "}",
-		"{{name=" + nameUI + "}}",
-		"{{wert=[[@{TaW_" + nameInternal + "}d1cs0cf2]]}}",
-		modRoll,
-		ebeRoll,
-		statsRoll,
-		"{{roll=[[3d20cs<@{cs_talent}cf>@{cf_talent}]]}}",
-		"{{result=[[0]]}}",
-		"{{criticality=[[0]]}}",
-		"{{critThresholds=[[[[@{cs_talent}]]d1cs0cf2 + [[@{cf_talent}]]d1cs0cf2]]}}",
-		talentSpecificRoll,
-	].join(" ");
+	// Build Roll Macro
+	const rollMacro = new RollMacro(
+		prefix,
+		args["template"],
+		[
+			nameProperty,
+			talentValueProperty,
+			...talentSpecificRolls,
+			...modRolls,
+			statsRoll,
+			diceRoll,
+			resultRoll,
+			critThresholdsRoll,
+		],
+		suffix
+	);
 
-	debugLog(caller, "rollMacro", rollMacro);
-	return rollMacro;
+	debugLog(caller, "rollMacro", rollMacro.toString());
+	return rollMacro.toString();
 }
 
 function getTalentRollResults(results) {
