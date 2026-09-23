@@ -82,13 +82,16 @@ function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, opti
 	//// optional
 	///// Check for expected/minimal properties
 	const optionalMinimumProperties = [ "ebeMacro" ];
+	const optionalPropertiesDefaults = {
+		"ebeMacro": "",
+	};
 
 	for (let property of optionalMinimumProperties)
 	{
 		if (!Object.hasOwn(args["optional"], property))
 		{
-			debugLog(caller, `Argument 'optional' does not contain expected property ${property}. Exiting ...`);
-			return emptyRollMacro;
+			debugLog(caller, `Info: Filling argument 'optional' with default value for property ${property} ...`);
+			args["optional"][property] = optionalPropertiesDefaults[property];
 		}
 	}
 
@@ -112,9 +115,9 @@ function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, opti
 		[
 			"[[",
 				[
-					`[Eigenschaft 1:] [[@{" + ${statAttrs[0]} + "}]]d1cs0cf2`,
-					`[Eigenschaft 2:] [[@{" + ${statAttrs[1]} + "}]]d1cs0cf2`,
-					`[Eigenschaft 3:] [[@{" + ${statAttrs[2]} + "}]]d1cs0cf2`,
+					`[Eigenschaft 1:] [[@{${statAttrs[0]}}]]d1cs0cf2`,
+					`[Eigenschaft 2:] [[@{${statAttrs[1]}}]]d1cs0cf2`,
+					`[Eigenschaft 3:] [[@{${statAttrs[2]}}]]d1cs0cf2`,
 				].join(" + "),
 			"]]"
 		].join(" ")
@@ -169,26 +172,28 @@ function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, opti
 	} else {
 		modRolls
 		.push(
-			new RollProperty("ebe", `[[{0d1 + (${ebeMacro}), 0d1}kh1]]`),
-			new RollProperty("mod", `[[ 0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2) + [[{0d1 + (${ebeMacro}), 0d1}kh1]]d1cs0cf2 ]]`),
+			new RollProperty("ebe", `[[{0d1 + (${args["optional"]["ebeMacro"]}), 0d1}kh1]]`),
+			new RollProperty("mod", `[[ 0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2) + [[{0d1 + (${args["optional"]["ebeMacro"]}), 0d1}kh1]]d1cs0cf2 ]]`),
 		);
 	}
 
 	// Build Roll Macro
+	const body = new RollPropertyArray(
+		nameProperty,
+		talentValueProperty,
+		...talentSpecificRolls,
+		...modRolls,
+		statsRoll,
+		diceRoll,
+		resultRoll,
+		criticalityRoll,
+		critThresholdsRoll,
+	);
+
 	const rollMacro = new RollMacro(
 		prefix,
 		args["template"],
-		[
-			nameProperty,
-			talentValueProperty,
-			...talentSpecificRolls,
-			...modRolls,
-			statsRoll,
-			diceRoll,
-			resultRoll,
-			criticalityRoll,
-			critThresholdsRoll,
-		],
+		body,
 		suffix
 	);
 
@@ -551,7 +556,7 @@ on(talents_ebe.map(talent => "clicked:" + talent + "-ebe-action").join(" "), asy
 	} else if (talentEbeData["type"] === "summand") {
 		ebeMacro += talentEbeData["value"].toString();
 	}
-	let rollMacro = generateTalentRollMacro("talent-ebe", nameInternal, nameUI, attributes, ebeMacro);
+	let rollMacro = generateTalentRollMacro("talent-ebe", nameInternal, nameUI, attributes, { "ebeMacro": ebeMacro });
 
 	debugLog(caller, rollMacro);
 
