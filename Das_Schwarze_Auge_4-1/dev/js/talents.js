@@ -8,13 +8,13 @@
 	* nameInternal: string, the internal name of the talent.
 	* nameUI: string, the UI name of the talent.
 	* statAttrs: An array of at least three attributes (called "Eigenschaftn + nameInternal", e. g. "Eigenschaft1akrobatik") carrying strings with stats attributes ("@{MU}" etc.).
-	* ebeMacro: string, the macro to use for the calculation of the effective encumbrance ("eBE").
+	* optional: object, pre-filled with default values to be overwritten when called for special cases. Special cases handled: macro to use for the calculation of the effective encumbrance ("eBE").
 */
-function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, ebeMacro = "") {
+function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, optional = { "ebeMacro": "" } ) {
 	const caller = "generateTalentRollMacro";
 	const prefix = "@{gm_roll_opt}";
 	const suffix = "";
-	const nameInternalNew = talentsDateOldToNew[nameInternal];
+	const nameInternalNew = talentsDataOldToNew[nameInternal];
 
 	// Boilerplate
 	const args = {
@@ -22,7 +22,7 @@ function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, ebeM
 		nameInternal,
 		nameUI,
 		statAttrs,
-		ebeMacro,
+		optional,
 	};
 	const emptyRollMacro = "";
 
@@ -32,7 +32,7 @@ function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, ebeM
 		"nameInternal": "string",
 		"nameUI": "string",
 		"statAttrs": "object",
-		"ebeMacro": "string",
+		"optional": "object",
 	};
 
 	/// Data types
@@ -46,10 +46,10 @@ function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, ebeM
 	}
 
 	/// Additional checks
-	//// nameInternal
-	if (talents.includes(args["nameInternal"]) === false)
+	//// nameInternalNew
+	if (talents.includes(nameInternalNew) === false)
 	{
-		debugLog(caller, "Error: nameInternal not found in talents. Exiting ...");
+		debugLog(caller, "Error: nameInternalNew not found in talents. Exiting ...");
 		return emptyRollMacro;
 	}
 
@@ -75,6 +75,19 @@ function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, ebeM
 		if (typeof(statAttr) !== statAttrType)
 		{
 			debugLog(caller, "Error: At least one item of statAttrs is not of type 'string'. Exiting ...");
+			return emptyRollMacro;
+		}
+	}
+
+	//// optional
+	///// Check for expected/minimal properties
+	const optionalMinimumProperties = [ "ebeMacro" ];
+
+	for (let property of optionalMinimumProperties)
+	{
+		if (!Object.hasOwn(args["optional"], property))
+		{
+			debugLog(caller, `Argument 'optional' does not contain expected property ${property}. Exiting ...`);
 			return emptyRollMacro;
 		}
 	}
@@ -120,7 +133,7 @@ function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, ebeM
 	);
 
 	//// Criticality roll (for CRP), is just enough of a roll to be usable with CRP
-	const resultRoll = new RollProperty(
+	const criticalityRoll = new RollProperty(
 		"criticality",
 		"[[0]]"
 	);
@@ -144,7 +157,10 @@ function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, ebeM
 		);
 	}
 
-	if (ebeMacro === "")
+	/// Modifier rolls depending on effective encumbrance (eBE)
+	let modRolls = [];
+
+	if (args["optional"]["ebeMacro"] === "")
 	{
 		modRolls
 		.push(
@@ -153,8 +169,8 @@ function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, ebeM
 	} else {
 		modRolls
 		.push(
-			new RollProperty("ebe", `[[{0d1 + ${ebeMacro}, 0d1}kh1]]`),
-			new RollProperty("mod", `[[ 0d1 + ?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2 + [[{0d1 + ${ebeMacro}, 0d1}kh1]]d1cs0cf2 ]]`),
+			new RollProperty("ebe", `[[{0d1 + (${ebeMacro}), 0d1}kh1]]`),
+			new RollProperty("mod", `[[ 0d1 + (?{Erleichterung (−) oder Erschwernis (+)|0}d1cs0cf2) + [[{0d1 + (${ebeMacro}), 0d1}kh1]]d1cs0cf2 ]]`),
 		);
 	}
 
@@ -170,6 +186,7 @@ function generateTalentRollMacro(template, nameInternal, nameUI, statAttrs, ebeM
 			statsRoll,
 			diceRoll,
 			resultRoll,
+			criticalityRoll,
 			critThresholdsRoll,
 		],
 		suffix
