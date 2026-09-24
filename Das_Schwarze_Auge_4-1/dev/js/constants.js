@@ -1448,14 +1448,30 @@ for (let talent in talentsData)
 Default data for known gifts.
 */
 const giftsData = {
-	"empathie": { 'ui': "Empathie", 'stats': ["MU", "IN", "IN"] },
-	"gefahreninstinkt": { 'ui': "Gefahreninstinkt", 'stats': ["KL", "IN", "IN"] },
-	"geraeuschhexerei": { 'ui': "Geräuschhexerei", 'stats': ["IN", "CH", "KO"] },
-	"kraefteschub/talentschub": { 'ui': "Kräfteschub/Talentschub", 'stats': ["MU", "IN", "KO"] },
-	"magiegespuer": { 'ui': "Magiegespür", 'stats': ["MU", "IN", "IN"] },
-	"prophezeien": { 'ui': "Prophezeien", 'stats': ["IN", "IN", "CH"] },
-	"tierempathie": { 'ui': "Tierempathie", 'stats': ["MU", "IN", "CH"] },
-	"zwergennase": { 'ui': "Zwergennase", 'stats': ["IN", "IN", "FF"] },
+	"empathie": { 'ui': "Empathie", 'stats': ['MU', 'IN', 'IN'] },
+	"gefahreninstinkt": { 'ui': "Gefahreninstinkt", 'stats': ['KL', 'IN', 'IN'] },
+	"geraeuschhexerei": { 'ui': "Geräuschhexerei", 'stats': ['IN', 'CH', 'KO'] },
+	"kraefteschub/talentschub": { 'ui': "Kräfteschub/Talentschub", 'stats': ['MU', 'IN', 'KO'] },
+	"magiegespuer": { 'ui': "Magiegespür", 'stats': ['MU', 'IN', 'IN'] },
+	"prophezeien": { 'ui': "Prophezeien", 'stats': ['IN', 'IN', 'CH'] },
+	"tierempathie": { 'ui': "Tierempathie", 'stats': ['MU', 'IN', 'CH'] },
+	"zwergennase": { 'ui': "Zwergennase", 'stats': ['IN', 'IN', 'FF'] },
+};
+
+/*
+	Metatalents Data
+
+Default data for known metatalents.
+*/
+const metatalentsData = {
+	"ansitzjagd": { 'ui': "Ansitzjagd", 'stats': ['MU', 'IN', 'GE'] },
+	"hetzjagd": { 'ui': "Hetzjagd", 'stats': ['MU', 'IN', 'GE'] },
+	"kraeutersuchen": { 'ui': "Kräutersuchen", 'stats': ['MU', 'IN', 'FF'] },
+	"nahrungsammeln": { 'ui': "Nahrungsammeln", 'stats': ['MU', 'IN', 'FF'] },
+	"pirschjagd": { 'ui': "Pirschjagd", 'stats': ['MU', 'IN', 'GE'] },
+	"speerfischen": { 'ui': "Speerfischen", 'stats': ['MU', 'IN', 'GE'] },
+	"tierfallenstellen": { 'ui': "Tierfallenstellen", 'stats': ['KL', 'IN', 'FF'] },
+	"wachehalten": { 'ui': "Wachehalten", 'stats': ['MU', 'IN', 'KO'] },
 };
 
 const spellsData = {
