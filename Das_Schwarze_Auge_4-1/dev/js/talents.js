@@ -401,38 +401,40 @@ on(attrsGifts.map(talent => `change:${talent.join(":")}`).join(" ").toLowerCase(
 	// Boilerplate
 	const caller = "Action Listener for Gifts";
 	const rowID = extractRowId(eventInfo["sourceAttribute"]);
+	const attrsGiftsRow = attrsGifts.map(talent => [ talent[0], rowID, talent[1] ].join("_"));
+	const attrPrefix = `repeating_Gaben_${rowID}`;
 	let attrsToChange = {};
 
-	safeGetAttrs(attrsGifts.map(talent => talent.join("_")),
+	safeGetAttrs(attrsGiftsRow,
 		function(attrs) {
 
 		// Boilerplate
-		const gift = attrs["repeating_Gaben_Name_Gabe"];
-		const giftNote = attrs["repeating_Gaben_Name_Gabe_Zusatz"];
+		const gift = attrs[`${attrPrefix}_Name_Gabe`];
+		const giftNote = attrs[`${attrPrefix}_Name_Gabe_Zusatz`];
 		const giftNameUIDefault = "Eigene Gabe";
 
 		// Pre-defined or custom ("nothing") gift
 		if (gift !== "nothing")
 		{
 			// Assign stats of pre-defined gifts
-			for (index of [0, 1, 2])
+			for (let index of [0, 1, 2])
 			{
-				attrsToChange[`repeating_Gaben_${rowID}_eigenschaft${index + 1}`] = giftsData[gift]["stats"][index].toLowerCase();
+				attrsToChange[`${attrPrefix}_eigenschaft${index + 1}`] = giftsData[gift]["stats"][index].toLowerCase();
 			}
 			// Assign UI name for roll templates of pre-defined gifts
-			attrsToChange[`repeating_Gaben_${rowID}_Name_Gabe_Anzeige`] = giftsData[gift]["ui"];
+			attrsToChange[`${attrPrefix}_Name_Gabe_Anzeige`] = giftsData[gift]["ui"];
 
 			// Handle additions to the name
 			if (giftNote !== "")
 			{
-				attrsToChange[`repeating_Gaben_${rowID}_Name_Gabe_Anzeige`] += ` (${giftNote})`;
+				attrsToChange[`${attrPrefix}_Name_Gabe_Anzeige`] += ` (${giftNote})`;
 			}
 		} else {
 			if (giftNote !== "")
 			{
-				attrsToChange[`repeating_Gaben_${rowID}_Name_Gabe_Anzeige`] = giftNote;
+				attrsToChange[`${attrPrefix}_Name_Gabe_Anzeige`] = giftNote;
 			} else {
-				attrsToChange[`repeating_Gaben_${rowID}_Name_Gabe_Anzeige`] = giftNameUIDefault;
+				attrsToChange[`${attrPrefix}_Name_Gabe_Anzeige`] = giftNameUIDefault;
 			}
 		}
 
