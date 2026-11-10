@@ -130,16 +130,46 @@ function callNextMigration(migrationChain)
 function initializeGameType(migrationChain)
 {
 	const caller = "initializeGameType()";
-	debugLog(caller, "Running function prone to crashes.");
+	let skipDetection = false;
+
+	// Precaution
+	/// This function must be the last item of migration chains due to the crashy nature of detectGameType().
+	/// Therefore, this function must make sure that the following conditions are met:
+	/// * The migration chain is empty, so that this function is definitely the last function called during migration.
+	///
+	/// If the conditions are not met, this function call is not the last during the running migration risking premature abort of the migration.
+	/// Therefore, the following conditions need to be met to ensure a smooth(er) process:
+	/// * No other items are this function call
+	/// * This function call is the last item
+	/// The following code aims to guarantee these conditions:
+	if (migrationChain.length > 0)
+	{
+		const initGameType = "initializeGameType";
+		skipDetection = true;
+		// Contains at least one "initializeGameType"
+		if (migrationChain.indexOf(initGameType) !== -1)
+		{
+			debugLog(caller, "Pushed to the end of the migration chain.");
+			// Remove every occurrence
+			migrationChain = migrationChain.filter(item => (item !== initGameType));
+		}
+		// Add new call to the end
+		migrationChain.push(initGameType);
+	}
 
 	// Check Game Type
-	const gameType = detectGameType();
-	gameType.then(
-		(value) => {
-			safeSetAttrs(value, {}, function () {
-				callNextMigration(migrationChain);
-			});
-		}
-	);
+	if (skipDetection)
+	{
+		callNextMigration(migrationChain);
+	} else {
+		const gameType = detectGameType();
+		gameType.then(
+			(value) => {
+				safeSetAttrs(value, {}, function () {
+					callNextMigration(migrationChain);
+				});
+			}
+		);
+	}
 }
 /* initialization_migration_common end */
