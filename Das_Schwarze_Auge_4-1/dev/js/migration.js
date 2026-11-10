@@ -19,6 +19,7 @@ const versionsWithMigrations = [
 		20250122,
 		20250413,
 		20261018,
+		20261111,
 ];
 
 /*
@@ -1601,6 +1602,48 @@ function migrateTo20261018(migrationChain) {
 		debugLog(caller, "attrsToChange", attrsToChange);
 		safeSetAttrs(attrsToChange, {}, function () {
 			callNextMigration(migrationChain);
+		});
+	});
+}
+
+/*
+
+* Correct Evade bonus from high acrobatics
+
+*/
+function migrateTo20261111(migrationChain) {
+	// Boilerplate
+	const caller = "migrateTo20261111";
+	debugLog(caller, "started");
+
+	// Preparation
+	/// Use double-set with value different from current value
+	/// Only one value needs to be changed to trigger recalculation
+	/// Note: There is no future-proof way to get a correct attribute
+	const attrsToGet = attrsEvadeModAcrobatics[0];
+
+	// Fix mod value
+	safeGetAttrs(attrsToGet, function(valuesOuter) {
+		const property = Object.keys(valuesOuter)[0];
+		const attrsToChange[property] = "";
+		const firstSet = valuesOuter[property];
+		const offset = 1;
+
+		// Future-proofing: Make sure that this attribute is a number.
+		/// It might happen that the contents of attrsEvadeModAcrobatics change from the currently only attribute TaW_Akrobatik
+		if (typeof(firstSet) === "number")
+		{
+			firstSet += offset;
+		}
+
+		// Use attribute
+		attrsToChange[property] = firstSet;
+		debugLog(caller, "attrsToChange (outer)", attrsToChange);
+		safeSetAttrs(attrsToChange, {}, function () {
+			const attrsToChange = valuesOuter;
+			safeSetAttrs(attrsToChange, {}, function () {
+				callNextMigration(migrationChain);
+			});
 		});
 	});
 }
