@@ -17765,6 +17765,18 @@
 			<summary>
 				<h4>Update auf Version 20261018</h4>
 			</summary>
+			<h5>Fehlerbehebungen</h5>
+			<p>
+				<ul>
+					<li><span class="highlight">Ausweichen-Bonus aus Akrobatik:</span> Der Bonus wirkt jetzt ab einem TaW von 12.</li>
+				</ul>
+			</p>
+		</details>
+
+		<details>
+			<summary>
+				<h4>Update auf Version 20261018</h4>
+			</summary>
 			<h5>Neue Features</h5>
 			<p>
 				<ul>
@@ -26114,17 +26126,47 @@ function callNextMigration(migrationChain)
 function initializeGameType(migrationChain)
 {
 	const caller = "initializeGameType()";
-	debugLog(caller, "Running function prone to crashes.");
+	let skipDetection = false;
+
+	// Precaution
+	/// This function must be the last item of migration chains due to the crashy nature of detectGameType().
+	/// Therefore, this function must make sure that the following conditions are met:
+	/// * The migration chain is empty, so that this function is definitely the last function called during migration.
+	///
+	/// If the conditions are not met, this function call is not the last during the running migration risking premature abort of the migration.
+	/// Therefore, the following conditions need to be met to ensure a smooth(er) process:
+	/// * No other items are this function call
+	/// * This function call is the last item
+	/// The following code aims to guarantee these conditions:
+	if (migrationChain.length > 0)
+	{
+		const initGameType = "initializeGameType";
+		skipDetection = true;
+		// Contains at least one "initializeGameType"
+		if (migrationChain.indexOf(initGameType) !== -1)
+		{
+			debugLog(caller, "Pushed to the end of the migration chain.");
+			// Remove every occurrence
+			migrationChain = migrationChain.filter(item => (item !== initGameType));
+		}
+		// Add new call to the end
+		migrationChain.push(initGameType);
+	}
 
 	// Check Game Type
-	const gameType = detectGameType();
-	gameType.then(
-		(value) => {
-			safeSetAttrs(value, {}, function () {
-				callNextMigration(migrationChain);
-			});
-		}
-	);
+	if (skipDetection)
+	{
+		callNextMigration(migrationChain);
+	} else {
+		const gameType = detectGameType();
+		gameType.then(
+			(value) => {
+				safeSetAttrs(value, {}, function () {
+					callNextMigration(migrationChain);
+				});
+			}
+		);
+	}
 }
 /* initialization_migration_common end */
 /* initialization start */
@@ -26365,6 +26407,7 @@ const versionsWithMigrations = [
 		20250122,
 		20250413,
 		20261018,
+		20261111,
 ];
 
 /*
@@ -27947,6 +27990,48 @@ function migrateTo20261018(migrationChain) {
 		debugLog(caller, "attrsToChange", attrsToChange);
 		safeSetAttrs(attrsToChange, {}, function () {
 			callNextMigration(migrationChain);
+		});
+	});
+}
+
+/*
+
+* Correct Evade bonus from high acrobatics
+
+*/
+function migrateTo20261111(migrationChain) {
+	// Boilerplate
+	const caller = "migrateTo20261111";
+	debugLog(caller, "started");
+
+	// Preparation
+	/// Use double-set with value different from current value
+	/// Only one value needs to be changed to trigger recalculation
+	/// Note: There is no future-proof way to get a correct attribute
+	const attrsToGet = attrsEvadeModAcrobatics[0];
+
+	// Fix mod value
+	safeGetAttrs(attrsToGet, function(valuesOuter) {
+		const property = Object.keys(valuesOuter)[0];
+		const attrsToChange[property] = "";
+		const firstSet = valuesOuter[property];
+		const offset = 1;
+
+		// Future-proofing: Make sure that this attribute is a number.
+		/// It might happen that the contents of attrsEvadeModAcrobatics change from the currently only attribute TaW_Akrobatik
+		if (typeof(firstSet) === "number")
+		{
+			firstSet += offset;
+		}
+
+		// Use attribute
+		attrsToChange[property] = firstSet;
+		debugLog(caller, "attrsToChange (outer)", attrsToChange);
+		safeSetAttrs(attrsToChange, {}, function () {
+			const attrsToChange = valuesOuter;
+			safeSetAttrs(attrsToChange, {}, function () {
+				callNextMigration(migrationChain);
+			});
 		});
 	});
 }
@@ -32283,7 +32368,7 @@ on(attrsEvadeModAcrobatics.map(attr => "change:" + attr).join(" ").toLowerCase()
 			function(values) {
 				// Boilerplate
 				const step = 3;
-				const offset = 12;
+				const offset = 9;
 				let attrsToChange = { 'k_ausweichen_mod_akrobatik': getDefaultValue("k_ausweichen_mod_akrobatik") };
 
 				// Calculation
